@@ -2354,12 +2354,24 @@
         const testimonialSlider = document.querySelector('.testimonial-slider');
         if (testimonialSlider) {
             let tStartX = 0;
+            let tStartY = 0;
+            let isSwiping = false;
             testimonialSlider.addEventListener('touchstart', (e) => {
                 tStartX = e.touches[0].clientX;
+                tStartY = e.touches[0].clientY;
+                isSwiping = false;
             }, { passive: true });
+            testimonialSlider.addEventListener('touchmove', (e) => {
+                const diffX = Math.abs(e.touches[0].clientX - tStartX);
+                const diffY = Math.abs(e.touches[0].clientY - tStartY);
+                if (diffX > diffY && diffX > 10) {
+                    isSwiping = true;
+                    e.preventDefault();
+                }
+            }, { passive: false });
             testimonialSlider.addEventListener('touchend', (e) => {
                 const diff = tStartX - e.changedTouches[0].clientX;
-                if (Math.abs(diff) > 50) {
+                if (isSwiping && Math.abs(diff) > 50) {
                     if (diff > 0) {
                         showSlide((currentSlide + 1) % testimonials.length);
                     } else {
