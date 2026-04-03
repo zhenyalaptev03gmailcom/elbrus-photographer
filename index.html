@@ -4,9 +4,20 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ангелина Белова — Фотограф и видеограф | Горы, город, студия</title>
+    <meta name="description" content="Ангелина Белова — профессиональный фотограф и видеограф. Съёмка в горах Кавказа, городские фотосессии, студийные портреты. 5+ лет опыта, 50+ восхождений.">
+    <meta name="keywords" content="фотограф Эльбрус, видеограф горы, фотосессия Кавказ, съёмка в горах, Ангелина Белова, фотограф Приэльбрусье">
+    <meta property="og:title" content="Ангелина Белова — Фотограф и видеограф">
+    <meta property="og:description" content="Профессиональная фотография и видео — горы Кавказа, городские улицы, студийные портреты. Каждый кадр — это история.">
+    <meta property="og:image" content="https://angelinabelova.ru/portfolio/angelina.jpg">
+    <meta property="og:url" content="https://angelinabelova.ru">
+    <meta property="og:type" content="website">
+    <meta property="og:locale" content="ru_RU">
+    <meta name="twitter:card" content="summary_large_image">
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M20 4L36 32H4L20 4Z' stroke='%23E63946' stroke-width='2' fill='none'/%3E%3Cpath d='M20 12L28 28H12L20 12Z' stroke='%23E63946' stroke-width='1.5' fill='none' opacity='0.5'/%3E%3C/svg%3E">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=Raleway:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@300;400;500;600;700;800&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="preload" as="video" href="portfolio/3.mp4">
     <style>
         *, *::before, *::after {
             margin: 0;
@@ -1175,6 +1186,76 @@
             color: white;
             font-size: 2rem;
             cursor: pointer;
+            z-index: 2010;
+        }
+
+        .lightbox-nav {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(230, 57, 70, 0.3);
+            border: 1px solid rgba(230, 57, 70, 0.5);
+            color: white;
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: 1.5rem;
+            border-radius: 50%;
+            transition: all 0.3s;
+            z-index: 2010;
+        }
+
+        .lightbox-nav:hover {
+            background: var(--accent);
+        }
+
+        .lightbox-prev { left: 20px; }
+        .lightbox-next { right: 20px; }
+
+        /* ===== SCROLL TO TOP ===== */
+        .scroll-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 46px;
+            height: 46px;
+            background: var(--accent);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(20px);
+            transition: all 0.3s ease;
+            z-index: 999;
+            box-shadow: 0 4px 15px rgba(230, 57, 70, 0.4);
+        }
+
+        .scroll-top.visible {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        .scroll-top:hover {
+            background: var(--accent-light);
+            transform: translateY(-3px);
+        }
+
+        /* ===== GALLERY HOVER ZOOM ===== */
+        .gallery-item img {
+            transition: transform 0.5s ease;
+        }
+
+        .gallery-item:hover img {
+            transform: scale(1.08);
         }
 
         /* ===== RESPONSIVE ===== */
@@ -1748,9 +1829,16 @@
         </div>
     </footer>
 
+    <!-- SCROLL TO TOP -->
+    <button class="scroll-top" id="scrollTop" aria-label="Наверх">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 15l-6-6-6 6"/></svg>
+    </button>
+
     <!-- LIGHTBOX -->
     <div class="lightbox" id="lightbox">
         <button class="lightbox-close">&times;</button>
+        <button class="lightbox-nav lightbox-prev" id="lightboxPrev">&#8249;</button>
+        <button class="lightbox-nav lightbox-next" id="lightboxNext">&#8250;</button>
         <img src="" alt="Просмотр фото">
     </div>
 
@@ -1851,33 +1939,61 @@
             galleryCatObserver.observe(cat);
         });
 
-        // Lightbox
+        // Scroll to top button
+        const scrollTopBtn = document.getElementById('scrollTop');
+        window.addEventListener('scroll', () => {
+            scrollTopBtn.classList.toggle('visible', window.scrollY > 600);
+        });
+        scrollTopBtn.addEventListener('click', () => {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+
+        // Lightbox with navigation
         const lightbox = document.getElementById('lightbox');
         const lightboxImg = lightbox.querySelector('img');
         const galleryItems = document.querySelectorAll('.gallery-item');
+        const lightboxPrev = document.getElementById('lightboxPrev');
+        const lightboxNext = document.getElementById('lightboxNext');
+        let currentLightboxIndex = 0;
+        const allGalleryImages = Array.from(galleryItems).map(item => item.querySelector('img').src);
 
-        galleryItems.forEach(item => {
-            item.addEventListener('click', () => {
-                const src = item.querySelector('img').src;
-                lightboxImg.src = src;
-                lightboxImg.alt = item.querySelector('.gallery-overlay-title')?.textContent || '';
-                lightbox.classList.add('active');
-                document.body.style.overflow = 'hidden';
-            });
+        function openLightbox(index) {
+            currentLightboxIndex = index;
+            lightboxImg.src = allGalleryImages[index];
+            lightbox.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeLightbox() {
+            lightbox.classList.remove('active');
+            document.body.style.overflow = '';
+        }
+
+        galleryItems.forEach((item, i) => {
+            item.addEventListener('click', () => openLightbox(i));
+        });
+
+        lightboxPrev.addEventListener('click', (e) => {
+            e.stopPropagation();
+            currentLightboxIndex = (currentLightboxIndex - 1 + allGalleryImages.length) % allGalleryImages.length;
+            lightboxImg.src = allGalleryImages[currentLightboxIndex];
+        });
+
+        lightboxNext.addEventListener('click', (e) => {
+            e.stopPropagation();
+            currentLightboxIndex = (currentLightboxIndex + 1) % allGalleryImages.length;
+            lightboxImg.src = allGalleryImages[currentLightboxIndex];
         });
 
         lightbox.addEventListener('click', (e) => {
-            if (e.target !== lightboxImg) {
-                lightbox.classList.remove('active');
-                document.body.style.overflow = '';
-            }
+            if (e.target !== lightboxImg && !e.target.closest('.lightbox-nav')) closeLightbox();
         });
 
         document.addEventListener('keydown', (e) => {
-            if (e.key === 'Escape' && lightbox.classList.contains('active')) {
-                lightbox.classList.remove('active');
-                document.body.style.overflow = '';
-            }
+            if (!lightbox.classList.contains('active')) return;
+            if (e.key === 'Escape') closeLightbox();
+            if (e.key === 'ArrowLeft') lightboxPrev.click();
+            if (e.key === 'ArrowRight') lightboxNext.click();
         });
 
         // Testimonial slider
