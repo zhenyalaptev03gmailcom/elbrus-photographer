@@ -1457,6 +1457,279 @@
             background-position: center;
         }
 
+        /* ===== CUSTOM CURSOR (desktop) ===== */
+        .custom-cursor {
+            display: none;
+        }
+
+        @media (pointer: fine) {
+            .custom-cursor {
+                display: block;
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 24px;
+                height: 24px;
+                border: 2px solid var(--accent);
+                border-radius: 50%;
+                pointer-events: none;
+                z-index: 9998;
+                transition: width 0.25s ease, height 0.25s ease, background 0.25s ease, opacity 0.25s ease, margin 0.25s ease;
+                margin-left: -12px;
+                margin-top: -12px;
+                mix-blend-mode: difference;
+            }
+
+            .custom-cursor.hovering {
+                width: 48px;
+                height: 48px;
+                margin-left: -24px;
+                margin-top: -24px;
+                background: rgba(230, 57, 70, 0.15);
+                border-color: var(--accent-light);
+            }
+
+            .custom-cursor.clicking {
+                transform: scale(0.8);
+            }
+
+            body {
+                cursor: none;
+            }
+
+            a, button, input, textarea, .gallery-item, .gallery-nav-btn, .testimonial-dot, .social-fab-toggle, .scroll-top, .burger, .lightbox-nav, .lightbox-close, .lang-toggle, .gallery-tab {
+                cursor: none;
+            }
+        }
+
+        /* ===== 3D TILT ON GALLERY ITEMS ===== */
+        @media (pointer: fine) {
+            .gallery-item {
+                transform-style: preserve-3d;
+                perspective: 800px;
+            }
+        }
+
+        /* ===== GALLERY FILTER TABS ===== */
+        .gallery-tabs {
+            display: flex;
+            justify-content: center;
+            gap: 8px;
+            margin-bottom: 40px;
+            flex-wrap: wrap;
+        }
+
+        .gallery-tab {
+            padding: 10px 24px;
+            background: transparent;
+            border: 1px solid var(--border-light);
+            color: var(--text-secondary);
+            font-family: 'Raleway', sans-serif;
+            font-size: 0.75rem;
+            font-weight: 600;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .gallery-tab:hover {
+            border-color: var(--accent);
+            color: var(--accent);
+        }
+
+        .gallery-tab.active {
+            background: var(--accent);
+            border-color: var(--accent);
+            color: #fff;
+        }
+
+        .gallery-category {
+            transition: opacity 0.5s ease, transform 0.5s ease, max-height 0.6s ease;
+            overflow: hidden;
+        }
+
+        .gallery-category.hidden-cat {
+            opacity: 0;
+            max-height: 0 !important;
+            margin-bottom: 0 !important;
+            transform: scale(0.95);
+            pointer-events: none;
+        }
+
+        /* ===== LANGUAGE SWITCHER ===== */
+        .lang-toggle {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            background: transparent;
+            border: 1px solid var(--border-light);
+            color: var(--text-secondary);
+            font-family: 'Raleway', sans-serif;
+            font-size: 0.7rem;
+            font-weight: 600;
+            letter-spacing: 1px;
+            padding: 6px 12px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+        }
+
+        .lang-toggle:hover {
+            border-color: var(--accent);
+            color: var(--accent);
+        }
+
+        @media (max-width: 768px) {
+            .lang-toggle {
+                position: absolute;
+                top: 50%;
+                right: 60px;
+                transform: translateY(-50%);
+            }
+        }
+
+        /* ===== COOKIE CONSENT ===== */
+        .cookie-banner {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: var(--bg-card);
+            border-top: 1px solid var(--border);
+            padding: 20px 30px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 20px;
+            z-index: 1500;
+            transform: translateY(100%);
+            transition: transform 0.5s ease;
+            flex-wrap: wrap;
+        }
+
+        .cookie-banner.visible {
+            transform: translateY(0);
+        }
+
+        .cookie-banner p {
+            font-size: 0.82rem;
+            color: var(--text-secondary);
+            line-height: 1.6;
+            flex: 1;
+            min-width: 200px;
+        }
+
+        .cookie-banner p a {
+            color: var(--accent);
+            text-decoration: underline;
+        }
+
+        .cookie-buttons {
+            display: flex;
+            gap: 10px;
+            flex-shrink: 0;
+        }
+
+        .cookie-accept {
+            padding: 10px 24px;
+            background: var(--accent);
+            color: #fff;
+            border: none;
+            font-family: 'Raleway', sans-serif;
+            font-size: 0.75rem;
+            font-weight: 600;
+            letter-spacing: 1px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .cookie-accept:hover {
+            background: var(--accent-light);
+        }
+
+        .cookie-decline {
+            padding: 10px 24px;
+            background: transparent;
+            color: var(--text-secondary);
+            border: 1px solid var(--border-light);
+            font-family: 'Raleway', sans-serif;
+            font-size: 0.75rem;
+            font-weight: 600;
+            letter-spacing: 1px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .cookie-decline:hover {
+            border-color: var(--text-secondary);
+        }
+
+        @media (max-width: 480px) {
+            .cookie-banner {
+                flex-direction: column;
+                text-align: center;
+                padding: 16px 20px;
+            }
+            .cookie-buttons {
+                width: 100%;
+                justify-content: center;
+            }
+        }
+
+        /* ===== RIPPLE EFFECT ===== */
+        .btn-primary, .btn-outline, .gallery-tab, .cookie-accept {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .ripple {
+            position: absolute;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.35);
+            transform: scale(0);
+            animation: rippleAnim 0.6s ease-out;
+            pointer-events: none;
+        }
+
+        @keyframes rippleAnim {
+            to {
+                transform: scale(4);
+                opacity: 0;
+            }
+        }
+
+        /* ===== SKELETON LOADING ===== */
+        .gallery-item.skeleton::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(90deg, var(--bg-card) 25%, var(--bg-card-hover) 50%, var(--bg-card) 75%);
+            background-size: 200% 100%;
+            animation: shimmer 1.5s infinite;
+            z-index: 1;
+        }
+
+        .gallery-item.skeleton img {
+            opacity: 0;
+        }
+
+        .gallery-item.loaded::before {
+            display: none;
+        }
+
+        .gallery-item.loaded img {
+            opacity: 1;
+            transition: opacity 0.4s ease, transform 0.5s ease;
+        }
+
+        @keyframes shimmer {
+            0% { background-position: 200% 0; }
+            100% { background-position: -200% 0; }
+        }
+
         /* ===== CAROUSEL TOUCH ===== */
         .carousel-track {
             cursor: grab;
@@ -1518,6 +1791,9 @@
         <div class="preloader-text">Загрузка</div>
     </div>
 
+    <!-- CUSTOM CURSOR -->
+    <div class="custom-cursor" id="customCursor"></div>
+
     <!-- SCROLL PROGRESS -->
     <div class="scroll-progress" id="scrollProgress"></div>
 
@@ -1549,6 +1825,8 @@
                 </a>
             </div>
         </nav>
+
+        <button class="lang-toggle" id="langToggle" aria-label="Switch language">RU | EN</button>
 
         <button class="burger" id="burger" aria-label="Menu">
             <span></span>
@@ -1710,8 +1988,15 @@
             <div class="accent-line"></div>
         </div>
 
+        <div class="gallery-tabs reveal">
+            <button class="gallery-tab active" data-filter="all" data-lang-ru="Все" data-lang-en="All">Все</button>
+            <button class="gallery-tab" data-filter="landscapes" data-lang-ru="Горные пейзажи" data-lang-en="Landscapes">Горные пейзажи</button>
+            <button class="gallery-tab" data-filter="expeditions" data-lang-ru="Экспедиции" data-lang-en="Expeditions">Экспедиции</button>
+            <button class="gallery-tab" data-filter="people" data-lang-ru="Люди и атмосфера" data-lang-en="People & Mood">Люди и атмосфера</button>
+        </div>
+
         <!-- Горные пейзажи -->
-        <div class="gallery-category reveal">
+        <div class="gallery-category reveal" data-category="landscapes">
             <div class="gallery-category-header">
                 <h3 class="gallery-category-title">Горные пейзажи</h3>
                 <span class="gallery-category-count">18 работ</span>
@@ -1743,7 +2028,7 @@
         </div>
 
         <!-- Экспедиции и восхождения -->
-        <div class="gallery-category reveal">
+        <div class="gallery-category reveal" data-category="expeditions">
             <div class="gallery-category-header">
                 <h3 class="gallery-category-title">Экспедиции и восхождения</h3>
                 <span class="gallery-category-count">16 работ</span>
@@ -1773,7 +2058,7 @@
         </div>
 
         <!-- Люди и атмосфера -->
-        <div class="gallery-category reveal">
+        <div class="gallery-category reveal" data-category="people">
             <div class="gallery-category-header">
                 <h3 class="gallery-category-title">Люди и атмосфера</h3>
                 <span class="gallery-category-count">17 работ</span>
@@ -2090,6 +2375,15 @@
         <button class="lightbox-nav lightbox-prev" id="lightboxPrev">&#8249;</button>
         <button class="lightbox-nav lightbox-next" id="lightboxNext">&#8250;</button>
         <img src="" alt="Просмотр фото">
+    </div>
+
+    <!-- COOKIE CONSENT -->
+    <div class="cookie-banner" id="cookieBanner">
+        <p data-lang-ru="Мы используем файлы cookie для улучшения работы сайта и анализа трафика. Продолжая использовать сайт, вы соглашаетесь с <a href='#'>политикой конфиденциальности</a>." data-lang-en="We use cookies to improve site performance and analyze traffic. By continuing to use the site, you agree to our <a href='#'>privacy policy</a>.">Мы используем файлы cookie для улучшения работы сайта и анализа трафика. Продолжая использовать сайт, вы соглашаетесь с <a href="#">политикой конфиденциальности</a>.</p>
+        <div class="cookie-buttons">
+            <button class="cookie-accept" id="cookieAccept" data-lang-ru="Принять" data-lang-en="Accept">Принять</button>
+            <button class="cookie-decline" id="cookieDecline" data-lang-ru="Отклонить" data-lang-en="Decline">Отклонить</button>
+        </div>
     </div>
 
     <script>
@@ -2439,6 +2733,283 @@
         }, { rootMargin: '200px' });
 
         lazyVideos.forEach(v => videoObserver.observe(v));
+
+        // ===== CUSTOM CURSOR =====
+        const cursor = document.getElementById('customCursor');
+        if (cursor && window.matchMedia('(pointer: fine)').matches) {
+            document.addEventListener('mousemove', (e) => {
+                cursor.style.transform = `translate(${e.clientX}px, ${e.clientY}px)`;
+            });
+            const hoverTargets = document.querySelectorAll('a, button, input, textarea, .gallery-item, .gallery-nav-btn, .testimonial-dot, .gallery-tab');
+            hoverTargets.forEach(el => {
+                el.addEventListener('mouseenter', () => cursor.classList.add('hovering'));
+                el.addEventListener('mouseleave', () => cursor.classList.remove('hovering'));
+            });
+            document.addEventListener('mousedown', () => cursor.classList.add('clicking'));
+            document.addEventListener('mouseup', () => cursor.classList.remove('clicking'));
+        }
+
+        // ===== 3D TILT ON GALLERY ITEMS =====
+        if (window.matchMedia('(pointer: fine)').matches) {
+            document.querySelectorAll('.gallery-item').forEach(item => {
+                item.addEventListener('mousemove', (e) => {
+                    const rect = item.getBoundingClientRect();
+                    const x = e.clientX - rect.left;
+                    const y = e.clientY - rect.top;
+                    const centerX = rect.width / 2;
+                    const centerY = rect.height / 2;
+                    const rotateX = ((y - centerY) / centerY) * -8;
+                    const rotateY = ((x - centerX) / centerX) * 8;
+                    item.style.transform = `scale(1) perspective(800px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+                });
+                item.addEventListener('mouseleave', () => {
+                    item.style.transform = '';
+                });
+            });
+        }
+
+        // ===== GALLERY FILTER TABS =====
+        const galleryTabs = document.querySelectorAll('.gallery-tab');
+        const galleryCategories = document.querySelectorAll('.gallery-category[data-category]');
+
+        galleryTabs.forEach(tab => {
+            tab.addEventListener('click', () => {
+                galleryTabs.forEach(t => t.classList.remove('active'));
+                tab.classList.add('active');
+                const filter = tab.dataset.filter;
+
+                galleryCategories.forEach(cat => {
+                    if (filter === 'all' || cat.dataset.category === filter) {
+                        cat.classList.remove('hidden-cat');
+                    } else {
+                        cat.classList.add('hidden-cat');
+                    }
+                });
+            });
+        });
+
+        // ===== LANGUAGE SWITCHER =====
+        const langToggle = document.getElementById('langToggle');
+        let currentLang = localStorage.getItem('lang') || 'ru';
+
+        const translations = {
+            en: {
+                // Header
+                '.nav a[href="#hero"]': 'Home',
+                '.nav a[href="#services"]': 'Services',
+                '.nav a[href="#gallery"]': 'Portfolio',
+                '.nav a[href="#videos"]': 'Video',
+                '.nav a[href="#about"]': 'About',
+                '.nav a[href="#contact"]': 'Contact',
+                // Mobile menu
+                '.mobile-menu a[href="#hero"]': 'Home',
+                '.mobile-menu a[href="#services"]': 'Services',
+                '.mobile-menu a[href="#gallery"]': 'Portfolio',
+                '.mobile-menu a[href="#videos"]': 'Video',
+                '.mobile-menu a[href="#about"]': 'About',
+                '.mobile-menu a[href="#contact"]': 'Contact',
+                // Hero
+                '.hero-subtitle-top': 'Photographer & Videographer',
+                '.hero-title': 'Conquering Peaks<br>Through the Lens',
+                '.hero-description': 'Auteur photography and video — Caucasus mountains, city streets, studio portraits. Every frame is a story of beauty and the power of the moment.',
+                '.hero-buttons .btn-primary': 'View Works',
+                '.hero-buttons .btn-outline': 'Contact',
+                '.hero-scroll span': 'Scroll',
+                // Services
+                '#services .section-label': 'What I Offer',
+                '#services .section-title': 'Services',
+                '#services .section-desc': 'Professional mountain photography requires special skills, equipment and preparation. I offer several areas of collaboration.',
+                // Service cards
+                '.service-title': ['Commercial Photography', 'Photo Sessions', 'Videography', 'Portrait Photography', 'Social Media Content', 'Event Photography'],
+                // Gallery
+                '#gallery .section-label': 'Portfolio',
+                '#gallery .section-title': 'Gallery',
+                // Video
+                '#videos .section-label': 'Video',
+                '#videos .section-title': 'Video Works',
+                '#videos .section-desc': 'Cinematic videos conveying the scale and atmosphere of mountain expeditions.',
+                // About
+                '.about-label': 'About Me',
+                '.about-title': 'Angelina Belova',
+                '.about-stat-label': ['Years of Experience', 'Expeditions', 'Ascents'],
+                // Testimonials
+                '#testimonials .section-label': 'Reviews',
+                '#testimonials .section-title': 'What Clients Say',
+                // Contact
+                '#contact .section-label': 'Get in Touch',
+                '#contact .contact-info h3': 'Let\'s Discuss<br>Your Project',
+                '#contact .contact-info > p': 'Open for commercial orders, photo sessions and brand collaborations. Write to me — let\'s discuss the details.',
+                '#contact .contact-detail-label': ['Email', 'Phone', 'Location'],
+                '#contact label[for="name"]': 'Name',
+                '#contact label[for="email"]': 'Email',
+                '#contact label[for="subject"]': 'Subject',
+                '#contact label[for="message"]': 'Message',
+                '#contact input[name="name"]': { placeholder: 'Your name' },
+                '#contact input[name="email"]': { placeholder: 'your@email.com' },
+                '#contact input[name="subject"]': { placeholder: 'Message subject' },
+                '#contact textarea': { placeholder: 'Tell about your project...' },
+                '#contact .btn-primary': 'Send Message',
+                // Footer
+                '.footer-brand p': 'Photography and video — mountains, city, studio. Commercial shoots, photo sessions and video production. Conquering peaks together.',
+                '.footer-col:nth-child(2) h4': 'Navigation',
+                '.footer-col:nth-child(3) h4': 'Services',
+                '.footer-col:nth-child(4) h4': 'Contacts',
+                '.footer-bottom p': '© 2026 Elbrus Photo. All rights reserved.',
+                '.footer-bottom-links a:first-child': 'Privacy Policy',
+                '.footer-bottom-links a:last-child': 'Terms of Use',
+                '.preloader-text': 'Loading',
+            },
+            ru: {
+                '.nav a[href="#hero"]': 'Главная',
+                '.nav a[href="#services"]': 'Услуги',
+                '.nav a[href="#gallery"]': 'Портфолио',
+                '.nav a[href="#videos"]': 'Видео',
+                '.nav a[href="#about"]': 'Обо мне',
+                '.nav a[href="#contact"]': 'Контакты',
+                '.mobile-menu a[href="#hero"]': 'Главная',
+                '.mobile-menu a[href="#services"]': 'Услуги',
+                '.mobile-menu a[href="#gallery"]': 'Портфолио',
+                '.mobile-menu a[href="#videos"]': 'Видео',
+                '.mobile-menu a[href="#about"]': 'Обо мне',
+                '.mobile-menu a[href="#contact"]': 'Контакты',
+                '.hero-subtitle-top': 'Фотограф и видеограф',
+                '.hero-title': 'Покоряя вершины<br>объективом',
+                '.hero-description': 'Авторская фотография и видео — горы Кавказа, городские улицы, студийные портреты. Каждый кадр — это история о красоте и силе момента.',
+                '.hero-buttons .btn-primary': 'Смотреть работы',
+                '.hero-buttons .btn-outline': 'Связаться',
+                '.hero-scroll span': 'Scroll',
+                '#services .section-label': 'Что я предлагаю',
+                '#services .section-title': 'Направления работы',
+                '#services .section-desc': 'Профессиональная съёмка в горах требует особых навыков, снаряжения и подготовки. Я предлагаю несколько направлений сотрудничества.',
+                '.service-title': ['Коммерческая съёмка', 'Фотосессии', 'Видеосъёмка', 'Портретная съёмка', 'Контент для соцсетей', 'Репортажная съёмка'],
+                '#gallery .section-label': 'Портфолио',
+                '#gallery .section-title': 'Галерея работ',
+                '#videos .section-label': 'Видео',
+                '#videos .section-title': 'Видеоработы',
+                '#videos .section-desc': 'Кинематографичные ролики, передающие масштаб и атмосферу горных экспедиций.',
+                '.about-label': 'Обо мне',
+                '.about-title': 'Ангелина Белова',
+                '.about-stat-label': ['Лет опыта', 'Экспедиций', 'Восхождений'],
+                '#testimonials .section-label': 'Отзывы',
+                '#testimonials .section-title': 'Что говорят клиенты',
+                '#contact .section-label': 'Связаться',
+                '#contact .contact-info h3': 'Давайте обсудим<br>ваш проект',
+                '#contact .contact-info > p': 'Открыта для коммерческих заказов, фотосессий и сотрудничества с брендами. Напишите мне — обсудим детали.',
+                '#contact .contact-detail-label': ['Email', 'Телефон', 'Локация'],
+                '#contact label[for="name"]': 'Имя',
+                '#contact label[for="email"]': 'Email',
+                '#contact label[for="subject"]': 'Тема',
+                '#contact label[for="message"]': 'Сообщение',
+                '#contact input[name="name"]': { placeholder: 'Ваше имя' },
+                '#contact input[name="email"]': { placeholder: 'your@email.com' },
+                '#contact input[name="subject"]': { placeholder: 'Тема сообщения' },
+                '#contact textarea': { placeholder: 'Расскажите о вашем проекте...' },
+                '#contact .btn-primary': 'Отправить сообщение',
+                '.footer-brand p': 'Фотография и видеосъёмка — горы, город, студия. Коммерческая съёмка, фотосессии и видеопродакшн. Покоряем вершины вместе.',
+                '.footer-col:nth-child(2) h4': 'Навигация',
+                '.footer-col:nth-child(3) h4': 'Услуги',
+                '.footer-col:nth-child(4) h4': 'Контакты',
+                '.footer-bottom p': '© 2026 Эльбрус Фото. Все права защищены.',
+                '.footer-bottom-links a:first-child': 'Политика конфиденциальности',
+                '.footer-bottom-links a:last-child': 'Условия использования',
+                '.preloader-text': 'Загрузка',
+            }
+        };
+
+        function setLanguage(lang) {
+            currentLang = lang;
+            localStorage.setItem('lang', lang);
+            langToggle.innerHTML = lang === 'ru' ? 'RU | <span style="opacity:0.4">EN</span>' : '<span style="opacity:0.4">RU</span> | EN';
+            document.documentElement.lang = lang;
+
+            const t = translations[lang];
+            for (const [selector, value] of Object.entries(t)) {
+                if (Array.isArray(value)) {
+                    document.querySelectorAll(selector).forEach((el, i) => {
+                        if (value[i] !== undefined) el.innerHTML = value[i];
+                    });
+                } else if (typeof value === 'object' && value.placeholder) {
+                    const el = document.querySelector(selector);
+                    if (el) el.placeholder = value.placeholder;
+                } else {
+                    const el = document.querySelector(selector);
+                    if (el) el.innerHTML = value;
+                }
+            }
+
+            // Translate data-lang elements
+            document.querySelectorAll('[data-lang-' + lang + ']').forEach(el => {
+                const val = el.getAttribute('data-lang-' + lang);
+                if (el.tagName === 'INPUT' || el.tagName === 'TEXTAREA') {
+                    el.placeholder = val;
+                } else {
+                    el.innerHTML = val;
+                }
+            });
+        }
+
+        langToggle.addEventListener('click', () => {
+            setLanguage(currentLang === 'ru' ? 'en' : 'ru');
+        });
+
+        // Apply saved language
+        setLanguage(currentLang);
+
+        // ===== COOKIE CONSENT =====
+        const cookieBanner = document.getElementById('cookieBanner');
+        const cookieAccept = document.getElementById('cookieAccept');
+        const cookieDecline = document.getElementById('cookieDecline');
+
+        if (!localStorage.getItem('cookieConsent')) {
+            setTimeout(() => {
+                cookieBanner.classList.add('visible');
+            }, 2000);
+        }
+
+        cookieAccept.addEventListener('click', () => {
+            localStorage.setItem('cookieConsent', 'accepted');
+            cookieBanner.classList.remove('visible');
+        });
+
+        cookieDecline.addEventListener('click', () => {
+            localStorage.setItem('cookieConsent', 'declined');
+            cookieBanner.classList.remove('visible');
+        });
+
+        // ===== RIPPLE EFFECT =====
+        document.querySelectorAll('.btn-primary, .btn-outline, .gallery-tab, .cookie-accept').forEach(btn => {
+            btn.addEventListener('click', function(e) {
+                const ripple = document.createElement('span');
+                ripple.classList.add('ripple');
+                const rect = this.getBoundingClientRect();
+                const size = Math.max(rect.width, rect.height);
+                ripple.style.width = ripple.style.height = size + 'px';
+                ripple.style.left = (e.clientX - rect.left - size / 2) + 'px';
+                ripple.style.top = (e.clientY - rect.top - size / 2) + 'px';
+                this.appendChild(ripple);
+                setTimeout(() => ripple.remove(), 600);
+            });
+        });
+
+        // ===== SKELETON LOADING =====
+        document.querySelectorAll('.gallery-item').forEach(item => {
+            item.classList.add('skeleton');
+            const img = item.querySelector('img');
+            if (img) {
+                if (img.complete && img.naturalWidth > 0) {
+                    item.classList.remove('skeleton');
+                    item.classList.add('loaded');
+                } else {
+                    img.addEventListener('load', () => {
+                        item.classList.remove('skeleton');
+                        item.classList.add('loaded');
+                    });
+                    img.addEventListener('error', () => {
+                        item.classList.remove('skeleton');
+                    });
+                }
+            }
+        });
     </script>
 </body>
 </html>
