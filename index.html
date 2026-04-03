@@ -274,10 +274,8 @@
         .hero-video {
             width: 100%;
             height: 100%;
-            object-fit: cover;
-            transform: scale(1.02);
-            min-width: 100vw;
-            min-height: 100vh;
+            object-fit: contain;
+            background: #0A0A0A;
         }
 
         .hero-overlay {
@@ -1345,16 +1343,6 @@
             .nav, .nav-icons { display: none; }
             .burger { display: flex; }
             .hero-title { letter-spacing: 3px; }
-            .hero-video {
-                min-width: 177vh;
-                min-height: 100vh;
-                position: absolute;
-                top: 50%;
-                left: 50%;
-                transform: translate(-50%, -50%) scale(1.02);
-                width: auto;
-                height: auto;
-            }
             .whatsapp-btn { width: 48px; height: 48px; bottom: 20px; left: 20px; }
             .scroll-top { width: 40px; height: 40px; bottom: 20px; right: 20px; }
             .services-grid { grid-template-columns: 1fr; }
