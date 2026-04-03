@@ -998,18 +998,19 @@
         }
 
         .testimonial-dot {
-            width: 8px;
-            height: 8px;
+            width: 10px;
+            height: 10px;
             border-radius: 50%;
             background: var(--border-light);
             border: none;
             cursor: pointer;
             transition: all 0.3s;
+            flex-shrink: 0;
         }
 
         .testimonial-dot.active {
             background: var(--accent);
-            transform: scale(1.2);
+            box-shadow: 0 0 8px rgba(230, 57, 70, 0.5);
         }
 
         /* ===== CONTACT ===== */
