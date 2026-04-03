@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+Sitemap: https://angelinabelova.ru/sitemap.xml
+
+Host: angelinabelova.ru
