@@ -1,0 +1,1931 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ангелина Белова — Фотограф и видеограф | Горы, город, студия</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=Raleway:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        *, *::before, *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --accent: #E63946;
+            --accent-light: #F25C69;
+            --accent-dark: #C62833;
+            --bg-primary: #0A0A0A;
+            --bg-secondary: #0F0F0F;
+            --bg-card: #141414;
+            --bg-card-hover: #1A1A1A;
+            --text-primary: #E8E4DC;
+            --text-secondary: #9A9590;
+            --text-muted: #5A5550;
+            --border: #1E1E1E;
+            --border-light: #2A2A2A;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            scrollbar-width: thin;
+            scrollbar-color: var(--accent-dark) var(--bg-primary);
+        }
+
+        body {
+            font-family: 'Raleway', sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: var(--bg-primary); }
+        ::-webkit-scrollbar-thumb { background: var(--accent-dark); border-radius: 3px; }
+
+        /* ===== HEADER / NAV ===== */
+        .header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            padding: 0 40px;
+            height: 70px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: rgba(10, 10, 10, 0.85);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(230, 57, 70, 0.1);
+            transition: all 0.4s ease;
+        }
+
+        .header.scrolled {
+            height: 60px;
+            background: rgba(10, 10, 10, 0.95);
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+            color: var(--text-primary);
+        }
+
+        .logo-icon {
+            width: 36px;
+            height: 36px;
+            position: relative;
+        }
+
+        .logo-icon svg {
+            width: 100%;
+            height: 100%;
+        }
+
+        .logo-text {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.25rem;
+            font-weight: 600;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--accent);
+        }
+
+        .nav {
+            display: flex;
+            align-items: center;
+            gap: 32px;
+        }
+
+        .nav a {
+            text-decoration: none;
+            color: var(--text-secondary);
+            font-size: 0.8rem;
+            font-weight: 500;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            transition: color 0.3s ease;
+            position: relative;
+        }
+
+        .nav a::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 0;
+            height: 1px;
+            background: var(--accent);
+            transition: width 0.3s ease;
+        }
+
+        .nav a:hover, .nav a.active {
+            color: var(--accent);
+        }
+
+        .nav a:hover::after, .nav a.active::after {
+            width: 100%;
+        }
+
+        .nav-icons {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            margin-left: 20px;
+            padding-left: 20px;
+            border-left: 1px solid var(--border);
+        }
+
+        .nav-icons a {
+            color: var(--text-secondary);
+            transition: color 0.3s;
+        }
+
+        .nav-icons a:hover {
+            color: var(--accent);
+        }
+
+        .burger {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            cursor: pointer;
+            padding: 5px;
+            background: none;
+            border: none;
+        }
+
+        .burger span {
+            width: 24px;
+            height: 2px;
+            background: var(--text-primary);
+            transition: all 0.3s ease;
+            display: block;
+        }
+
+        .burger.active span:nth-child(1) {
+            transform: rotate(45deg) translate(5px, 5px);
+        }
+
+        .burger.active span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .burger.active span:nth-child(3) {
+            transform: rotate(-45deg) translate(5px, -5px);
+        }
+
+        .mobile-menu {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(10, 10, 10, 0.97);
+            z-index: 999;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 30px;
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+
+        .mobile-menu.active {
+            display: flex;
+            opacity: 1;
+        }
+
+        .mobile-menu a {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 2rem;
+            color: var(--text-primary);
+            text-decoration: none;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            transition: color 0.3s;
+        }
+
+        .mobile-menu a:hover {
+            color: var(--accent);
+        }
+
+        .mobile-close {
+            position: absolute;
+            top: 20px;
+            right: 24px;
+            background: none;
+            border: none;
+            color: var(--text-primary);
+            font-size: 2rem;
+            cursor: pointer;
+        }
+
+        /* ===== HERO ===== */
+        .hero {
+            position: relative;
+            height: 100vh;
+            min-height: 600px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            overflow: hidden;
+        }
+
+        .hero-video-wrapper {
+            position: absolute;
+            inset: 0;
+            overflow: hidden;
+        }
+
+        .hero-video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transform: scale(1.02);
+        }
+
+        .hero-overlay {
+            position: absolute;
+            inset: 0;
+            background:
+                linear-gradient(to bottom, rgba(10,10,10,0.4) 0%, rgba(10,10,10,0.2) 30%, rgba(10,10,10,0.3) 60%, rgba(10,10,10,0.8) 85%, rgba(10,10,10,1) 100%);
+            z-index: 1;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            max-width: 800px;
+            padding: 0 24px;
+        }
+
+        .hero-subtitle-top {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: clamp(1.1rem, 2.5vw, 1.6rem);
+            font-weight: 300;
+            letter-spacing: 6px;
+            text-transform: uppercase;
+            color: var(--accent);
+            margin-bottom: 20px;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeUp 1s 0.3s forwards;
+            text-shadow: 0 2px 8px rgba(0,0,0,0.8);
+        }
+
+        .hero-title {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: clamp(2.5rem, 6vw, 4.5rem);
+            font-weight: 300;
+            line-height: 1.15;
+            letter-spacing: 6px;
+            text-transform: uppercase;
+            color: var(--text-primary);
+            margin-bottom: 20px;
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeUp 1s 0.5s forwards;
+            text-shadow: 0 2px 16px rgba(0,0,0,0.9), 0 4px 30px rgba(0,0,0,0.5);
+        }
+
+        .hero-description {
+            font-size: 0.95rem;
+            font-weight: 300;
+            color: var(--text-secondary);
+            max-width: 500px;
+            margin: 0 auto 32px;
+            line-height: 1.8;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeUp 1s 0.7s forwards;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.9), 0 0 20px rgba(0,0,0,0.6);
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 16px;
+            justify-content: center;
+            flex-wrap: wrap;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeUp 1s 0.9s forwards;
+        }
+
+        .btn-primary {
+            padding: 14px 36px;
+            background: var(--accent);
+            color: #fff;
+            font-family: 'Raleway', sans-serif;
+            font-size: 0.75rem;
+            font-weight: 600;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            text-decoration: none;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary:hover {
+            background: var(--accent-light);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 30px rgba(230, 57, 70, 0.3);
+        }
+
+        .btn-outline {
+            padding: 14px 36px;
+            background: transparent;
+            color: var(--text-primary);
+            font-family: 'Raleway', sans-serif;
+            font-size: 0.75rem;
+            font-weight: 500;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            text-decoration: none;
+            border: 1px solid var(--border-light);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .btn-outline:hover {
+            border-color: var(--accent);
+            color: var(--accent);
+            transform: translateY(-2px);
+        }
+
+        .hero-scroll {
+            position: absolute;
+            bottom: 40px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 2;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+            color: var(--text-muted);
+            font-size: 0.65rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        .hero-scroll .line {
+            width: 1px;
+            height: 40px;
+            background: linear-gradient(to bottom, var(--accent), transparent);
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateX(-50%) translateY(0); }
+            50% { transform: translateX(-50%) translateY(-10px); }
+        }
+
+        @keyframes fadeUp {
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* ===== SECTION COMMONS ===== */
+        section {
+            padding: 100px 40px;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .section-label {
+            font-size: 0.7rem;
+            font-weight: 500;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            color: var(--accent);
+            margin-bottom: 12px;
+        }
+
+        .section-title {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: clamp(1.8rem, 4vw, 2.8rem);
+            font-weight: 400;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: var(--text-primary);
+            margin-bottom: 16px;
+        }
+
+        .section-desc {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            max-width: 600px;
+            margin: 0 auto;
+            font-weight: 300;
+            line-height: 1.8;
+        }
+
+        .accent-line {
+            width: 60px;
+            height: 2px;
+            background: var(--accent);
+            margin: 16px auto;
+        }
+
+        /* ===== SERVICES / FEATURES ===== */
+        .services {
+            background: var(--bg-secondary);
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .service-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            padding: 40px 30px;
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+            text-align: center;
+        }
+
+        .service-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: var(--accent);
+            transform: scaleX(0);
+            transition: transform 0.4s ease;
+        }
+
+        .service-card:hover {
+            background: var(--bg-card-hover);
+            border-color: var(--border-light);
+            transform: translateY(-4px);
+        }
+
+        .service-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .service-icon {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: rgba(230, 57, 70, 0.12);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+            color: var(--accent);
+        }
+
+        .service-icon svg {
+            width: 28px;
+            height: 28px;
+        }
+
+        .service-title {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.3rem;
+            font-weight: 500;
+            letter-spacing: 1px;
+            color: var(--text-primary);
+            margin-bottom: 12px;
+        }
+
+        .service-text {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            line-height: 1.7;
+            font-weight: 300;
+            margin-bottom: 20px;
+        }
+
+        .service-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--accent);
+            font-size: 0.75rem;
+            font-weight: 500;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            text-decoration: none;
+            transition: gap 0.3s ease;
+        }
+
+        .service-link:hover {
+            gap: 12px;
+        }
+
+        /* ===== GALLERY ===== */
+        .gallery {
+            background: var(--bg-primary);
+            overflow: hidden;
+        }
+
+        .gallery-category {
+            margin-bottom: 70px;
+            max-width: 1400px;
+            margin-left: auto;
+            margin-right: auto;
+            position: relative;
+        }
+
+        .gallery-category:last-child {
+            margin-bottom: 0;
+        }
+
+        .gallery-category-header {
+            margin-bottom: 24px;
+            padding: 0 4px;
+        }
+
+        .gallery-category-title {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.5rem;
+            font-weight: 400;
+            letter-spacing: 2px;
+            color: var(--text-primary);
+        }
+
+        .gallery-category-count {
+            font-size: 0.7rem;
+            color: var(--text-muted);
+            letter-spacing: 1px;
+            margin-top: 4px;
+            display: block;
+        }
+
+        .carousel-wrapper {
+            position: relative;
+        }
+
+        .gallery-nav-btn {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 10;
+            width: 48px;
+            height: 48px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(10, 10, 10, 0.8);
+            backdrop-filter: blur(8px);
+            border: 1px solid rgba(230, 57, 70, 0.4);
+            border-radius: 50%;
+            color: var(--accent);
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 1.2rem;
+        }
+
+        .gallery-nav-btn:hover {
+            background: var(--accent);
+            color: #fff;
+            border-color: var(--accent);
+            transform: translateY(-50%) scale(1.1);
+        }
+
+        .gallery-nav-btn.nav-left {
+            left: 12px;
+        }
+
+        .gallery-nav-btn.nav-right {
+            right: 12px;
+        }
+
+        .carousel-track {
+            display: grid;
+            grid-template-rows: 1fr 1fr;
+            grid-auto-flow: column;
+            grid-auto-columns: 280px;
+            gap: 8px;
+            overflow-x: auto;
+            scroll-behavior: smooth;
+            scrollbar-width: none;
+            -ms-overflow-style: none;
+            padding: 0 4px 4px;
+        }
+
+        .carousel-track::-webkit-scrollbar {
+            display: none;
+        }
+
+        .gallery-item {
+            position: relative;
+            overflow: hidden;
+            cursor: pointer;
+            height: 200px;
+            opacity: 0;
+            transform: scale(0.8);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+
+        .gallery-category.visible .gallery-item {
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.6s ease, filter 0.4s ease;
+        }
+
+        .gallery-item:hover img {
+            transform: scale(1.08);
+            filter: brightness(0.7);
+        }
+
+        .gallery-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to top, rgba(10,10,10,0.9) 0%, transparent 50%);
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            padding: 16px;
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+
+        .gallery-item:hover .gallery-overlay {
+            opacity: 1;
+        }
+
+        .gallery-overlay-title {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1rem;
+            color: var(--text-primary);
+            margin-bottom: 2px;
+        }
+
+        .gallery-overlay-meta {
+            font-size: 0.65rem;
+            color: var(--accent);
+            letter-spacing: 1px;
+        }
+
+        @media (max-width: 768px) {
+            .carousel-track { grid-auto-columns: 220px; }
+            .gallery-item { height: 170px; }
+            .gallery-nav-btn { width: 40px; height: 40px; font-size: 1rem; }
+        }
+
+        @media (max-width: 480px) {
+            .carousel-track { grid-auto-columns: 180px; }
+            .gallery-item { height: 140px; }
+        }
+
+        /* ===== VIDEO REEL ===== */
+        .video-reel {
+            background: var(--bg-secondary);
+        }
+
+        .video-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 20px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .video-item {
+            position: relative;
+            border-radius: 4px;
+            overflow: hidden;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+        }
+
+        .video-item video {
+            width: 100%;
+            display: block;
+            aspect-ratio: 16/9;
+            object-fit: cover;
+            background: #000;
+        }
+
+        .video-item-label {
+            padding: 16px 20px;
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            font-weight: 300;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .video-item-label span {
+            color: var(--accent);
+            font-size: 0.7rem;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        /* ===== ABOUT ===== */
+        .about {
+            background: var(--bg-primary);
+        }
+
+        .about-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            max-width: 1200px;
+            margin: 0 auto;
+            align-items: center;
+        }
+
+        .about-image-wrapper {
+            position: relative;
+        }
+
+        .about-image {
+            width: 100%;
+            aspect-ratio: 3/4;
+            object-fit: cover;
+            filter: brightness(0.9);
+        }
+
+        .about-image-border {
+            position: absolute;
+            top: -12px;
+            left: -12px;
+            right: -12px;
+            bottom: -12px;
+            border: 1px solid var(--accent);
+            opacity: 0.2;
+            pointer-events: none;
+        }
+
+        .about-label {
+            font-size: 0.7rem;
+            font-weight: 500;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            color: var(--accent);
+            margin-bottom: 16px;
+        }
+
+        .about-title {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: clamp(1.8rem, 3.5vw, 2.5rem);
+            font-weight: 400;
+            letter-spacing: 2px;
+            color: var(--text-primary);
+            margin-bottom: 24px;
+            line-height: 1.2;
+        }
+
+        .about-text {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            line-height: 1.9;
+            font-weight: 300;
+            margin-bottom: 16px;
+        }
+
+        .about-quote {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.3rem;
+            font-style: italic;
+            color: var(--accent);
+            padding-left: 20px;
+            border-left: 2px solid var(--accent);
+            margin: 30px 0;
+            line-height: 1.6;
+        }
+
+        .about-stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+            margin-top: 36px;
+            padding-top: 30px;
+            border-top: 1px solid var(--border);
+        }
+
+        .about-stat-number {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 2.2rem;
+            font-weight: 600;
+            color: var(--accent);
+            line-height: 1;
+        }
+
+        .about-stat-label {
+            font-size: 0.7rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            margin-top: 6px;
+        }
+
+        /* ===== TESTIMONIALS / SLIDER ===== */
+        .testimonials {
+            background: var(--bg-secondary);
+            text-align: center;
+        }
+
+        .testimonial-slider {
+            max-width: 800px;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        .testimonial-item {
+            display: none;
+        }
+
+        .testimonial-item.active {
+            display: block;
+            animation: fadeIn 0.6s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .testimonial-text {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.4rem;
+            font-style: italic;
+            color: var(--text-primary);
+            line-height: 1.7;
+            margin-bottom: 24px;
+        }
+
+        .testimonial-author {
+            font-size: 0.8rem;
+            font-weight: 500;
+            color: var(--accent);
+            letter-spacing: 1px;
+        }
+
+        .testimonial-role {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            margin-top: 4px;
+        }
+
+        .testimonial-dots {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 30px;
+        }
+
+        .testimonial-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--border-light);
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .testimonial-dot.active {
+            background: var(--accent);
+            transform: scale(1.2);
+        }
+
+        /* ===== CONTACT ===== */
+        .contact {
+            background: var(--bg-primary);
+        }
+
+        .contact-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .contact-info h3 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.8rem;
+            font-weight: 400;
+            letter-spacing: 2px;
+            color: var(--text-primary);
+            margin-bottom: 16px;
+        }
+
+        .contact-info p {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            line-height: 1.8;
+            font-weight: 300;
+            margin-bottom: 30px;
+        }
+
+        .contact-detail {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            margin-bottom: 20px;
+        }
+
+        .contact-detail-icon {
+            width: 44px;
+            height: 44px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid var(--border);
+            color: var(--accent);
+            flex-shrink: 0;
+        }
+
+        .contact-detail-text {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+        }
+
+        .contact-detail-label {
+            font-size: 0.65rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            margin-bottom: 2px;
+        }
+
+        .contact-socials {
+            display: flex;
+            gap: 12px;
+            margin-top: 30px;
+        }
+
+        .contact-social {
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid var(--border);
+            color: var(--text-secondary);
+            text-decoration: none;
+            transition: all 0.3s;
+        }
+
+        .contact-social:hover {
+            border-color: var(--accent);
+            color: var(--accent);
+            transform: translateY(-2px);
+        }
+
+        .contact-form {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .form-group label {
+            font-size: 0.7rem;
+            font-weight: 500;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            color: var(--text-muted);
+            margin-bottom: 8px;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            color: var(--text-primary);
+            font-family: 'Raleway', sans-serif;
+            font-size: 0.9rem;
+            padding: 14px 18px;
+            transition: border-color 0.3s ease;
+            outline: none;
+            resize: none;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            border-color: var(--accent);
+        }
+
+        .form-group textarea {
+            min-height: 120px;
+        }
+
+        .contact-form .btn-primary {
+            align-self: flex-start;
+        }
+
+        /* ===== FOOTER ===== */
+        .footer {
+            background: var(--bg-secondary);
+            border-top: 1px solid var(--border);
+            padding: 50px 40px 30px;
+        }
+
+        .footer-top {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 40px;
+            max-width: 1200px;
+            margin: 0 auto 40px;
+        }
+
+        .footer-brand .logo-text {
+            margin-bottom: 12px;
+            display: block;
+        }
+
+        .footer-brand p {
+            font-size: 0.82rem;
+            color: var(--text-secondary);
+            line-height: 1.7;
+            font-weight: 300;
+        }
+
+        .footer-col h4 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.1rem;
+            color: var(--text-primary);
+            margin-bottom: 16px;
+            letter-spacing: 1px;
+        }
+
+        .footer-col a {
+            display: block;
+            font-size: 0.82rem;
+            color: var(--text-secondary);
+            text-decoration: none;
+            margin-bottom: 10px;
+            transition: color 0.3s;
+            font-weight: 300;
+        }
+
+        .footer-col a:hover {
+            color: var(--accent);
+        }
+
+        .footer-bottom {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding-top: 24px;
+            border-top: 1px solid var(--border);
+        }
+
+        .footer-bottom p {
+            font-size: 0.72rem;
+            color: var(--text-muted);
+        }
+
+        .footer-bottom-links {
+            display: flex;
+            gap: 20px;
+        }
+
+        .footer-bottom-links a {
+            font-size: 0.72rem;
+            color: var(--text-muted);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .footer-bottom-links a:hover {
+            color: var(--accent);
+        }
+
+        /* ===== SCROLL ANIMATIONS ===== */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+
+        .reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* ===== LIGHTBOX ===== */
+        .lightbox {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.95);
+            z-index: 2000;
+            align-items: center;
+            justify-content: center;
+            cursor: zoom-out;
+        }
+
+        .lightbox.active {
+            display: flex;
+        }
+
+        .lightbox img {
+            max-width: 90%;
+            max-height: 90vh;
+            object-fit: contain;
+        }
+
+        .lightbox-close {
+            position: absolute;
+            top: 24px;
+            right: 24px;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 2rem;
+            cursor: pointer;
+        }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 1024px) {
+            section { padding: 80px 24px; }
+            .services-grid { grid-template-columns: repeat(2, 1fr); }
+            .gallery-grid { grid-template-columns: repeat(3, 1fr); }
+            .gallery-item.wide { grid-column: span 1; aspect-ratio: 1; }
+            .about-container { gap: 40px; }
+            .footer-top { grid-template-columns: 1fr 1fr; }
+            .video-grid { grid-template-columns: 1fr; }
+        }
+
+        @media (max-width: 768px) {
+            .header { padding: 0 20px; }
+            .nav, .nav-icons { display: none; }
+            .burger { display: flex; }
+            .hero-title { letter-spacing: 3px; }
+            .services-grid { grid-template-columns: 1fr; }
+            .gallery-grid { grid-template-columns: repeat(2, 1fr); }
+            .about-container { grid-template-columns: 1fr; gap: 40px; }
+            .about-image-border { display: none; }
+            .contact-container { grid-template-columns: 1fr; }
+            .form-row { grid-template-columns: 1fr; }
+            .footer-top { grid-template-columns: 1fr; }
+            .footer-bottom { flex-direction: column; gap: 12px; text-align: center; }
+        }
+
+        @media (max-width: 480px) {
+            section { padding: 60px 16px; }
+            .gallery-grid { grid-template-columns: 1fr; }
+            .gallery-item.tall { grid-row: span 1; }
+            .about-stats { grid-template-columns: 1fr; gap: 16px; }
+            .hero-buttons { flex-direction: column; align-items: center; }
+            .video-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- HEADER -->
+    <header class="header" id="header">
+        <a href="#hero" class="logo">
+            <div class="logo-icon">
+                <svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M20 4L36 32H4L20 4Z" stroke="#E63946" stroke-width="1.5" fill="none"/>
+                    <path d="M20 12L28 28H12L20 12Z" stroke="#E63946" stroke-width="1" fill="none" opacity="0.5"/>
+                </svg>
+            </div>
+            <span class="logo-text">Эльбрус Фото</span>
+        </a>
+
+        <nav class="nav">
+            <a href="#hero" class="active">Главная</a>
+            <a href="#services">Услуги</a>
+            <a href="#gallery">Портфолио</a>
+            <a href="#videos">Видео</a>
+            <a href="#about">Обо мне</a>
+            <a href="#contact">Контакты</a>
+            <div class="nav-icons">
+                <a href="https://t.me/ln_amo" target="_blank" aria-label="Telegram">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 2L11 13"/><path d="M22 2L15 22L11 13L2 9L22 2Z"/></svg>
+                </a>
+                <a href="https://instagram.com/belovochka_" target="_blank" aria-label="Instagram">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="5"/><circle cx="17.5" cy="6.5" r="1.5" fill="currentColor" stroke="none"/></svg>
+                </a>
+            </div>
+        </nav>
+
+        <button class="burger" id="burger" aria-label="Menu">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+    </header>
+
+    <!-- MOBILE MENU -->
+    <div class="mobile-menu" id="mobileMenu">
+        <button class="mobile-close" id="mobileClose">&times;</button>
+        <a href="#hero">Главная</a>
+        <a href="#services">Услуги</a>
+        <a href="#gallery">Портфолио</a>
+        <a href="#videos">Видео</a>
+        <a href="#about">Обо мне</a>
+        <a href="#contact">Контакты</a>
+    </div>
+
+    <!-- HERO -->
+    <section class="hero" id="hero">
+        <div class="hero-video-wrapper">
+            <video class="hero-video" autoplay muted loop playsinline>
+                <source src="portfolio/3.mp4" type="video/mp4">
+            </video>
+            <div class="hero-overlay"></div>
+        </div>
+        <div class="hero-content">
+            <div class="hero-subtitle-top">Фотограф и видеограф</div>
+            <h1 class="hero-title">Покоряя вершины<br>объективом</h1>
+            <p class="hero-description">
+                Авторская фотография и видео — горы Кавказа, городские улицы, студийные портреты.
+                Каждый кадр — это история о красоте и силе момента.
+            </p>
+            <div class="hero-buttons">
+                <a href="#gallery" class="btn-primary">Смотреть работы</a>
+                <a href="#contact" class="btn-outline">Связаться</a>
+            </div>
+        </div>
+        <div class="hero-scroll">
+            <span>Scroll</span>
+            <div class="line"></div>
+        </div>
+    </section>
+
+    <!-- SERVICES -->
+    <section class="services" id="services">
+        <div class="section-header reveal">
+            <div class="section-label">Что я предлагаю</div>
+            <h2 class="section-title">Направления работы</h2>
+            <div class="accent-line"></div>
+            <p class="section-desc">
+                Профессиональная съёмка в горах требует особых навыков, снаряжения и подготовки.
+                Я предлагаю несколько направлений сотрудничества.
+            </p>
+        </div>
+
+        <div class="services-grid">
+            <div class="service-card reveal">
+                <div class="service-icon">
+                    <svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.5">
+                        <rect x="4" y="6" width="24" height="18" rx="2"/>
+                        <circle cx="16" cy="15" r="5"/>
+                        <circle cx="24" cy="10" r="1.5" fill="currentColor" stroke="none"/>
+                    </svg>
+                </div>
+                <h3 class="service-title">Коммерческая съёмка</h3>
+                <p class="service-text">
+                    Фотографии для рекламных кампаний, брендов outdoor-снаряжения,
+                    туристических компаний и журналов. Полный продакшн от концепта до готовых материалов.
+                </p>
+                <a href="#contact" class="service-link">Подробнее <span>&rarr;</span></a>
+            </div>
+
+            <div class="service-card reveal">
+                <div class="service-icon">
+                    <svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.5">
+                        <path d="M4 24L12 10L18 18L22 12L28 24Z"/>
+                        <circle cx="22" cy="8" r="3"/>
+                    </svg>
+                </div>
+                <h3 class="service-title">Фотосессии</h3>
+                <p class="service-text">
+                    Портретные и атмосферные фотосессии в горах, городе и студии.
+                    Индивидуальный подход, живые эмоции и кадры, которые хочется пересматривать.
+                </p>
+                <a href="#contact" class="service-link">Подробнее <span>&rarr;</span></a>
+            </div>
+
+            <div class="service-card reveal">
+                <div class="service-icon">
+                    <svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.5">
+                        <rect x="3" y="5" width="26" height="18" rx="2"/>
+                        <polygon points="13,10 21,14 13,18" fill="currentColor" stroke="none"/>
+                        <path d="M6 27H26"/>
+                    </svg>
+                </div>
+                <h3 class="service-title">Видеосъёмка</h3>
+                <p class="service-text">
+                    Кинематографичные видеоролики горных пейзажей и экспедиций.
+                    Аэросъёмка, таймлапсы и монтаж для контента любого формата.
+                </p>
+                <a href="#videos" class="service-link">Смотреть видео <span>&rarr;</span></a>
+            </div>
+
+            <div class="service-card reveal">
+                <div class="service-icon">
+                    <svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.5">
+                        <circle cx="16" cy="10" r="6"/>
+                        <path d="M6 28C6 22.48 10.48 18 16 18C21.52 18 26 22.48 26 28"/>
+                    </svg>
+                </div>
+                <h3 class="service-title">Портретная съёмка</h3>
+                <p class="service-text">
+                    Индивидуальные и семейные портреты в студии, на природе или в городе.
+                    Естественный свет, живые эмоции и атмосферные кадры.
+                </p>
+                <a href="#contact" class="service-link">Подробнее <span>&rarr;</span></a>
+            </div>
+
+            <div class="service-card reveal">
+                <div class="service-icon">
+                    <svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.5">
+                        <path d="M8 28V18L16 4L24 18V28"/>
+                        <path d="M4 28H28"/>
+                        <path d="M12 28V22H20V28"/>
+                    </svg>
+                </div>
+                <h3 class="service-title">Контент для соцсетей</h3>
+                <p class="service-text">
+                    Создание визуального контента для Instagram, Telegram и других платформ.
+                    Фото и видео под ваш стиль и бренд.
+                </p>
+                <a href="#contact" class="service-link">Подробнее <span>&rarr;</span></a>
+            </div>
+
+            <div class="service-card reveal">
+                <div class="service-icon">
+                    <svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.5">
+                        <circle cx="16" cy="16" r="12"/>
+                        <path d="M16 8V16L22 20"/>
+                    </svg>
+                </div>
+                <h3 class="service-title">Репортажная съёмка</h3>
+                <p class="service-text">
+                    Мероприятия, корпоративы, экспедиции и тимбилдинг.
+                    Документальный стиль, передающий атмосферу момента.
+                </p>
+                <a href="#contact" class="service-link">Подробнее <span>&rarr;</span></a>
+            </div>
+        </div>
+    </section>
+
+    <!-- GALLERY -->
+    <section class="gallery" id="gallery">
+        <div class="section-header reveal">
+            <div class="section-label">Портфолио</div>
+            <h2 class="section-title">Галерея работ</h2>
+            <div class="accent-line"></div>
+        </div>
+
+        <!-- Горные пейзажи -->
+        <div class="gallery-category reveal">
+            <div class="gallery-category-header">
+                <h3 class="gallery-category-title">Горные пейзажи</h3>
+                <span class="gallery-category-count">18 работ</span>
+            </div>
+            <div class="carousel-wrapper">
+                <button class="gallery-nav-btn nav-left" aria-label="Назад">&#8592;</button>
+                <button class="gallery-nav-btn nav-right" aria-label="Вперёд">&#8594;</button>
+                <div class="carousel-track">
+                    <div class="gallery-item"><img src="portfolio/_1286629.jpg" alt="" loading="lazy"><div class="gallery-overlay"><div class="gallery-overlay-title">Величие Кавказа</div><div class="gallery-overlay-meta">Панорама</div></div></div>
+                    <div class="gallery-item"><img src="portfolio/DSCF3296.jpg" alt="" loading="lazy"><div class="gallery-overlay"><div class="gallery-overlay-title">Свет вершин</div><div class="gallery-overlay-meta">Горы</div></div></div>
+                    <div class="gallery-item"><img src="portfolio/_1286434.jpg" alt="" loading="lazy"><div class="gallery-overlay"><div class="gallery-overlay-title">Бесконечность</div><div class="gallery-overlay-meta">Панорама</div></div></div>
+                    <div class="gallery-item"><img src="portfolio/DSC_1276.jpg" alt="" loading="lazy"><div class="gallery-overlay"><div class="gallery-overlay-title">Золотой рассвет</div><div class="gallery-overlay-meta">Приэльбрусье</div></div></div>
+                    <div class="gallery-item"><img src="portfolio/DSC_8900.jpg" alt="" loading="lazy"><div class="gallery-overlay"><div class="gallery-overlay-title">Над облаками</div><div class="gallery-overlay-meta">Высокогорье</div></div></div>
+                    <div class="gallery-item"><img src="portfolio/_1750160.jpg" alt="" loading="lazy"><div class="gallery-overlay"><div class="gallery-overlay-title">Широта горизонта</div><div class="gallery-overlay-meta">Панорама</div></div></div>
+                    <div class="gallery-item"><img src="portfolio/DSCF4715.jpg" alt="" loading="lazy"><div class="gallery-overlay"><div class="gallery-overlay-title">Утренний свет</div><div class="gallery-overlay-meta">Эльбрус</div></div></div>
+                    <div class="gallery-item"><img src="portfolio/DSC_8586.jpg" alt="" loading="lazy"><div class="gallery-overlay"><div class="gallery-overlay-title">Тени гор</div><div class="gallery-overlay-meta">Кавказ</div></div></div>
+                    <div class="gallery-item"><img src="portfolio/_1738640.jpg" alt="" loading="lazy"><div class="gallery-overlay"><div class="gallery-overlay-title">Горная гряда</div><div class="gallery-overlay-meta">Панорама</div></div></div>
+                    <div class="gallery-item"><img src="portfolio/_1749817.jpg" alt="" loading="lazy"><div class="gallery-overlay"><div class="gallery-overlay-title">Снежный покров</div><div class="gallery-overlay-meta">Зима</div></div></div>
+                    <div class="gallery-item"><img src="portfolio/_1749846.jpg" alt="" loading="lazy"><div class="gallery-overlay"><div class="gallery-overlay-title">Ледяной пик</div><div class="gallery-overlay-meta">Высота</div></div></div>
+                    <div class="gallery-item"><img src="portfolio/_1750021.jpg" alt="" loading="lazy"><div class="gallery-overlay"><div class="gallery-overlay-title">Простор</div><div class="gallery-overlay-meta">Горы</div></div></div>
+                    <div class="gallery-item"><img src="portfolio/_1750148.jpg" alt="" loading="lazy"><div class="gallery-overlay"><div class="gallery-overlay-title">Облачное море</div><div class="gallery-overlay-meta">Высокогорье</div></div></div>
+                    <div class="gallery-item"><img src="portfolio/_1738004.jpg" alt="" loading="lazy"><div class="gallery-overlay"><div class="gallery-overlay-title">Горный свет</div><div class="gallery-overlay-meta">Кавказ</div></div></div>
+                    <div class="gallery-item"><img src="portfolio/_1783576.jpg" alt="" loading="lazy"><div class="gallery-overlay"><div class="gallery-overlay-title">Вершина</div><div class="gallery-overlay-meta">Эльбрус</div></div></div>
+                    <div class="gallery-item"><img src="portfolio/_1783633.jpg" alt="" loading="lazy"><div class="gallery-overlay"><div class="gallery-overlay-title">Панорама гор</div><div class="gallery-overlay-meta">Кавказ</div></div></div>
+                    <div class="gallery-item"><img src="portfolio/_1773339.jpg" alt="" loading="lazy"><div class="gallery-overlay"><div class="gallery-overlay-title">Горная река</div><div class="gallery-overlay-meta">Природа</div></div></div>
+                    <div class="gallery-item"><img src="portfolio/_1863611.jpg" alt="" loading="lazy"><div class="gallery-overlay"><div class="gallery-overlay-title">Экспедиция</div><div class="gallery-overlay-meta">Горы</div></div></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Экспедиции и восхождения -->
+        <div class="gallery-category reveal">
+            <div class="gallery-category-header">
+                <h3 class="gallery-category-title">Экспедиции и восхождения</h3>
+                <span class="gallery-category-count">16 работ</span>
+            </div>
+            <div class="carousel-wrapper">
+                <button class="gallery-nav-btn nav-left" aria-label="Назад">&#8592;</button>
+                <button class="gallery-nav-btn nav-right" aria-label="Вперёд">&#8594;</button>
+                <div class="carousel-track">
+                    <div class="gallery-item"><img src="portfolio/_1286418.jpg" alt="" loading="lazy"><div class="gallery-overlay"><div class="gallery-overlay-title">Вертикаль</div><div class="gallery-overlay-meta">Кавказ</div></div></div>
+                    <div class="gallery-item"><img src="portfolio/_1285639.jpg" alt="" loading="lazy"><div class="gallery-overlay"><div class="gallery-overlay-title">Горный массив</div><div class="gallery-overlay-meta">Природа</div></div></div>
+                    <div class="gallery-item"><img src="portfolio/_1286850.jpg" alt="" loading="lazy"><div class="gallery-overlay"><div class="gallery-overlay-title">Хребет</div><div class="gallery-overlay-meta">Кавказ</div></div></div>
+                    <div class="gallery-item"><img src="portfolio/_1287061.jpg" alt="" loading="lazy"><div class="gallery-overlay"><div class="gallery-overlay-title">Контрасты</div><div class="gallery-overlay-meta">Свет и тень</div></div></div>
+                    <div class="gallery-item"><img src="portfolio/_1339569-2.jpg" alt="" loading="lazy"><div class="gallery-overlay"><div class="gallery-overlay-title">Эпический свет</div><div class="gallery-overlay-meta">Горы</div></div></div>
+                    <div class="gallery-item"><img src="portfolio/_1339582.jpg" alt="" loading="lazy"><div class="gallery-overlay"><div class="gallery-overlay-title">Облака</div><div class="gallery-overlay-meta">Высокогорье</div></div></div>
+                    <div class="gallery-item"><img src="portfolio/_1339675.jpg" alt="" loading="lazy"><div class="gallery-overlay"><div class="gallery-overlay-title">Дыхание гор</div><div class="gallery-overlay-meta">Кавказ</div></div></div>
+                    <div class="gallery-item"><img src="portfolio/_1339682.jpg" alt="" loading="lazy"><div class="gallery-overlay"><div class="gallery-overlay-title">Сила природы</div><div class="gallery-overlay-meta">Горы</div></div></div>
+                    <div class="gallery-item"><img src="portfolio/_1339685.jpg" alt="" loading="lazy"><div class="gallery-overlay"><div class="gallery-overlay-title">На высоте</div><div class="gallery-overlay-meta">Эльбрус</div></div></div>
+                    <div class="gallery-item"><img src="portfolio/_1339783-2.jpg" alt="" loading="lazy"><div class="gallery-overlay"><div class="gallery-overlay-title">Путь наверх</div><div class="gallery-overlay-meta">Маршрут</div></div></div>
+                    <div class="gallery-item"><img src="portfolio/_1339916.jpg" alt="" loading="lazy"><div class="gallery-overlay"><div class="gallery-overlay-title">Вечерний свет</div><div class="gallery-overlay-meta">Горы</div></div></div>
+                    <div class="gallery-item"><img src="portfolio/_1350010.jpg" alt="" loading="lazy"><div class="gallery-overlay"><div class="gallery-overlay-title">Рассвет</div><div class="gallery-overlay-meta">Кавказ</div></div></div>
+                    <div class="gallery-item"><img src="portfolio/_1373322.jpg" alt="" loading="lazy"><div class="gallery-overlay"><div class="gallery-overlay-title">Тишина</div><div class="gallery-overlay-meta">Горы</div></div></div>
+                    <div class="gallery-item"><img src="portfolio/_1386018.jpg" alt="" loading="lazy"><div class="gallery-overlay"><div class="gallery-overlay-title">Масштаб</div><div class="gallery-overlay-meta">Природа</div></div></div>
+                    <div class="gallery-item"><img src="portfolio/DSC_0417.jpg" alt="" loading="lazy"><div class="gallery-overlay"><div class="gallery-overlay-title">Камень и снег</div><div class="gallery-overlay-meta">Горы</div></div></div>
+                    <div class="gallery-item"><img src="portfolio/DSC_0729.jpg" alt="" loading="lazy"><div class="gallery-overlay"><div class="gallery-overlay-title">Скалы</div><div class="gallery-overlay-meta">Горный хребет</div></div></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Люди и атмосфера -->
+        <div class="gallery-category reveal">
+            <div class="gallery-category-header">
+                <h3 class="gallery-category-title">Люди и атмосфера</h3>
+                <span class="gallery-category-count">17 работ</span>
+            </div>
+            <div class="carousel-wrapper">
+                <button class="gallery-nav-btn nav-left" aria-label="Назад">&#8592;</button>
+                <button class="gallery-nav-btn nav-right" aria-label="Вперёд">&#8594;</button>
+                <div class="carousel-track">
+                    <div class="gallery-item"><img src="portfolio/DSCF5460.jpg" alt="" loading="lazy"><div class="gallery-overlay"><div class="gallery-overlay-title">Ледники</div><div class="gallery-overlay-meta">Кавказ</div></div></div>
+                    <div class="gallery-item"><img src="portfolio/DSCF4835.jpg" alt="" loading="lazy"><div class="gallery-overlay"><div class="gallery-overlay-title">Закат</div><div class="gallery-overlay-meta">Эльбрус</div></div></div>
+                    <div class="gallery-item"><img src="portfolio/DSCF4855.jpg" alt="" loading="lazy"><div class="gallery-overlay"><div class="gallery-overlay-title">Горный воздух</div><div class="gallery-overlay-meta">Высота</div></div></div>
+                    <div class="gallery-item"><img src="portfolio/DSCF5029.jpg" alt="" loading="lazy"><div class="gallery-overlay"><div class="gallery-overlay-title">Ледяной мир</div><div class="gallery-overlay-meta">Ледник</div></div></div>
+                    <div class="gallery-item"><img src="portfolio/DSC_1462.jpg" alt="" loading="lazy"><div class="gallery-overlay"><div class="gallery-overlay-title">Перевал</div><div class="gallery-overlay-meta">Кавказ</div></div></div>
+                    <div class="gallery-item"><img src="portfolio/DSC_1585.jpg" alt="" loading="lazy"><div class="gallery-overlay"><div class="gallery-overlay-title">Тропа</div><div class="gallery-overlay-meta">Горы</div></div></div>
+                    <div class="gallery-item"><img src="portfolio/DSC_1894.jpg" alt="" loading="lazy"><div class="gallery-overlay"><div class="gallery-overlay-title">Долина</div><div class="gallery-overlay-meta">Горы</div></div></div>
+                    <div class="gallery-item"><img src="portfolio/DSC_7662.jpg" alt="" loading="lazy"><div class="gallery-overlay"><div class="gallery-overlay-title">Зимний Кавказ</div><div class="gallery-overlay-meta">Зима</div></div></div>
+                    <div class="gallery-item"><img src="portfolio/DSC_7788.jpg" alt="" loading="lazy"><div class="gallery-overlay"><div class="gallery-overlay-title">Снежный пик</div><div class="gallery-overlay-meta">Зима</div></div></div>
+                    <div class="gallery-item"><img src="portfolio/DSC_9287.jpg" alt="" loading="lazy"><div class="gallery-overlay"><div class="gallery-overlay-title">Туман</div><div class="gallery-overlay-meta">Утро</div></div></div>
+                    <div class="gallery-item"><img src="portfolio/_1320107.jpg" alt="" loading="lazy"><div class="gallery-overlay"><div class="gallery-overlay-title">Холодный рассвет</div><div class="gallery-overlay-meta">Утро</div></div></div>
+                    <div class="gallery-item"><img src="portfolio/_1320128.jpg" alt="" loading="lazy"><div class="gallery-overlay"><div class="gallery-overlay-title">Горный туман</div><div class="gallery-overlay-meta">Природа</div></div></div>
+                    <div class="gallery-item"><img src="portfolio/_1320621.jpg" alt="" loading="lazy"><div class="gallery-overlay"><div class="gallery-overlay-title">Свободный полёт</div><div class="gallery-overlay-meta">Аэро</div></div></div>
+                    <div class="gallery-item"><img src="portfolio/_1320729.jpg" alt="" loading="lazy"><div class="gallery-overlay"><div class="gallery-overlay-title">Краски Кавказа</div><div class="gallery-overlay-meta">Горы</div></div></div>
+                    <div class="gallery-item"><img src="portfolio/_1320792.jpg" alt="" loading="lazy"><div class="gallery-overlay"><div class="gallery-overlay-title">Зимняя сказка</div><div class="gallery-overlay-meta">Зима</div></div></div>
+                    <div class="gallery-item"><img src="portfolio/_1320825.jpg" alt="" loading="lazy"><div class="gallery-overlay"><div class="gallery-overlay-title">Горная тишина</div><div class="gallery-overlay-meta">Покой</div></div></div>
+                    <div class="gallery-item"><img src="portfolio/_1582060.jpg" alt="" loading="lazy"><div class="gallery-overlay"><div class="gallery-overlay-title">Момент</div><div class="gallery-overlay-meta">Репортаж</div></div></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- VIDEO REEL -->
+    <section class="video-reel" id="videos">
+        <div class="section-header reveal">
+            <div class="section-label">Видео</div>
+            <h2 class="section-title">Видеоработы</h2>
+            <div class="accent-line"></div>
+            <p class="section-desc">
+                Кинематографичные ролики, передающие масштаб и атмосферу горных экспедиций.
+            </p>
+        </div>
+
+        <div class="video-grid reveal">
+            <div class="video-item">
+                <video controls preload="metadata" poster="">
+                    <source src="portfolio/1.mp4" type="video/mp4">
+                </video>
+                <div class="video-item-label">
+                    Горный рассвет
+                    <span>Видео</span>
+                </div>
+            </div>
+            <div class="video-item">
+                <video controls preload="metadata" poster="">
+                    <source src="portfolio/2.mp4" type="video/mp4">
+                </video>
+                <div class="video-item-label">
+                    Экспедиция
+                    <span>Видео</span>
+                </div>
+            </div>
+            <div class="video-item">
+                <video controls preload="metadata" poster="">
+                    <source src="portfolio/4.mp4" type="video/mp4">
+                </video>
+                <div class="video-item-label">
+                    Кинематограф гор
+                    <span>Видео</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ABOUT -->
+    <section class="about" id="about">
+        <div class="about-container">
+            <div class="about-image-wrapper reveal">
+                <img class="about-image" src="portfolio/Ангелина.jpg" alt="Ангелина Белова — фотограф и видеограф">
+                <div class="about-image-border"></div>
+            </div>
+            <div class="reveal">
+                <div class="about-label">Обо мне</div>
+                <h2 class="about-title">Ангелина Белова</h2>
+                <p class="about-text">
+                    Фотограф и видеограф с 5-летним опытом, влюблённая в горы с первого восхождения.
+                    Работала в составе горных экспедиций, где научилась ловить свет на высоте,
+                    когда каждая минута на счету, а природа не даёт вторых шансов.
+                </p>
+                <p class="about-text">
+                    Снимаю не только в горах — мне одинаково близки городские улицы, уютные студии
+                    и дикие вершины Кавказа. Фотосессии, коммерческая съёмка, видеопродакшн —
+                    в каждом проекте ищу настоящие эмоции и атмосферу, которую хочется пересматривать.
+                </p>
+                <blockquote class="about-quote">
+                    «Горы научили меня главному — видеть красоту в мгновении.
+                    Теперь я нахожу её повсюду: в рассвете над Эльбрусом, в тихих городских переулках,
+                    в искренней улыбке перед камерой.»
+                </blockquote>
+                <div class="about-stats">
+                    <div>
+                        <div class="about-stat-number">5+</div>
+                        <div class="about-stat-label">Лет опыта</div>
+                    </div>
+                    <div>
+                        <div class="about-stat-number">200+</div>
+                        <div class="about-stat-label">Экспедиций</div>
+                    </div>
+                    <div>
+                        <div class="about-stat-number">50+</div>
+                        <div class="about-stat-label">Восхождений</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- TESTIMONIALS -->
+    <section class="testimonials" id="testimonials">
+        <div class="section-header reveal">
+            <div class="section-label">Отзывы</div>
+            <h2 class="section-title">Что говорят клиенты</h2>
+            <div class="accent-line"></div>
+        </div>
+
+        <div class="testimonial-slider reveal">
+            <div class="testimonial-item active">
+                <p class="testimonial-text">
+                    «Ангелина — невероятный профессионал. Фототур на Эльбрус стал одним из
+                    лучших приключений в моей жизни. Её чувство света и знание гор
+                    помогли мне сделать кадры, о которых я мечтал годами.»
+                </p>
+                <div class="testimonial-author">Алексей Петров</div>
+                <div class="testimonial-role">Участник фототура, июль 2025</div>
+            </div>
+            <div class="testimonial-item">
+                <p class="testimonial-text">
+                    «Работали с Ангелиной над рекламной кампанией нашего бренда. Результат превзошёл
+                    все ожидания — каждая фотография и видео рассказывают историю и вызывают желание
+                    немедленно отправиться в горы.»
+                </p>
+                <div class="testimonial-author">Мария Козлова</div>
+                <div class="testimonial-role">Бренд-менеджер, Mountain Gear</div>
+            </div>
+            <div class="testimonial-item">
+                <p class="testimonial-text">
+                    «Принт "Рассвет на Эльбрусе" украшает наш офис уже второй год.
+                    Каждый гость останавливается у этой фотографии — настолько она
+                    передаёт масштаб и красоту гор.»
+                </p>
+                <div class="testimonial-author">Дмитрий Волков</div>
+                <div class="testimonial-role">Коллекционер, Москва</div>
+            </div>
+            <div class="testimonial-dots">
+                <button class="testimonial-dot active" data-slide="0"></button>
+                <button class="testimonial-dot" data-slide="1"></button>
+                <button class="testimonial-dot" data-slide="2"></button>
+            </div>
+        </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section class="contact" id="contact">
+        <div class="contact-container">
+            <div class="contact-info reveal">
+                <div class="section-label">Связаться</div>
+                <h3>Давайте обсудим<br>ваш проект</h3>
+                <p>
+                    Открыта для коммерческих заказов, фотосессий и сотрудничества с брендами.
+                    Напишите мне — обсудим детали.
+                </p>
+
+                <div class="contact-detail">
+                    <div class="contact-detail-icon">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 4H20C21.1 4 22 4.9 22 6V18C22 19.1 21.1 20 20 20H4C2.9 20 2 19.1 2 18V6C2 4.9 2.9 4 4 4Z"/><path d="M22 6L12 13L2 6"/></svg>
+                    </div>
+                    <div>
+                        <div class="contact-detail-label">Email</div>
+                        <div class="contact-detail-text">gelya.belova.2000@mail.ru</div>
+                    </div>
+                </div>
+                <div class="contact-detail">
+                    <div class="contact-detail-icon">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M22 16.92V19.92C22 20.48 21.56 20.93 21 20.97C20.28 21.03 19.57 21 18.87 20.89C16.14 20.37 13.56 19.18 11.37 17.44C9.33 15.83 7.62 13.83 6.37 11.56C5.08 9.22 4.24 6.63 4.04 3.95C4 3.39 4.44 2.93 5 2.92H8C8.5 2.92 8.93 3.3 8.99 3.8C9.1 4.76 9.32 5.7 9.63 6.6C9.79 7.06 9.67 7.58 9.32 7.93L8.09 9.16C9.51 11.67 11.52 13.68 14.03 15.1L15.26 13.87C15.61 13.52 16.13 13.4 16.59 13.56C17.49 13.87 18.43 14.09 19.39 14.2C19.89 14.26 20.27 14.7 20.27 15.2V16.92H22Z"/></svg>
+                    </div>
+                    <div>
+                        <div class="contact-detail-label">Телефон</div>
+                        <div class="contact-detail-text"><a href="tel:+79062591509" style="color:var(--text-secondary);text-decoration:none">+7 (906) 259-15-09</a></div>
+                    </div>
+                </div>
+                <div class="contact-detail">
+                    <div class="contact-detail-icon">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 10C21 17 12 23 12 23C12 23 3 17 3 10C3 5.03 7.03 1 12 1C16.97 1 21 5.03 21 10Z"/><circle cx="12" cy="10" r="3"/></svg>
+                    </div>
+                    <div>
+                        <div class="contact-detail-label">Локация</div>
+                        <div class="contact-detail-text">Приэльбрусье, КБР, Россия</div>
+                    </div>
+                </div>
+
+                <div class="contact-socials">
+                    <a href="https://t.me/ln_amo" target="_blank" class="contact-social" aria-label="Telegram">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M22 2L11 13"/><path d="M22 2L15 22L11 13L2 9L22 2Z"/></svg>
+                    </a>
+                    <a href="https://instagram.com/belovochka_" target="_blank" class="contact-social" aria-label="Instagram">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="5"/></svg>
+                    </a>
+                    <a href="https://wa.me/79062591509" target="_blank" class="contact-social" aria-label="WhatsApp">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 11.5C21 16.75 16.75 21 11.5 21C9.8 21 8.2 20.5 6.8 19.7L3 21L4.3 17.2C3.5 15.8 3 14.2 3 12.5C3 7.25 7.25 3 12.5 3C17.75 3 21 7.25 21 11.5Z"/><path d="M8.5 10.5C8.5 10.5 9.5 9 10 9.5C10.5 10 11.5 11.5 12 12C12.5 12.5 14 13.5 14.5 13C15 12.5 15.5 12 15.5 12"/></svg>
+                    </a>
+                </div>
+            </div>
+
+            <form class="contact-form reveal" action="https://formsubmit.co/gelya.belova.2000@mail.ru" method="POST">
+                <input type="hidden" name="_subject" value="Новое сообщение с сайта">
+                <input type="hidden" name="_captcha" value="false">
+                <input type="hidden" name="_next" value="">
+                <input type="text" name="_honey" style="display:none">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="name">Имя</label>
+                        <input type="text" name="name" id="name" placeholder="Ваше имя" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="email" name="email" id="email" placeholder="your@email.com" required>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="subject">Тема</label>
+                    <input type="text" name="subject" id="subject" placeholder="Тема сообщения">
+                </div>
+                <div class="form-group">
+                    <label for="message">Сообщение</label>
+                    <textarea name="message" id="message" placeholder="Расскажите о вашем проекте..." required></textarea>
+                </div>
+                <button type="submit" class="btn-primary">Отправить сообщение</button>
+            </form>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+        <div class="footer-top">
+            <div class="footer-brand">
+                <span class="logo-text">Эльбрус Фото</span>
+                <p>
+                    Фотография и видеосъёмка — горы, город, студия. Коммерческая съёмка,
+                    фотосессии и видеопродакшн. Покоряем вершины вместе.
+                </p>
+            </div>
+            <div class="footer-col">
+                <h4>Навигация</h4>
+                <a href="#hero">Главная</a>
+                <a href="#gallery">Портфолио</a>
+                <a href="#videos">Видео</a>
+                <a href="#about">Обо мне</a>
+            </div>
+            <div class="footer-col">
+                <h4>Услуги</h4>
+                <a href="#services">Коммерческая съёмка</a>
+                <a href="#services">Фотосессии</a>
+                <a href="#services">Видеосъёмка</a>
+                <a href="#services">Контент</a>
+            </div>
+            <div class="footer-col">
+                <h4>Контакты</h4>
+                <a href="mailto:gelya.belova.2000@mail.ru">gelya.belova.2000@mail.ru</a>
+                <a href="tel:+79062591509">+7 (906) 259-15-09</a>
+                <a href="https://t.me/ln_amo" target="_blank">Telegram</a>
+                <a href="https://instagram.com/belovochka_" target="_blank">Instagram</a>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 Эльбрус Фото. Все права защищены.</p>
+            <div class="footer-bottom-links">
+                <a href="#">Политика конфиденциальности</a>
+                <a href="#">Условия использования</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- LIGHTBOX -->
+    <div class="lightbox" id="lightbox">
+        <button class="lightbox-close">&times;</button>
+        <img src="" alt="Просмотр фото">
+    </div>
+
+    <script>
+        // Header scroll effect
+        const header = document.getElementById('header');
+        window.addEventListener('scroll', () => {
+            header.classList.toggle('scrolled', window.scrollY > 50);
+        });
+
+        // Mobile menu
+        const burger = document.getElementById('burger');
+        const mobileMenu = document.getElementById('mobileMenu');
+        const mobileClose = document.getElementById('mobileClose');
+
+        burger.addEventListener('click', () => {
+            burger.classList.toggle('active');
+            mobileMenu.classList.toggle('active');
+            document.body.style.overflow = mobileMenu.classList.contains('active') ? 'hidden' : '';
+        });
+
+        mobileClose.addEventListener('click', () => {
+            burger.classList.remove('active');
+            mobileMenu.classList.remove('active');
+            document.body.style.overflow = '';
+        });
+
+        mobileMenu.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => {
+                burger.classList.remove('active');
+                mobileMenu.classList.remove('active');
+                document.body.style.overflow = '';
+            });
+        });
+
+        // Active nav on scroll
+        const sections = document.querySelectorAll('section[id]');
+        const navLinks = document.querySelectorAll('.nav a[href^="#"]');
+
+        window.addEventListener('scroll', () => {
+            let current = '';
+            sections.forEach(section => {
+                const top = section.offsetTop - 100;
+                if (window.scrollY >= top) current = section.getAttribute('id');
+            });
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href') === '#' + current) link.classList.add('active');
+            });
+        });
+
+        // Scroll reveal
+        const reveals = document.querySelectorAll('.reveal');
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+
+        reveals.forEach(el => observer.observe(el));
+
+        // Gallery carousel navigation
+        document.querySelectorAll('.gallery-nav-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                const track = btn.closest('.carousel-wrapper').querySelector('.carousel-track');
+                const scrollAmount = 600;
+                if (btn.classList.contains('nav-left')) {
+                    track.scrollBy({ left: -scrollAmount, behavior: 'smooth' });
+                } else {
+                    track.scrollBy({ left: scrollAmount, behavior: 'smooth' });
+                }
+            });
+        });
+
+        // Stagger animation from center outward
+        const galleryCatObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const category = entry.target;
+                    category.classList.add('visible');
+                    const items = category.querySelectorAll('.gallery-item');
+                    const mid = Math.floor(items.length / 2);
+                    items.forEach((item, i) => {
+                        const dist = Math.abs(i - mid);
+                        item.style.transitionDelay = (dist * 0.06) + 's';
+                    });
+                    setTimeout(() => {
+                        items.forEach(item => item.style.transitionDelay = '0s');
+                    }, 1500);
+                    galleryCatObserver.unobserve(category);
+                }
+            });
+        }, { threshold: 0.15 });
+
+        document.querySelectorAll('.gallery-category').forEach(cat => {
+            galleryCatObserver.observe(cat);
+        });
+
+        // Lightbox
+        const lightbox = document.getElementById('lightbox');
+        const lightboxImg = lightbox.querySelector('img');
+        const galleryItems = document.querySelectorAll('.gallery-item');
+
+        galleryItems.forEach(item => {
+            item.addEventListener('click', () => {
+                const src = item.querySelector('img').src;
+                lightboxImg.src = src;
+                lightboxImg.alt = item.querySelector('.gallery-overlay-title')?.textContent || '';
+                lightbox.classList.add('active');
+                document.body.style.overflow = 'hidden';
+            });
+        });
+
+        lightbox.addEventListener('click', (e) => {
+            if (e.target !== lightboxImg) {
+                lightbox.classList.remove('active');
+                document.body.style.overflow = '';
+            }
+        });
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && lightbox.classList.contains('active')) {
+                lightbox.classList.remove('active');
+                document.body.style.overflow = '';
+            }
+        });
+
+        // Testimonial slider
+        const testimonials = document.querySelectorAll('.testimonial-item');
+        const dots = document.querySelectorAll('.testimonial-dot');
+        let currentSlide = 0;
+
+        function showSlide(index) {
+            testimonials.forEach(t => t.classList.remove('active'));
+            dots.forEach(d => d.classList.remove('active'));
+            testimonials[index].classList.add('active');
+            dots[index].classList.add('active');
+            currentSlide = index;
+        }
+
+        dots.forEach(dot => {
+            dot.addEventListener('click', () => showSlide(parseInt(dot.dataset.slide)));
+        });
+
+        setInterval(() => {
+            showSlide((currentSlide + 1) % testimonials.length);
+        }, 6000);
+
+        // Form submit handled by FormSubmit.co — sends to gelya.belova.2000@mail.ru
+
+        // Counter animation
+        const counters = document.querySelectorAll('.about-stat-number');
+        const counterObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const el = entry.target;
+                    const text = el.textContent;
+                    const num = parseInt(text);
+                    const suffix = text.replace(/[0-9]/g, '');
+                    let current = 0;
+                    const step = Math.ceil(num / 40);
+                    const timer = setInterval(() => {
+                        current += step;
+                        if (current >= num) {
+                            current = num;
+                            clearInterval(timer);
+                        }
+                        el.textContent = current + suffix;
+                    }, 30);
+                    counterObserver.unobserve(el);
+                }
+            });
+        }, { threshold: 0.5 });
+
+        counters.forEach(c => counterObserver.observe(c));
+    </script>
+</body>
+</html>
