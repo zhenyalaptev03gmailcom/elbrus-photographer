@@ -2023,6 +2023,51 @@
             font-style: italic;
         }
 
+        .user-reviews.collapsed .user-review-card:nth-child(n+5) {
+            display: none;
+        }
+
+        .reviews-toggle-wrap {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .reviews-toggle {
+            padding: 10px 28px;
+            background: transparent;
+            border: 1px solid var(--border-light);
+            color: var(--text-secondary);
+            font-family: 'Raleway', sans-serif;
+            font-size: 0.75rem;
+            font-weight: 600;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .reviews-toggle:hover {
+            border-color: var(--accent);
+            color: var(--accent);
+        }
+
+        .reviews-collapse-sticky {
+            position: sticky;
+            bottom: 20px;
+            z-index: 50;
+            text-align: center;
+            margin-top: 20px;
+            pointer-events: none;
+        }
+
+        .reviews-collapse-sticky .reviews-toggle {
+            pointer-events: auto;
+            background: var(--bg-card);
+            box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+        }
+
         .user-reviews-label {
             text-align: center;
             font-size: 0.7rem;
@@ -2580,7 +2625,13 @@
 
         <!-- User reviews from Google Sheets -->
         <div class="user-reviews-label reveal" data-lang-ru="Отзывы клиентов" data-lang-en="Client Reviews">Отзывы клиентов</div>
-        <div class="user-reviews" id="userReviews"></div>
+        <div class="user-reviews collapsed" id="userReviews"></div>
+        <div class="reviews-toggle-wrap" id="reviewsShowMore" style="display:none">
+            <button class="reviews-toggle" id="reviewsExpandBtn">Показать все отзывы</button>
+        </div>
+        <div class="reviews-collapse-sticky" id="reviewsCollapseWrap" style="display:none">
+            <button class="reviews-toggle" id="reviewsCollapseBtn">Скрыть отзывы</button>
+        </div>
 
         <!-- Leave a review form -->
         <div class="review-form-section reveal">
@@ -3453,6 +3504,38 @@
             return card;
         }
 
+        // Reviews toggle buttons
+        const reviewsShowMore = document.getElementById('reviewsShowMore');
+        const reviewsCollapseWrap = document.getElementById('reviewsCollapseWrap');
+        const reviewsExpandBtn = document.getElementById('reviewsExpandBtn');
+        const reviewsCollapseBtn = document.getElementById('reviewsCollapseBtn');
+
+        function updateReviewsToggle() {
+            const count = userReviewsContainer.querySelectorAll('.user-review-card').length;
+            const isCollapsed = userReviewsContainer.classList.contains('collapsed');
+            if (count > 4 && isCollapsed) {
+                reviewsShowMore.style.display = '';
+                reviewsCollapseWrap.style.display = 'none';
+            } else if (count > 4 && !isCollapsed) {
+                reviewsShowMore.style.display = 'none';
+                reviewsCollapseWrap.style.display = '';
+            } else {
+                reviewsShowMore.style.display = 'none';
+                reviewsCollapseWrap.style.display = 'none';
+            }
+        }
+
+        reviewsExpandBtn.addEventListener('click', () => {
+            userReviewsContainer.classList.remove('collapsed');
+            updateReviewsToggle();
+        });
+
+        reviewsCollapseBtn.addEventListener('click', () => {
+            userReviewsContainer.classList.add('collapsed');
+            userReviewsContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            updateReviewsToggle();
+        });
+
         // Load reviews from Google Sheets
         async function loadReviews() {
             if (SCRIPT_URL === 'YOUR_GOOGLE_SCRIPT_URL') return;
@@ -3463,6 +3546,7 @@
                 reviews.reverse().forEach(r => {
                     userReviewsContainer.appendChild(renderReview(r));
                 });
+                updateReviewsToggle();
             } catch (err) {
                 console.log('Reviews not loaded:', err);
             }
@@ -3503,6 +3587,7 @@
             reviewForm.reset();
             btn.textContent = originalText;
             btn.disabled = false;
+            updateReviewsToggle();
 
             // Reload reviews from server after short delay
             setTimeout(loadReviews, 3000);
