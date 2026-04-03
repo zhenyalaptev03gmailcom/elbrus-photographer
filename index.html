@@ -1458,47 +1458,17 @@
         }
 
         /* ===== CUSTOM CURSOR (desktop) ===== */
-        .custom-cursor {
-            display: none;
-        }
-
         @media (pointer: fine) {
-            .custom-cursor {
-                display: block;
-                position: fixed;
-                top: 0;
-                left: 0;
-                width: 24px;
-                height: 24px;
-                border: 2px solid var(--accent);
-                border-radius: 50%;
-                pointer-events: none;
-                z-index: 9998;
-                transition: width 0.25s ease, height 0.25s ease, background 0.25s ease, opacity 0.25s ease, margin 0.25s ease;
-                margin-left: -12px;
-                margin-top: -12px;
-                mix-blend-mode: difference;
-            }
-
-            .custom-cursor.hovering {
-                width: 48px;
-                height: 48px;
-                margin-left: -24px;
-                margin-top: -24px;
-                background: rgba(230, 57, 70, 0.15);
-                border-color: var(--accent-light);
-            }
-
-            .custom-cursor.clicking {
-                transform: scale(0.8);
-            }
-
             body {
-                cursor: none;
+                cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 20 20'%3E%3Cpath d='M3 2L3 17L7.5 12.5L11 18L13 17L9.5 11L15 10L3 2Z' fill='%23E63946' stroke='%230A0A0A' stroke-width='1'/%3E%3C/svg%3E") 3 2, auto;
             }
 
-            a, button, input, textarea, .gallery-item, .gallery-nav-btn, .testimonial-dot, .social-fab-toggle, .scroll-top, .burger, .lightbox-nav, .lightbox-close, .lang-toggle, .gallery-tab {
-                cursor: none;
+            a, button, .gallery-item, .gallery-nav-btn, .testimonial-dot, .gallery-tab, .social-fab-toggle, .scroll-top, .burger, .lightbox-nav, .lightbox-close, .lang-toggle {
+                cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24'%3E%3Ccircle cx='12' cy='12' r='10' fill='none' stroke='%23E63946' stroke-width='2'/%3E%3Ccircle cx='12' cy='12' r='3' fill='%23E63946'/%3E%3C/svg%3E") 12 12, pointer;
+            }
+
+            input, textarea {
+                cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='24' viewBox='0 0 20 24'%3E%3Cline x1='10' y1='2' x2='10' y2='22' stroke='%23E63946' stroke-width='2'/%3E%3Cline x1='6' y1='2' x2='14' y2='2' stroke='%23E63946' stroke-width='2'/%3E%3Cline x1='6' y1='22' x2='14' y2='22' stroke='%23E63946' stroke-width='2'/%3E%3C/svg%3E") 10 12, text;
             }
         }
 
@@ -1790,9 +1760,6 @@
         </div>
         <div class="preloader-text">Загрузка</div>
     </div>
-
-    <!-- CUSTOM CURSOR -->
-    <div class="custom-cursor" id="customCursor"></div>
 
     <!-- SCROLL PROGRESS -->
     <div class="scroll-progress" id="scrollProgress"></div>
@@ -2733,21 +2700,6 @@
         }, { rootMargin: '200px' });
 
         lazyVideos.forEach(v => videoObserver.observe(v));
-
-        // ===== CUSTOM CURSOR =====
-        const cursor = document.getElementById('customCursor');
-        if (cursor && window.matchMedia('(pointer: fine)').matches) {
-            document.addEventListener('mousemove', (e) => {
-                cursor.style.transform = `translate(${e.clientX}px, ${e.clientY}px)`;
-            });
-            const hoverTargets = document.querySelectorAll('a, button, input, textarea, .gallery-item, .gallery-nav-btn, .testimonial-dot, .gallery-tab');
-            hoverTargets.forEach(el => {
-                el.addEventListener('mouseenter', () => cursor.classList.add('hovering'));
-                el.addEventListener('mouseleave', () => cursor.classList.remove('hovering'));
-            });
-            document.addEventListener('mousedown', () => cursor.classList.add('clicking'));
-            document.addEventListener('mouseup', () => cursor.classList.remove('clicking'));
-        }
 
         // ===== 3D TILT ON GALLERY ITEMS =====
         if (window.matchMedia('(pointer: fine)').matches) {
