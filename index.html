@@ -1865,6 +1865,206 @@
             100% { background-position: -200% 0; }
         }
 
+        /* ===== REVIEW FORM ===== */
+        .review-form-section {
+            max-width: 600px;
+            margin: 50px auto 0;
+            padding-top: 40px;
+            border-top: 1px solid var(--border);
+        }
+
+        .review-form-title {
+            font-family: 'Raleway', sans-serif;
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 20px;
+            text-align: center;
+            letter-spacing: 1px;
+        }
+
+        .review-form {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .review-form input,
+        .review-form textarea {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            color: var(--text-primary);
+            font-family: 'Raleway', sans-serif;
+            font-size: 0.9rem;
+            padding: 12px 16px;
+            transition: border-color 0.3s;
+            outline: none;
+            resize: none;
+        }
+
+        .review-form input:focus,
+        .review-form textarea:focus {
+            border-color: var(--accent);
+        }
+
+        .review-form textarea {
+            min-height: 80px;
+        }
+
+        .review-form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+        }
+
+        .star-rating {
+            display: flex;
+            gap: 6px;
+            justify-content: center;
+        }
+
+        .star-rating input {
+            display: none;
+        }
+
+        .star-rating label {
+            cursor: pointer;
+            font-size: 1.6rem;
+            color: var(--border-light);
+            transition: color 0.2s;
+        }
+
+        .star-rating label:hover,
+        .star-rating label:hover ~ label {
+            color: var(--accent);
+        }
+
+        .star-rating input:checked ~ label {
+            color: var(--accent);
+        }
+
+        .star-rating {
+            direction: rtl;
+        }
+
+        .review-submit {
+            padding: 12px 30px;
+            background: var(--accent);
+            color: #fff;
+            border: none;
+            font-family: 'Raleway', sans-serif;
+            font-size: 0.75rem;
+            font-weight: 600;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: all 0.3s;
+            align-self: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .review-submit:hover {
+            background: var(--accent-light);
+        }
+
+        .review-submit:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
+        /* User reviews list */
+        .user-reviews {
+            max-width: 800px;
+            margin: 40px auto 0;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .user-review-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            padding: 24px;
+            animation: fadeIn 0.5s ease;
+        }
+
+        .user-review-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+        }
+
+        .user-review-name {
+            font-family: 'Raleway', sans-serif;
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--accent);
+            letter-spacing: 1px;
+        }
+
+        .user-review-date {
+            font-size: 0.7rem;
+            color: var(--text-muted);
+        }
+
+        .user-review-stars {
+            color: var(--accent);
+            font-size: 0.9rem;
+            margin-bottom: 10px;
+        }
+
+        .user-review-text {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            line-height: 1.7;
+            font-style: italic;
+        }
+
+        .user-reviews-label {
+            text-align: center;
+            font-size: 0.7rem;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: var(--text-muted);
+            margin-top: 40px;
+        }
+
+        @media (max-width: 480px) {
+            .review-form-row { grid-template-columns: 1fr; }
+        }
+
+        /* ===== FORM SUCCESS MESSAGE ===== */
+        .form-success {
+            display: none;
+            text-align: center;
+            padding: 30px;
+            animation: fadeIn 0.5s ease;
+        }
+
+        .form-success.visible {
+            display: block;
+        }
+
+        .form-success-icon {
+            font-size: 3rem;
+            margin-bottom: 16px;
+        }
+
+        .form-success h3 {
+            font-family: 'Raleway', sans-serif;
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 8px;
+        }
+
+        .form-success p {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+
         /* ===== CAROUSEL TOUCH ===== */
         .carousel-track {
             cursor: grab;
@@ -2374,6 +2574,30 @@
                 <button class="testimonial-dot" data-slide="2"></button>
             </div>
         </div>
+
+        <!-- User reviews from Google Sheets -->
+        <div class="user-reviews-label reveal" data-lang-ru="Отзывы клиентов" data-lang-en="Client Reviews">Отзывы клиентов</div>
+        <div class="user-reviews" id="userReviews"></div>
+
+        <!-- Leave a review form -->
+        <div class="review-form-section reveal">
+            <h3 class="review-form-title" data-lang-ru="Оставить отзыв" data-lang-en="Leave a Review">Оставить отзыв</h3>
+            <form class="review-form" id="reviewForm">
+                <div class="review-form-row">
+                    <input type="text" name="reviewName" placeholder="Ваше имя" required>
+                    <input type="text" name="reviewRole" placeholder="Кем являетесь (необязательно)">
+                </div>
+                <div class="star-rating">
+                    <input type="radio" name="rating" id="star5" value="5"><label for="star5">&#9733;</label>
+                    <input type="radio" name="rating" id="star4" value="4"><label for="star4">&#9733;</label>
+                    <input type="radio" name="rating" id="star3" value="3"><label for="star3">&#9733;</label>
+                    <input type="radio" name="rating" id="star2" value="2"><label for="star2">&#9733;</label>
+                    <input type="radio" name="rating" id="star1" value="1" checked><label for="star1">&#9733;</label>
+                </div>
+                <textarea name="reviewText" placeholder="Расскажите о вашем опыте работы с Ангелиной..." required></textarea>
+                <button type="submit" class="review-submit" data-lang-ru="Отправить отзыв" data-lang-en="Submit Review">Отправить отзыв</button>
+            </form>
+        </div>
     </section>
 
     <!-- CONTACT -->
@@ -2428,11 +2652,7 @@
                 </div>
             </div>
 
-            <form class="contact-form reveal" action="https://formsubmit.co/gelya.belova.2000@mail.ru" method="POST">
-                <input type="hidden" name="_subject" value="Новое сообщение с сайта">
-                <input type="hidden" name="_captcha" value="false">
-                <input type="hidden" name="_next" value="">
-                <input type="text" name="_honey" style="display:none">
+            <form class="contact-form reveal" id="contactForm">
                 <div class="form-row">
                     <div class="form-group">
                         <label for="name">Имя</label>
@@ -2451,8 +2671,13 @@
                     <label for="message">Сообщение</label>
                     <textarea name="message" id="message" placeholder="Расскажите о вашем проекте..." required></textarea>
                 </div>
-                <button type="submit" class="btn-primary">Отправить сообщение</button>
+                <button type="submit" class="btn-primary" data-lang-ru="Отправить сообщение" data-lang-en="Send Message">Отправить сообщение</button>
             </form>
+            <div class="form-success" id="formSuccess">
+                <div class="form-success-icon">&#10003;</div>
+                <h3 data-lang-ru="Сообщение отправлено!" data-lang-en="Message Sent!">Сообщение отправлено!</h3>
+                <p data-lang-ru="Ангелина свяжется с вами в ближайшее время." data-lang-en="Angelina will contact you soon.">Ангелина свяжется с вами в ближайшее время.</p>
+            </div>
         </div>
     </section>
 
@@ -3174,6 +3399,110 @@
                     });
                 }
             }
+        });
+
+        // ===== GOOGLE APPS SCRIPT URL =====
+        // ВАЖНО: замени эту ссылку на свою после настройки Google Sheets (инструкция ниже)
+        const SCRIPT_URL = 'YOUR_GOOGLE_SCRIPT_URL';
+
+        // ===== CONTACT FORM (AJAX) =====
+        const contactForm = document.getElementById('contactForm');
+        const formSuccess = document.getElementById('formSuccess');
+
+        contactForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const btn = contactForm.querySelector('.btn-primary');
+            const originalText = btn.textContent;
+            btn.textContent = '...';
+            btn.disabled = true;
+
+            try {
+                const formData = new FormData(contactForm);
+                await fetch('https://formsubmit.co/ajax/gelya.belova.2000@mail.ru', {
+                    method: 'POST',
+                    body: formData
+                });
+                contactForm.style.display = 'none';
+                formSuccess.classList.add('visible');
+            } catch (err) {
+                alert('Ошибка отправки. Попробуйте написать напрямую на gelya.belova.2000@mail.ru');
+            }
+            btn.textContent = originalText;
+            btn.disabled = false;
+        });
+
+        // ===== REVIEWS SYSTEM =====
+        const reviewForm = document.getElementById('reviewForm');
+        const userReviewsContainer = document.getElementById('userReviews');
+
+        function renderReview(review) {
+            const stars = '★'.repeat(review.rating) + '☆'.repeat(5 - review.rating);
+            const card = document.createElement('div');
+            card.className = 'user-review-card';
+            card.innerHTML = `
+                <div class="user-review-header">
+                    <span class="user-review-name">${review.name}${review.role ? ' — ' + review.role : ''}</span>
+                    <span class="user-review-date">${review.date}</span>
+                </div>
+                <div class="user-review-stars">${stars}</div>
+                <p class="user-review-text">«${review.text}»</p>
+            `;
+            return card;
+        }
+
+        // Load reviews from Google Sheets
+        async function loadReviews() {
+            if (SCRIPT_URL === 'YOUR_GOOGLE_SCRIPT_URL') return;
+            try {
+                const res = await fetch(SCRIPT_URL);
+                const reviews = await res.json();
+                userReviewsContainer.innerHTML = '';
+                reviews.reverse().forEach(r => {
+                    userReviewsContainer.appendChild(renderReview(r));
+                });
+            } catch (err) {
+                console.log('Reviews not loaded:', err);
+            }
+        }
+        loadReviews();
+
+        // Submit review
+        reviewForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const btn = reviewForm.querySelector('.review-submit');
+            const originalText = btn.textContent;
+            btn.textContent = '...';
+            btn.disabled = true;
+
+            const data = {
+                name: reviewForm.reviewName.value.trim(),
+                role: reviewForm.reviewRole.value.trim(),
+                rating: reviewForm.querySelector('input[name="rating"]:checked').value,
+                text: reviewForm.reviewText.value.trim(),
+                date: new Date().toLocaleDateString('ru-RU')
+            };
+
+            if (SCRIPT_URL !== 'YOUR_GOOGLE_SCRIPT_URL') {
+                try {
+                    await fetch(SCRIPT_URL, {
+                        method: 'POST',
+                        mode: 'no-cors',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(data)
+                    });
+                } catch (err) {
+                    console.log('Review submit error:', err);
+                }
+            }
+
+            // Show review locally right away
+            userReviewsContainer.prepend(renderReview(data));
+            reviewForm.reset();
+            btn.textContent = originalText;
+            btn.disabled = false;
+
+            // Reload reviews from server after short delay
+            setTimeout(loadReviews, 3000);
         });
     </script>
 </body>
