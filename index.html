@@ -878,20 +878,27 @@
             max-width: 800px;
             margin: 0 auto;
             position: relative;
+            overflow: hidden;
+        }
+
+        .testimonial-slider-inner {
+            position: relative;
         }
 
         .testimonial-item {
-            display: none;
+            opacity: 0;
+            visibility: hidden;
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            transition: opacity 0.6s ease, visibility 0.6s ease;
         }
 
         .testimonial-item.active {
-            display: block;
-            animation: fadeIn 0.6s ease;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
+            opacity: 1;
+            visibility: visible;
+            position: relative;
         }
 
         .testimonial-text {
@@ -1891,32 +1898,34 @@
         </div>
 
         <div class="testimonial-slider reveal">
-            <div class="testimonial-item active">
-                <p class="testimonial-text">
-                    «Ангелина — невероятный профессионал. Фототур на Эльбрус стал одним из
-                    лучших приключений в моей жизни. Её чувство света и знание гор
-                    помогли мне сделать кадры, о которых я мечтал годами.»
-                </p>
-                <div class="testimonial-author">Алексей Петров</div>
-                <div class="testimonial-role">Участник фототура, июль 2025</div>
-            </div>
-            <div class="testimonial-item">
-                <p class="testimonial-text">
-                    «Работали с Ангелиной над рекламной кампанией нашего бренда. Результат превзошёл
-                    все ожидания — каждая фотография и видео рассказывают историю и вызывают желание
-                    немедленно отправиться в горы.»
-                </p>
-                <div class="testimonial-author">Мария Козлова</div>
-                <div class="testimonial-role">Бренд-менеджер, Mountain Gear</div>
-            </div>
-            <div class="testimonial-item">
-                <p class="testimonial-text">
-                    «Принт "Рассвет на Эльбрусе" украшает наш офис уже второй год.
-                    Каждый гость останавливается у этой фотографии — настолько она
-                    передаёт масштаб и красоту гор.»
-                </p>
-                <div class="testimonial-author">Дмитрий Волков</div>
-                <div class="testimonial-role">Коллекционер, Москва</div>
+            <div class="testimonial-slider-inner">
+                <div class="testimonial-item active">
+                    <p class="testimonial-text">
+                        «Ангелина — невероятный профессионал. Фототур на Эльбрус стал одним из
+                        лучших приключений в моей жизни. Её чувство света и знание гор
+                        помогли мне сделать кадры, о которых я мечтал годами.»
+                    </p>
+                    <div class="testimonial-author">Алексей Петров</div>
+                    <div class="testimonial-role">Участник фототура, июль 2025</div>
+                </div>
+                <div class="testimonial-item">
+                    <p class="testimonial-text">
+                        «Работали с Ангелиной над рекламной кампанией нашего бренда. Результат превзошёл
+                        все ожидания — каждая фотография и видео рассказывают историю и вызывают желание
+                        немедленно отправиться в горы.»
+                    </p>
+                    <div class="testimonial-author">Мария Козлова</div>
+                    <div class="testimonial-role">Бренд-менеджер, Mountain Gear</div>
+                </div>
+                <div class="testimonial-item">
+                    <p class="testimonial-text">
+                        «Принт "Рассвет на Эльбрусе" украшает наш офис уже второй год.
+                        Каждый гость останавливается у этой фотографии — настолько она
+                        передаёт масштаб и красоту гор.»
+                    </p>
+                    <div class="testimonial-author">Дмитрий Волков</div>
+                    <div class="testimonial-role">Коллекционер, Москва</div>
+                </div>
             </div>
             <div class="testimonial-dots">
                 <button class="testimonial-dot active" data-slide="0"></button>
@@ -2271,7 +2280,30 @@
         // Testimonial slider
         const testimonials = document.querySelectorAll('.testimonial-item');
         const dots = document.querySelectorAll('.testimonial-dot');
+        const sliderInner = document.querySelector('.testimonial-slider-inner');
         let currentSlide = 0;
+
+        // Fix slider height to tallest slide to prevent layout shift
+        function setSliderHeight() {
+            if (!sliderInner) return;
+            sliderInner.style.height = 'auto';
+            let maxH = 0;
+            testimonials.forEach(t => {
+                t.style.position = 'relative';
+                t.style.opacity = '1';
+                t.style.visibility = 'visible';
+                const h = t.offsetHeight;
+                if (h > maxH) maxH = h;
+            });
+            testimonials.forEach(t => {
+                t.style.position = '';
+                t.style.opacity = '';
+                t.style.visibility = '';
+            });
+            sliderInner.style.height = maxH + 'px';
+        }
+        setSliderHeight();
+        window.addEventListener('resize', setSliderHeight);
 
         function showSlide(index) {
             testimonials.forEach(t => t.classList.remove('active'));
