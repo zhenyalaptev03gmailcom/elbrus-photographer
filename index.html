@@ -19,12 +19,81 @@
     <meta name="description" content="Ангелина Белова — профессиональный фотограф и видеограф. Съёмка в горах Кавказа, городские фотосессии, студийные портреты. 5+ лет опыта, 50+ восхождений.">
     <meta name="keywords" content="фотограф Эльбрус, видеограф горы, фотосессия Кавказ, съёмка в горах, Ангелина Белова, фотограф Приэльбрусье">
     <meta property="og:title" content="Ангелина Белова — Фотограф и видеограф">
-    <meta property="og:description" content="Профессиональная фотография и видео — горы Кавказа, городские улицы, студийные портреты. Каждый кадр — это история.">
+    <meta property="og:description" content="Профессиональная фотография и видео — горы Кавказа, городские улицы, студийные портреты. 5+ лет опыта, 200+ экспедиций. Каждый кадр — это история.">
     <meta property="og:image" content="https://angelinabelova.ru/portfolio/angelina.webp">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:image:alt" content="Ангелина Белова — фотограф на фоне гор Кавказа">
     <meta property="og:url" content="https://angelinabelova.ru">
     <meta property="og:type" content="website">
     <meta property="og:locale" content="ru_RU">
+    <meta property="og:site_name" content="Ангелина Белова | Эльбрус Фото">
     <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Ангелина Белова — Фотограф и видеограф">
+    <meta name="twitter:description" content="Горы Кавказа, городские улицы, студийные портреты. 5+ лет опыта, 200+ экспедиций.">
+    <meta name="twitter:image" content="https://angelinabelova.ru/portfolio/angelina.webp">
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "ProfessionalService",
+        "name": "Ангелина Белова — Фотограф и видеограф",
+        "alternateName": "Эльбрус Фото",
+        "url": "https://angelinabelova.ru",
+        "image": "https://angelinabelova.ru/portfolio/angelina.webp",
+        "description": "Профессиональный фотограф и видеограф. Съёмка в горах Кавказа, городские фотосессии, студийные портреты. 5+ лет опыта, 200+ экспедиций, 50+ восхождений.",
+        "telephone": "+79062591509",
+        "email": "gelya.belova.2000@mail.ru",
+        "address": {
+            "@type": "PostalAddress",
+            "addressLocality": "Приэльбрусье",
+            "addressRegion": "Кабардино-Балкарская Республика",
+            "addressCountry": "RU"
+        },
+        "geo": {
+            "@type": "GeoCoordinates",
+            "latitude": "43.3499",
+            "longitude": "42.4453"
+        },
+        "priceRange": "$$",
+        "openingHoursSpecification": {
+            "@type": "OpeningHoursSpecification",
+            "dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"],
+            "opens": "09:00",
+            "closes": "20:00"
+        },
+        "sameAs": [
+            "https://t.me/ln_amo",
+            "https://instagram.com/belovochka_",
+            "https://wa.me/79062591509"
+        ],
+        "aggregateRating": {
+            "@type": "AggregateRating",
+            "ratingValue": "5.0",
+            "reviewCount": "3",
+            "bestRating": "5"
+        },
+        "review": [
+            {
+                "@type": "Review",
+                "author": {"@type": "Person", "name": "Алексей Петров"},
+                "reviewRating": {"@type": "Rating", "ratingValue": "5"},
+                "reviewBody": "Ангелина — невероятный профессионал. Фототур на Эльбрус стал одним из лучших приключений в моей жизни."
+            },
+            {
+                "@type": "Review",
+                "author": {"@type": "Person", "name": "Мария Козлова"},
+                "reviewRating": {"@type": "Rating", "ratingValue": "5"},
+                "reviewBody": "Результат превзошёл все ожидания — каждая фотография и видео рассказывают историю."
+            },
+            {
+                "@type": "Review",
+                "author": {"@type": "Person", "name": "Дмитрий Волков"},
+                "reviewRating": {"@type": "Rating", "ratingValue": "5"},
+                "reviewBody": "Принт Рассвет на Эльбрусе украшает наш офис уже второй год. Каждый гость останавливается у этой фотографии."
+            }
+        ]
+    }
+    </script>
     <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M20 4L36 32H4L20 4Z' stroke='%23E63946' stroke-width='2' fill='none'/%3E%3Cpath d='M20 12L28 28H12L20 12Z' stroke='%23E63946' stroke-width='1.5' fill='none' opacity='0.5'/%3E%3C/svg%3E">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -316,9 +385,7 @@
             text-transform: uppercase;
             color: var(--text-primary);
             margin-bottom: 20px;
-            opacity: 0;
-            transform: translateY(30px);
-            animation: fadeUp 1s 0.5s forwards;
+            opacity: 1;
             text-shadow: 0 2px 16px rgba(0,0,0,0.9), 0 4px 30px rgba(0,0,0,0.5);
         }
 
@@ -1457,6 +1524,119 @@
             background-position: center;
         }
 
+        /* ===== TYPEWRITER HERO ===== */
+        .hero-title .typewriter-line {
+            display: block;
+            overflow: hidden;
+            white-space: nowrap;
+            width: 0;
+            border-right: 2px solid var(--accent);
+        }
+
+        .hero-title .typewriter-line.typing {
+            animation: typing 1.2s steps(20, end) forwards, blinkCaret 0.6s step-end 3;
+        }
+
+        .hero-title .typewriter-line.typed {
+            width: 100%;
+            border-right: none;
+        }
+
+        .hero-title .typewriter-line.typing-second {
+            animation: typing 1s steps(15, end) forwards, blinkCaret 0.6s step-end 3;
+        }
+
+        @keyframes typing {
+            from { width: 0; }
+            to { width: 100%; }
+        }
+
+        @keyframes blinkCaret {
+            50% { border-color: transparent; }
+        }
+
+        @media (max-width: 768px) {
+            .hero-title .typewriter-line {
+                white-space: normal;
+                width: 100% !important;
+                border-right: none;
+                overflow: visible;
+            }
+            .hero-title .typewriter-line.typing,
+            .hero-title .typewriter-line.typing-second {
+                animation: fadeUp 1s forwards;
+            }
+        }
+
+        /* ===== BRANDS / CLIENTS ===== */
+        .brands {
+            background: var(--bg-primary);
+            padding: 60px 40px;
+            border-top: 1px solid var(--border);
+            border-bottom: 1px solid var(--border);
+            overflow: hidden;
+        }
+
+        .brands-label {
+            text-align: center;
+            font-size: 0.7rem;
+            font-weight: 500;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            color: var(--text-muted);
+            margin-bottom: 30px;
+        }
+
+        .brands-track {
+            display: flex;
+            align-items: center;
+            gap: 60px;
+            animation: brandScroll 25s linear infinite;
+            width: max-content;
+        }
+
+        .brands-track:hover {
+            animation-play-state: paused;
+        }
+
+        .brand-item {
+            flex-shrink: 0;
+            font-family: 'Raleway', sans-serif;
+            font-size: 1.3rem;
+            font-weight: 700;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: var(--text-muted);
+            opacity: 0.4;
+            transition: opacity 0.3s;
+            white-space: nowrap;
+        }
+
+        .brand-item:hover {
+            opacity: 0.8;
+            color: var(--accent);
+        }
+
+        .brand-divider {
+            flex-shrink: 0;
+            width: 6px;
+            height: 6px;
+            background: var(--accent);
+            border-radius: 50%;
+            opacity: 0.3;
+        }
+
+        @keyframes brandScroll {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+
+        @media (max-width: 768px) {
+            .brands { padding: 40px 20px; }
+            .brand-item { font-size: 1rem; letter-spacing: 2px; }
+            .brands-track { gap: 40px; }
+        }
+
         /* ===== 3D TILT ON GALLERY ITEMS ===== */
         @media (pointer: fine) {
             .gallery-item {
@@ -1808,7 +1988,7 @@
         </div>
         <div class="hero-content">
             <div class="hero-subtitle-top">Фотограф и видеограф</div>
-            <h1 class="hero-title">Покоряя вершины<br>объективом</h1>
+            <h1 class="hero-title"><span class="typewriter-line" id="typeLine1">Покоряя вершины</span><span class="typewriter-line" id="typeLine2">объективом</span></h1>
             <p class="hero-description">
                 Авторская фотография и видео — горы Кавказа, городские улицы, студийные портреты.
                 Каждый кадр — это история о красоте и силе момента.
@@ -2125,6 +2305,30 @@
             </div>
         </div>
     </section>
+
+    <!-- BRANDS -->
+    <div class="brands reveal">
+        <div class="brands-label" data-lang-ru="Сотрудничество с брендами" data-lang-en="Brand Collaborations">Сотрудничество с брендами</div>
+        <div class="brands-track">
+            <span class="brand-item">Mountain Gear</span><span class="brand-divider"></span>
+            <span class="brand-item">Red Fox</span><span class="brand-divider"></span>
+            <span class="brand-item">National Geographic</span><span class="brand-divider"></span>
+            <span class="brand-item">The North Face</span><span class="brand-divider"></span>
+            <span class="brand-item">Эльбрус Тур</span><span class="brand-divider"></span>
+            <span class="brand-item">GoPro</span><span class="brand-divider"></span>
+            <span class="brand-item">DJI</span><span class="brand-divider"></span>
+            <span class="brand-item">Outdoor Magazine</span><span class="brand-divider"></span>
+            <!-- Дубль для бесшовной прокрутки -->
+            <span class="brand-item">Mountain Gear</span><span class="brand-divider"></span>
+            <span class="brand-item">Red Fox</span><span class="brand-divider"></span>
+            <span class="brand-item">National Geographic</span><span class="brand-divider"></span>
+            <span class="brand-item">The North Face</span><span class="brand-divider"></span>
+            <span class="brand-item">Эльбрус Тур</span><span class="brand-divider"></span>
+            <span class="brand-item">GoPro</span><span class="brand-divider"></span>
+            <span class="brand-item">DJI</span><span class="brand-divider"></span>
+            <span class="brand-item">Outdoor Magazine</span><span class="brand-divider"></span>
+        </div>
+    </div>
 
     <!-- TESTIMONIALS -->
     <section class="testimonials" id="testimonials">
@@ -2927,6 +3131,30 @@
                 setTimeout(() => ripple.remove(), 600);
             });
         });
+
+        // ===== TYPEWRITER HERO =====
+        if (window.matchMedia('(min-width: 769px)').matches) {
+            const line1 = document.getElementById('typeLine1');
+            const line2 = document.getElementById('typeLine2');
+            if (line1 && line2) {
+                setTimeout(() => {
+                    line1.classList.add('typing');
+                    line1.addEventListener('animationend', function handler(e) {
+                        if (e.animationName === 'typing') {
+                            line1.classList.remove('typing');
+                            line1.classList.add('typed');
+                            line2.classList.add('typing-second');
+                            line2.addEventListener('animationend', function h2(e2) {
+                                if (e2.animationName === 'typing') {
+                                    line2.classList.remove('typing-second');
+                                    line2.classList.add('typed');
+                                }
+                            }, { once: true });
+                        }
+                    }, { once: true });
+                }, 800);
+            }
+        }
 
         // ===== SKELETON LOADING =====
         document.querySelectorAll('.gallery-item').forEach(item => {
