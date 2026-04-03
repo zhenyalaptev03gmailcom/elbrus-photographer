@@ -1398,6 +1398,67 @@
             background: #111;
         }
 
+        /* ===== PRELOADER ===== */
+        .preloader {
+            position: fixed;
+            inset: 0;
+            background: #0A0A0A;
+            z-index: 9999;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            gap: 20px;
+            transition: opacity 0.6s ease, visibility 0.6s ease;
+        }
+
+        .preloader.hidden {
+            opacity: 0;
+            visibility: hidden;
+        }
+
+        .preloader-icon {
+            width: 60px;
+            height: 60px;
+            animation: preloaderSpin 1.2s ease-in-out infinite;
+        }
+
+        .preloader-icon svg {
+            width: 100%;
+            height: 100%;
+        }
+
+        .preloader-text {
+            font-family: 'Raleway', sans-serif;
+            font-size: 0.75rem;
+            font-weight: 600;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            color: var(--accent);
+        }
+
+        @keyframes preloaderSpin {
+            0% { transform: scale(0.8); opacity: 0.5; }
+            50% { transform: scale(1.1); opacity: 1; }
+            100% { transform: scale(0.8); opacity: 0.5; }
+        }
+
+        /* ===== PARALLAX ===== */
+        .parallax-section {
+            background-attachment: fixed;
+            background-size: cover;
+            background-position: center;
+        }
+
+        /* ===== CAROUSEL TOUCH ===== */
+        .carousel-track {
+            cursor: grab;
+        }
+
+        .carousel-track.grabbing {
+            cursor: grabbing;
+        }
+
         /* ===== RESPONSIVE ===== */
         @media (max-width: 1024px) {
             section { padding: 80px 24px; }
@@ -1438,6 +1499,17 @@
     </style>
 </head>
 <body>
+
+    <!-- PRELOADER -->
+    <div class="preloader" id="preloader">
+        <div class="preloader-icon">
+            <svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M20 4L36 32H4L20 4Z" stroke="#E63946" stroke-width="1.5" fill="none"/>
+                <path d="M20 12L28 28H12L20 12Z" stroke="#E63946" stroke-width="1" fill="none" opacity="0.5"/>
+            </svg>
+        </div>
+        <div class="preloader-text">Загрузка</div>
+    </div>
 
     <!-- SCROLL PROGRESS -->
     <div class="scroll-progress" id="scrollProgress"></div>
@@ -2115,6 +2187,17 @@
             galleryCatObserver.observe(cat);
         });
 
+        // Preloader
+        window.addEventListener('load', () => {
+            const preloader = document.getElementById('preloader');
+            setTimeout(() => {
+                preloader.classList.add('hidden');
+            }, 600);
+            setTimeout(() => {
+                preloader.remove();
+            }, 1200);
+        });
+
         // Social FAB toggle
         const socialFab = document.getElementById('socialFab');
         const fabToggle = socialFab.querySelector('.social-fab-toggle');
@@ -2233,6 +2316,71 @@
         }, { threshold: 0.5 });
 
         counters.forEach(c => counterObserver.observe(c));
+
+        // Touch swipe for gallery carousels
+        document.querySelectorAll('.carousel-track').forEach(track => {
+            let isDown = false;
+            let startX;
+            let scrollLeft;
+
+            track.addEventListener('mousedown', (e) => {
+                isDown = true;
+                track.classList.add('grabbing');
+                startX = e.pageX - track.offsetLeft;
+                scrollLeft = track.scrollLeft;
+            });
+            track.addEventListener('mouseleave', () => { isDown = false; track.classList.remove('grabbing'); });
+            track.addEventListener('mouseup', () => { isDown = false; track.classList.remove('grabbing'); });
+            track.addEventListener('mousemove', (e) => {
+                if (!isDown) return;
+                e.preventDefault();
+                const x = e.pageX - track.offsetLeft;
+                track.scrollLeft = scrollLeft - (x - startX) * 1.5;
+            });
+
+            // Touch events
+            let touchStartX = 0;
+            track.addEventListener('touchstart', (e) => {
+                touchStartX = e.touches[0].clientX;
+                scrollLeft = track.scrollLeft;
+            }, { passive: true });
+            track.addEventListener('touchmove', (e) => {
+                const diff = touchStartX - e.touches[0].clientX;
+                track.scrollLeft = scrollLeft + diff;
+            }, { passive: true });
+        });
+
+        // Swipe for testimonials
+        const testimonialSlider = document.querySelector('.testimonial-slider');
+        if (testimonialSlider) {
+            let tStartX = 0;
+            testimonialSlider.addEventListener('touchstart', (e) => {
+                tStartX = e.touches[0].clientX;
+            }, { passive: true });
+            testimonialSlider.addEventListener('touchend', (e) => {
+                const diff = tStartX - e.changedTouches[0].clientX;
+                if (Math.abs(diff) > 50) {
+                    if (diff > 0) {
+                        showSlide((currentSlide + 1) % testimonials.length);
+                    } else {
+                        showSlide((currentSlide - 1 + testimonials.length) % testimonials.length);
+                    }
+                }
+            }, { passive: true });
+        }
+
+        // Parallax effect on scroll
+        const parallaxElements = document.querySelectorAll('.services, .testimonials');
+        window.addEventListener('scroll', () => {
+            parallaxElements.forEach(el => {
+                const speed = 0.3;
+                const rect = el.getBoundingClientRect();
+                if (rect.top < window.innerHeight && rect.bottom > 0) {
+                    const yPos = -(rect.top * speed);
+                    el.style.backgroundPosition = `center ${yPos}px`;
+                }
+            });
+        });
 
         // Lazy load videos when visible
         const lazyVideos = document.querySelectorAll('.lazy-video');
