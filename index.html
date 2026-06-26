@@ -2176,6 +2176,26 @@
         .brand-item {
             font-family: 'eurostile', sans-serif;
         }
+
+        .consent-check {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            margin-bottom: 18px;
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+            line-height: 1.5;
+            cursor: pointer;
+        }
+        .consent-check input[type="checkbox"] {
+            margin-top: 3px;
+            width: 16px;
+            height: 16px;
+            flex-shrink: 0;
+            accent-color: var(--accent);
+            cursor: pointer;
+        }
+        .consent-check a { color: var(--accent); }
     </style>
 </head>
 <body>
@@ -2667,6 +2687,10 @@
                     <input type="radio" name="rating" id="star1" value="1" checked><label for="star1">&#9733;</label>
                 </div>
                 <textarea name="reviewText" placeholder="Расскажите о вашем опыте работы с Ангелиной..." required></textarea>
+                <label class="consent-check">
+                    <input type="checkbox" name="consent" required>
+                    <span data-lang-ru="Я согласен(на) на обработку <a href='privacy.html' target='_blank'>персональных данных</a>" data-lang-en="I consent to the processing of my <a href='privacy.html' target='_blank'>personal data</a>">Я согласен(на) на обработку <a href="privacy.html" target="_blank">персональных данных</a></span>
+                </label>
                 <button type="submit" class="review-submit" data-lang-ru="Отправить отзыв" data-lang-en="Submit Review">Отправить отзыв</button>
             </form>
         </div>
@@ -2734,6 +2758,10 @@
                     <label for="message">Сообщение</label>
                     <textarea name="message" id="message" placeholder="Расскажите о вашем проекте..." required></textarea>
                 </div>
+                <label class="consent-check">
+                    <input type="checkbox" name="consent" required>
+                    <span data-lang-ru="Я согласен(на) на обработку <a href='privacy.html' target='_blank'>персональных данных</a>" data-lang-en="I consent to the processing of my <a href='privacy.html' target='_blank'>personal data</a>">Я согласен(на) на обработку <a href="privacy.html" target="_blank">персональных данных</a></span>
+                </label>
                 <button type="submit" class="btn-primary" data-lang-ru="Отправить сообщение" data-lang-en="Send Message">Отправить сообщение</button>
             </form>
             <div class="form-success" id="formSuccess">
@@ -2778,8 +2806,8 @@
         <div class="footer-bottom">
             <p>&copy; 2026 Ангелина Белова. Все права защищены.</p>
             <div class="footer-bottom-links">
-                <a href="#">Политика конфиденциальности</a>
-                <a href="#">Условия использования</a>
+                <a href="privacy.html">Политика конфиденциальности</a>
+                <a href="terms.html">Условия использования</a>
             </div>
         </div>
     </footer>
@@ -2822,7 +2850,7 @@
 
     <!-- COOKIE CONSENT -->
     <div class="cookie-banner" id="cookieBanner">
-        <p data-lang-ru="Мы используем файлы cookie для улучшения работы сайта и анализа трафика. Продолжая использовать сайт, вы соглашаетесь с <a href='#'>политикой конфиденциальности</a>." data-lang-en="We use cookies to improve site performance and analyze traffic. By continuing to use the site, you agree to our <a href='#'>privacy policy</a>.">Мы используем файлы cookie для улучшения работы сайта и анализа трафика. Продолжая использовать сайт, вы соглашаетесь с <a href="#">политикой конфиденциальности</a>.</p>
+        <p data-lang-ru="Мы используем файлы cookie для улучшения работы сайта и анализа трафика. Продолжая использовать сайт, вы соглашаетесь с <a href='privacy.html'>политикой конфиденциальности</a>." data-lang-en="We use cookies to improve site performance and analyze traffic. By continuing to use the site, you agree to our <a href='privacy.html'>privacy policy</a>.">Мы используем файлы cookie для улучшения работы сайта и анализа трафика. Продолжая использовать сайт, вы соглашаетесь с <a href="privacy.html">политикой конфиденциальности</a>.</p>
         <div class="cookie-buttons">
             <button class="cookie-accept" id="cookieAccept" data-lang-ru="Принять" data-lang-en="Accept">Принять</button>
             <button class="cookie-decline" id="cookieDecline" data-lang-ru="Отклонить" data-lang-en="Decline">Отклонить</button>
