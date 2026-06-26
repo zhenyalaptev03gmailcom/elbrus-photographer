@@ -93,9 +93,12 @@
         ]
     }
     </script>
-    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg' fill='none'%3E%3Ccircle cx='28' cy='12' r='5' stroke='%23E63946' stroke-width='1.5'/%3E%3Ccircle cx='28' cy='12' r='2' fill='%23E63946'/%3E%3Cpath d='M2 34L14 16L22 26L28 18L38 34Z' stroke='%23E63946' stroke-width='1.5' stroke-linejoin='round'/%3E%3Cpath d='M2 34L14 16L22 26' stroke='%23E63946' stroke-width='1.5' fill='none'/%3E%3C/svg%3E">
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg' fill='none'%3E%3Ccircle cx='28' cy='12' r='5' stroke='%23C2A875' stroke-width='1.5'/%3E%3Ccircle cx='28' cy='12' r='2' fill='%23C2A875'/%3E%3Cpath d='M2 34L14 16L22 26L28 18L38 34Z' stroke='%23C2A875' stroke-width='1.5' stroke-linejoin='round'/%3E%3Cpath d='M2 34L14 16L22 26' stroke='%23C2A875' stroke-width='1.5' fill='none'/%3E%3C/svg%3E">
     <link rel="preconnect" href="https://use.typekit.net" crossorigin>
     <link rel="stylesheet" href="https://use.typekit.net/fmm4utn.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
     <link rel="preload" as="video" href="hero.mp4">
     <style>
         *, *::before, *::after {
@@ -105,38 +108,41 @@
         }
 
         :root {
-            --accent: #E63946;
-            --accent-light: #F25C69;
-            --accent-dark: #C62833;
-            --bg-primary: #0A0A0A;
-            --bg-secondary: #0F0F0F;
-            --bg-card: #141414;
-            --bg-card-hover: #1A1A1A;
-            --text-primary: #E8E4DC;
-            --text-secondary: #9A9590;
-            --text-muted: #5A5550;
-            --border: #1E1E1E;
-            --border-light: #2A2A2A;
+            --accent: #C2A875;
+            --accent-light: #D8C194;
+            --accent-dark: #A8895A;
+            --bg-primary: #0F0E0C;
+            --bg-secondary: #131210;
+            --bg-card: #18150F;
+            --bg-card-hover: #1E1A12;
+            --text-primary: #ECE7DE;
+            --text-secondary: #9B958C;
+            --text-muted: #7E776D;
+            --border: #26241C;
+            --border-light: #34302A;
+            --font-display: 'Playfair Display', serif;
+            --font-body: 'futura-pt', sans-serif;
+            --hairline: rgba(236,231,222,0.12);
         }
 
         html {
             scroll-behavior: smooth;
             scrollbar-width: thin;
-            scrollbar-color: var(--accent-dark) var(--bg-primary);
+            scrollbar-color: var(--border-light) var(--bg-primary);
         }
 
         body {
-            font-family: 'futura-pt', sans-serif;
+            font-family: var(--font-body);
             font-weight: 400;
             background: var(--bg-primary);
             color: var(--text-primary);
-            line-height: 1.6;
+            line-height: 1.7;
             overflow-x: hidden;
         }
 
         ::-webkit-scrollbar { width: 6px; }
         ::-webkit-scrollbar-track { background: var(--bg-primary); }
-        ::-webkit-scrollbar-thumb { background: var(--accent-dark); border-radius: 3px; }
+        ::-webkit-scrollbar-thumb { background: var(--border-light); border-radius: 3px; }
 
         /* ===== HEADER / NAV ===== */
         .header {
@@ -152,7 +158,7 @@
             justify-content: space-between;
             background: rgba(10, 10, 10, 0.85);
             backdrop-filter: blur(20px);
-            border-bottom: 1px solid rgba(230, 57, 70, 0.1);
+            border-bottom: 1px solid var(--hairline);
             transition: all 0.4s ease;
         }
 
@@ -181,12 +187,12 @@
         }
 
         .logo-text {
-            font-family: 'futura-pt', sans-serif;
+            font-family: var(--font-body);
             font-size: 1.25rem;
-            font-weight: 600;
-            letter-spacing: 2px;
+            font-weight: 400;
+            letter-spacing: 3px;
             text-transform: uppercase;
-            color: var(--accent);
+            color: var(--text-primary);
         }
 
         .nav {
@@ -296,7 +302,7 @@
         }
 
         .mobile-menu a {
-            font-family: 'futura-pt', sans-serif;
+            font-family: var(--font-body);
             font-size: 2rem;
             color: var(--text-primary);
             text-decoration: none;
@@ -361,35 +367,31 @@
         }
 
         .hero-subtitle-top {
-            font-family: 'futura-pt', sans-serif;
-            font-size: clamp(1rem, 2.2vw, 1.4rem);
-            font-weight: 600;
-            letter-spacing: 6px;
+            font-family: var(--font-body);
+            font-size: clamp(0.7rem, 1.5vw, 0.85rem);
+            font-weight: 500;
+            letter-spacing: 4px;
             text-transform: uppercase;
-            color: var(--accent);
+            color: var(--text-secondary);
             margin-bottom: 20px;
             opacity: 0;
             transform: translateY(20px);
             animation: fadeUp 1s 0.3s forwards;
-            text-shadow: 0 2px 8px rgba(0,0,0,0.8);
+            text-shadow: 0 1px 6px rgba(0,0,0,0.6);
         }
 
         .hero-title {
-            font-family: 'futura-pt', sans-serif;
-            font-size: clamp(2.2rem, 5vw, 3.8rem);
-            font-weight: 800;
+            font-size: clamp(2.4rem, 5.5vw, 4rem);
             line-height: 1.15;
-            letter-spacing: 4px;
-            text-transform: uppercase;
             color: var(--text-primary);
             margin-bottom: 20px;
             opacity: 1;
-            text-shadow: 0 2px 16px rgba(0,0,0,0.9), 0 4px 30px rgba(0,0,0,0.5);
+            text-shadow: 0 2px 24px rgba(0,0,0,0.55);
         }
 
         .hero-description {
             font-size: 1.05rem;
-            font-weight: 500;
+            font-weight: 400;
             color: var(--text-primary);
             text-shadow: 0 2px 10px rgba(0,0,0,0.9);
             max-width: 500px;
@@ -413,9 +415,9 @@
 
         .btn-primary {
             padding: 14px 36px;
-            background: var(--accent);
-            color: #fff;
-            font-family: 'futura-pt', sans-serif;
+            background: var(--text-primary);
+            color: var(--bg-primary);
+            font-family: var(--font-body);
             font-size: 0.75rem;
             font-weight: 600;
             letter-spacing: 2px;
@@ -427,16 +429,16 @@
         }
 
         .btn-primary:hover {
-            background: var(--accent-light);
+            background: var(--accent);
+            color: var(--bg-primary);
             transform: translateY(-2px);
-            box-shadow: 0 8px 30px rgba(230, 57, 70, 0.3);
         }
 
         .btn-outline {
             padding: 14px 36px;
             background: transparent;
             color: var(--text-primary);
-            font-family: 'futura-pt', sans-serif;
+            font-family: var(--font-body);
             font-size: 0.75rem;
             font-weight: 500;
             letter-spacing: 2px;
@@ -448,8 +450,8 @@
         }
 
         .btn-outline:hover {
-            border-color: var(--accent);
-            color: var(--accent);
+            border-color: var(--text-secondary);
+            color: var(--text-primary);
             transform: translateY(-2px);
         }
 
@@ -473,7 +475,7 @@
         .hero-scroll .line {
             width: 1px;
             height: 40px;
-            background: linear-gradient(to bottom, var(--accent), transparent);
+            background: linear-gradient(to bottom, var(--text-secondary), transparent);
         }
 
         @keyframes float {
@@ -487,47 +489,43 @@
 
         /* ===== SECTION COMMONS ===== */
         section {
-            padding: 100px 40px;
+            padding: clamp(80px, 10vw, 130px) 40px;
         }
 
         .section-header {
             text-align: center;
-            margin-bottom: 60px;
+            margin-bottom: clamp(48px, 6vw, 72px);
         }
 
         .section-label {
             font-size: 0.7rem;
             font-weight: 500;
-            letter-spacing: 4px;
+            letter-spacing: 3px;
             text-transform: uppercase;
             color: var(--accent);
             margin-bottom: 12px;
         }
 
         .section-title {
-            font-family: 'futura-pt', sans-serif;
-            font-size: clamp(1.8rem, 4vw, 2.8rem);
-            font-weight: 700;
-            letter-spacing: 3px;
-            text-transform: uppercase;
+            font-size: clamp(1.9rem, 4vw, 2.8rem);
             color: var(--text-primary);
             margin-bottom: 16px;
         }
 
         .section-desc {
-            font-size: 0.9rem;
+            font-size: 1rem;
             color: var(--text-secondary);
             max-width: 600px;
             margin: 0 auto;
             font-weight: 400;
-            line-height: 1.8;
+            line-height: 1.7;
         }
 
         .accent-line {
-            width: 60px;
-            height: 2px;
+            width: 40px;
+            height: 1px;
             background: var(--accent);
-            margin: 16px auto;
+            margin: 22px auto 0;
         }
 
         /* ===== SERVICES / FEATURES ===== */
@@ -544,65 +542,51 @@
         }
 
         .service-card {
-            background: var(--bg-card);
-            border: 1px solid var(--border);
-            padding: 40px 30px;
+            background: transparent;
+            border: none;
+            border-top: 1px solid var(--hairline);
+            padding: 36px 28px 0;
             transition: all 0.4s ease;
             position: relative;
             overflow: hidden;
-            text-align: center;
+            text-align: left;
         }
 
         .service-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 2px;
-            background: var(--accent);
-            transform: scaleX(0);
-            transition: transform 0.4s ease;
+            display: none;
         }
 
         .service-card:hover {
-            background: var(--bg-card-hover);
             border-color: var(--border-light);
-            transform: translateY(-4px);
-        }
-
-        .service-card:hover::before {
-            transform: scaleX(1);
         }
 
         .service-icon {
-            width: 60px;
-            height: 60px;
-            border-radius: 50%;
-            background: rgba(230, 57, 70, 0.12);
+            width: auto;
+            height: auto;
+            border-radius: 0;
+            background: none;
             display: flex;
             align-items: center;
-            justify-content: center;
-            margin: 0 auto 20px;
-            color: var(--accent);
+            justify-content: flex-start;
+            margin: 0 0 18px;
+            color: var(--text-secondary);
         }
 
         .service-icon svg {
-            width: 28px;
-            height: 28px;
+            width: 26px;
+            height: 26px;
         }
 
         .service-title {
-            font-family: 'futura-pt', sans-serif;
-            font-size: 1.3rem;
-            font-weight: 700;
-            letter-spacing: 1px;
+            font-size: 1.25rem;
+            font-weight: 500;
+            letter-spacing: 0;
             color: var(--text-primary);
             margin-bottom: 12px;
         }
 
         .service-text {
-            font-size: 0.85rem;
+            font-size: 0.95rem;
             color: var(--text-secondary);
             line-height: 1.7;
             font-weight: 400;
@@ -612,18 +596,20 @@
         .service-link {
             display: inline-flex;
             align-items: center;
-            gap: 8px;
-            color: var(--accent);
-            font-size: 0.75rem;
-            font-weight: 500;
-            letter-spacing: 1.5px;
-            text-transform: uppercase;
+            gap: 6px;
+            color: var(--text-secondary);
+            font-size: 0.85rem;
+            font-weight: 400;
+            letter-spacing: 0.5px;
+            text-transform: none;
             text-decoration: none;
-            transition: gap 0.3s ease;
+            border-bottom: 1px solid var(--hairline);
+            padding-bottom: 2px;
+            transition: color 0.3s ease;
         }
 
         .service-link:hover {
-            gap: 12px;
+            color: var(--accent);
         }
 
         /* ===== GALLERY ===== */
@@ -650,10 +636,7 @@
         }
 
         .gallery-category-title {
-            font-family: 'futura-pt', sans-serif;
-            font-size: 1.5rem;
-            font-weight: 700;
-            letter-spacing: 2px;
+            font-size: clamp(1.35rem, 2.4vw, 1.75rem);
             color: var(--text-primary);
         }
 
@@ -681,7 +664,7 @@
             justify-content: center;
             background: rgba(10, 10, 10, 0.8);
             backdrop-filter: blur(8px);
-            border: 1px solid rgba(230, 57, 70, 0.4);
+            border: 1px solid var(--hairline);
             border-radius: 50%;
             color: var(--accent);
             cursor: pointer;
@@ -765,7 +748,6 @@
         }
 
         .gallery-overlay-title {
-            font-family: 'futura-pt', sans-serif;
             font-size: 1rem;
             color: var(--text-primary);
             margin-bottom: 2px;
@@ -773,7 +755,7 @@
 
         .gallery-overlay-meta {
             font-size: 0.65rem;
-            color: var(--accent);
+            color: var(--text-secondary);
             letter-spacing: 1px;
         }
 
@@ -828,7 +810,7 @@
         }
 
         .video-item-label span {
-            color: var(--accent);
+            color: var(--text-muted);
             font-size: 0.7rem;
             letter-spacing: 1px;
             text-transform: uppercase;
@@ -875,15 +857,12 @@
             font-weight: 500;
             letter-spacing: 4px;
             text-transform: uppercase;
-            color: var(--accent);
+            color: var(--text-secondary);
             margin-bottom: 16px;
         }
 
         .about-title {
-            font-family: 'futura-pt', sans-serif;
             font-size: clamp(1.8rem, 3.5vw, 2.5rem);
-            font-weight: 700;
-            letter-spacing: 2px;
             color: var(--text-primary);
             margin-bottom: 24px;
             line-height: 1.2;
@@ -898,12 +877,12 @@
         }
 
         .about-quote {
-            font-family: 'futura-pt', sans-serif;
-            font-size: 1.3rem;
+            font-family: var(--font-display);
+            font-size: 1.4rem;
             font-style: italic;
             color: var(--accent);
             padding-left: 20px;
-            border-left: 2px solid var(--accent);
+            border-left: 1px solid var(--accent);
             margin: 30px 0;
             line-height: 1.6;
         }
@@ -918,10 +897,8 @@
         }
 
         .about-stat-number {
-            font-family: 'futura-pt', sans-serif;
             font-size: 2.2rem;
-            font-weight: 800;
-            color: var(--accent);
+            color: var(--text-primary);
             line-height: 1;
         }
 
@@ -967,8 +944,8 @@
         }
 
         .testimonial-text {
-            font-family: 'futura-pt', sans-serif;
-            font-size: 1.4rem;
+            font-family: var(--font-display);
+            font-size: 1.5rem;
             font-style: italic;
             color: var(--text-primary);
             line-height: 1.7;
@@ -978,7 +955,7 @@
         .testimonial-author {
             font-size: 0.8rem;
             font-weight: 500;
-            color: var(--accent);
+            color: var(--text-secondary);
             letter-spacing: 1px;
         }
 
@@ -1008,7 +985,6 @@
 
         .testimonial-dot.active {
             background: var(--accent);
-            box-shadow: 0 0 8px rgba(230, 57, 70, 0.5);
         }
 
         /* ===== CONTACT ===== */
@@ -1025,10 +1001,7 @@
         }
 
         .contact-info h3 {
-            font-family: 'futura-pt', sans-serif;
             font-size: 1.8rem;
-            font-weight: 700;
-            letter-spacing: 2px;
             color: var(--text-primary);
             margin-bottom: 16px;
         }
@@ -1055,7 +1028,7 @@
             align-items: center;
             justify-content: center;
             border: 1px solid var(--border);
-            color: var(--accent);
+            color: var(--text-secondary);
             flex-shrink: 0;
         }
 
@@ -1127,7 +1100,7 @@
             background: var(--bg-card);
             border: 1px solid var(--border);
             color: var(--text-primary);
-            font-family: 'futura-pt', sans-serif;
+            font-family: var(--font-body);
             font-size: 0.9rem;
             padding: 14px 18px;
             transition: border-color 0.3s ease;
@@ -1176,11 +1149,9 @@
         }
 
         .footer-col h4 {
-            font-family: 'futura-pt', sans-serif;
             font-size: 1.1rem;
             color: var(--text-primary);
             margin-bottom: 16px;
-            letter-spacing: 1px;
         }
 
         .footer-col a {
@@ -1278,8 +1249,8 @@
             position: absolute;
             top: 50%;
             transform: translateY(-50%);
-            background: rgba(230, 57, 70, 0.3);
-            border: 1px solid rgba(230, 57, 70, 0.5);
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid var(--hairline);
             color: white;
             width: 50px;
             height: 50px;
@@ -1320,7 +1291,7 @@
             transform: translateY(20px);
             transition: all 0.3s ease;
             z-index: 999;
-            box-shadow: 0 4px 15px rgba(230, 57, 70, 0.4);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.4);
         }
 
         .scroll-top.visible {
@@ -1384,7 +1355,7 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            box-shadow: 0 4px 15px rgba(230, 57, 70, 0.4);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.4);
             transition: all 0.3s ease;
             position: relative;
             z-index: 2;
@@ -1475,7 +1446,7 @@
         .preloader {
             position: fixed;
             inset: 0;
-            background: #0A0A0A;
+            background: var(--bg-primary);
             z-index: 9999;
             display: flex;
             align-items: center;
@@ -1502,12 +1473,9 @@
         }
 
         .preloader-text {
-            font-family: 'futura-pt', sans-serif;
-            font-size: 0.75rem;
-            font-weight: 600;
-            letter-spacing: 4px;
-            text-transform: uppercase;
-            color: var(--accent);
+            font-size: 0.85rem;
+            letter-spacing: 2px;
+            color: var(--text-secondary);
         }
 
         @keyframes preloaderSpin {
@@ -1600,11 +1568,7 @@
 
         .brand-item {
             flex-shrink: 0;
-            font-family: 'futura-pt', sans-serif;
             font-size: 1.3rem;
-            font-weight: 700;
-            letter-spacing: 3px;
-            text-transform: uppercase;
             color: var(--text-muted);
             opacity: 0.4;
             transition: opacity 0.3s;
@@ -1658,7 +1622,7 @@
             background: transparent;
             border: 1px solid var(--border-light);
             color: var(--text-secondary);
-            font-family: 'futura-pt', sans-serif;
+            font-family: var(--font-body);
             font-size: 0.75rem;
             font-weight: 600;
             letter-spacing: 1.5px;
@@ -1677,7 +1641,7 @@
         .gallery-tab.active {
             background: var(--accent);
             border-color: var(--accent);
-            color: #fff;
+            color: var(--bg-primary);
         }
 
         .gallery-category {
@@ -1701,7 +1665,7 @@
             background: transparent;
             border: 1px solid var(--border-light);
             color: var(--text-secondary);
-            font-family: 'futura-pt', sans-serif;
+            font-family: var(--font-body);
             font-size: 0.7rem;
             font-weight: 600;
             letter-spacing: 1px;
@@ -1770,9 +1734,9 @@
         .cookie-accept {
             padding: 10px 24px;
             background: var(--accent);
-            color: #fff;
+            color: var(--bg-primary);
             border: none;
-            font-family: 'futura-pt', sans-serif;
+            font-family: var(--font-body);
             font-size: 0.75rem;
             font-weight: 600;
             letter-spacing: 1px;
@@ -1789,7 +1753,7 @@
             background: transparent;
             color: var(--text-secondary);
             border: 1px solid var(--border-light);
-            font-family: 'futura-pt', sans-serif;
+            font-family: var(--font-body);
             font-size: 0.75rem;
             font-weight: 600;
             letter-spacing: 1px;
@@ -1873,13 +1837,10 @@
         }
 
         .review-form-title {
-            font-family: 'futura-pt', sans-serif;
-            font-size: 1.1rem;
-            font-weight: 600;
+            font-size: 1.2rem;
             color: var(--text-primary);
             margin-bottom: 20px;
             text-align: center;
-            letter-spacing: 1px;
         }
 
         .review-form {
@@ -1893,7 +1854,7 @@
             background: var(--bg-card);
             border: 1px solid var(--border);
             color: var(--text-primary);
-            font-family: 'futura-pt', sans-serif;
+            font-family: var(--font-body);
             font-size: 0.9rem;
             padding: 12px 16px;
             transition: border-color 0.3s;
@@ -1949,9 +1910,9 @@
         .review-submit {
             padding: 12px 30px;
             background: var(--accent);
-            color: #fff;
+            color: var(--bg-primary);
             border: none;
-            font-family: 'futura-pt', sans-serif;
+            font-family: var(--font-body);
             font-size: 0.75rem;
             font-weight: 600;
             letter-spacing: 2px;
@@ -1996,10 +1957,10 @@
         }
 
         .user-review-name {
-            font-family: 'futura-pt', sans-serif;
+            font-family: var(--font-body);
             font-size: 0.85rem;
             font-weight: 600;
-            color: var(--accent);
+            color: var(--text-secondary);
             letter-spacing: 1px;
         }
 
@@ -2035,7 +1996,7 @@
             background: transparent;
             border: 1px solid var(--border-light);
             color: var(--text-secondary);
-            font-family: 'futura-pt', sans-serif;
+            font-family: var(--font-body);
             font-size: 0.75rem;
             font-weight: 600;
             letter-spacing: 1.5px;
@@ -2097,9 +2058,7 @@
         }
 
         .form-success h3 {
-            font-family: 'futura-pt', sans-serif;
             font-size: 1.3rem;
-            font-weight: 700;
             color: var(--text-primary);
             margin-bottom: 8px;
         }
@@ -2156,9 +2115,7 @@
             .video-grid { grid-template-columns: 1fr; }
         }
 
-        /* Headings / display accents — Magistral (Adobe Fonts). Body text stays Futura PT. */
-        .logo-text,
-        .hero-subtitle-top,
+        /* Headings / display — Playfair Display (serif antiqua), normal case. Body text stays Futura PT. */
         .hero-title,
         .section-title,
         .service-title,
@@ -2172,7 +2129,22 @@
         .review-form-title,
         .form-success h3,
         .brand-item {
-            font-family: 'eurostile', sans-serif;
+            font-family: var(--font-display);
+            font-weight: 500;
+            text-transform: none;
+            letter-spacing: 0;
+        }
+
+        /* ===== TYPEWRITER NEUTRALIZED — heading always fully visible ===== */
+        .hero-title .typewriter-line,
+        .hero-title .typewriter-line.typing,
+        .hero-title .typewriter-line.typing-second {
+            width: auto !important;
+            max-width: none !important;
+            overflow: visible !important;
+            border-right: none !important;
+            animation: none !important;
+            white-space: normal;
         }
     </style>
 </head>
@@ -2182,9 +2154,9 @@
     <div class="preloader" id="preloader">
         <div class="preloader-icon">
             <svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <circle cx="28" cy="12" r="5" stroke="#E63946" stroke-width="1.5"/>
-                <circle cx="28" cy="12" r="2" fill="#E63946"/>
-                <path d="M2 34L14 16L22 26L28 18L38 34Z" stroke="#E63946" stroke-width="1.5" stroke-linejoin="round"/>
+                <circle cx="28" cy="12" r="5" stroke="#C2A875" stroke-width="1.5"/>
+                <circle cx="28" cy="12" r="2" fill="#C2A875"/>
+                <path d="M2 34L14 16L22 26L28 18L38 34Z" stroke="#C2A875" stroke-width="1.5" stroke-linejoin="round"/>
             </svg>
         </div>
         <div class="preloader-text">Загрузка</div>
@@ -2198,9 +2170,9 @@
         <a href="#hero" class="logo">
             <div class="logo-icon">
                 <svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <circle cx="28" cy="12" r="5" stroke="#E63946" stroke-width="1.5"/>
-                    <circle cx="28" cy="12" r="2" fill="#E63946"/>
-                    <path d="M2 34L14 16L22 26L28 18L38 34Z" stroke="#E63946" stroke-width="1.5" stroke-linejoin="round"/>
+                    <circle cx="28" cy="12" r="5" stroke="#C2A875" stroke-width="1.5"/>
+                    <circle cx="28" cy="12" r="2" fill="#C2A875"/>
+                    <path d="M2 34L14 16L22 26L28 18L38 34Z" stroke="#C2A875" stroke-width="1.5" stroke-linejoin="round"/>
                 </svg>
             </div>
             <span class="logo-text">Эльбрус Фото</span>
