@@ -3489,14 +3489,22 @@
         const reviewForm = document.getElementById('reviewForm');
         const userReviewsContainer = document.getElementById('userReviews');
 
+        function formatReviewDate(value) {
+            if (!value) return '';
+            const d = new Date(value);
+            if (isNaN(d)) return value;
+            return d.toLocaleDateString('ru-RU');
+        }
+
         function renderReview(review) {
             const stars = '★'.repeat(review.rating) + '☆'.repeat(5 - review.rating);
             const card = document.createElement('div');
             card.className = 'user-review-card';
+            const dateText = formatReviewDate(review.date);
             card.innerHTML = `
                 <div class="user-review-header">
                     <span class="user-review-name">${review.name}${review.role ? ' — ' + review.role : ''}</span>
-                    <span class="user-review-date">${review.date}</span>
+                    <span class="user-review-date">${dateText}</span>
                 </div>
                 <div class="user-review-stars">${stars}</div>
                 <p class="user-review-text">«${review.text}»</p>
