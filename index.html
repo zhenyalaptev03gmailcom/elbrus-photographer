@@ -96,7 +96,7 @@
     <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg' fill='none'%3E%3Ccircle cx='28' cy='12' r='5' stroke='%23E63946' stroke-width='1.5'/%3E%3Ccircle cx='28' cy='12' r='2' fill='%23E63946'/%3E%3Cpath d='M2 34L14 16L22 26L28 18L38 34Z' stroke='%23E63946' stroke-width='1.5' stroke-linejoin='round'/%3E%3Cpath d='M2 34L14 16L22 26' stroke='%23E63946' stroke-width='1.5' fill='none'/%3E%3C/svg%3E">
     <link rel="preconnect" href="https://use.typekit.net" crossorigin>
     <link rel="stylesheet" href="https://use.typekit.net/fmm4utn.css">
-    <link rel="preload" as="video" href="hero.mp4">
+    <link rel="preload" as="image" href="hero-poster.jpg">
     <style>
         *, *::before, *::after {
             margin: 0;
@@ -388,9 +388,11 @@
         }
 
         .hero-description {
-            font-size: 1.05rem;
-            font-weight: 500;
-            color: var(--text-primary);
+            font-family: 'eurostile', sans-serif;
+            font-size: clamp(1.15rem, 2vw, 1.45rem);
+            font-weight: 400;
+            letter-spacing: 0.5px;
+            color: #FFFFFF;
             text-shadow: 0 2px 10px rgba(0,0,0,0.9);
             max-width: 500px;
             margin: 0 auto 32px;
@@ -2246,7 +2248,7 @@
     <!-- HERO -->
     <section class="hero" id="hero">
         <div class="hero-video-wrapper">
-            <video class="hero-video" autoplay muted loop playsinline>
+            <video class="hero-video" autoplay muted loop playsinline preload="metadata" poster="hero-poster.jpg">
                 <source src="hero.mp4" type="video/mp4">
             </video>
             <div class="hero-overlay"></div>
