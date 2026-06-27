@@ -2395,6 +2395,64 @@
         @media (max-width: 380px) {
             .mosaic-item.wide, .mosaic-item.big { grid-column: span 1; }
         }
+
+        /* ===== MOBILE RESPONSIVE FIXES (audit) ===== */
+        @media (max-width: 768px) {
+            .logo-text { font-size: 1rem; letter-spacing: 1px; white-space: nowrap; }
+            .scroll-top { width: 44px; height: 44px; }
+            .hero { min-height: 520px; height: 100vh; height: 100svh; }
+            .footer-col a { padding: 8px 0; margin-bottom: 4px; font-size: 0.9rem; }
+            .footer-bottom-links a { font-size: 0.82rem; padding: 6px 4px; }
+            .footer-bottom p { font-size: 0.78rem; }
+            .testimonial-dots { gap: 6px; }
+            .testimonial-dot { width: 12px; height: 12px; padding: 6px; box-sizing: content-box; background-clip: content-box; }
+        }
+        @media (max-width: 600px) {
+            .mosaic-item.wide, .mosaic-item.big { grid-column: span 1; }
+            .mosaic-item.tall, .mosaic-item.big { grid-row: span 1; }
+            .lightbox img { max-width: 94%; max-height: 80vh; }
+            .lightbox-nav { width: 42px; height: 42px; font-size: 1.2rem; top: auto; bottom: 16px; transform: none; background: rgba(230,57,70,0.6); }
+            .lightbox-prev { left: 16px; }
+            .lightbox-next { right: 16px; }
+            .lightbox-nav:active { background: var(--accent); }
+            .lightbox-close { top: 12px; right: 16px; font-size: 2.2rem; line-height: 1; padding: 6px 10px; }
+            .cookie-banner { flex-direction: column; text-align: center; }
+            .cookie-banner p { min-width: 0; }
+            .cookie-buttons { width: 100%; justify-content: center; }
+        }
+        @media (max-width: 480px) {
+            .hero-subtitle-top { letter-spacing: 3px; font-size: clamp(0.8rem, 3.4vw, 1rem); word-spacing: 2px; }
+            .hero-description { font-size: 1.05rem; line-height: 1.55; margin: 0 auto 24px; max-width: 340px; }
+            .hero-buttons .btn-primary, .hero-buttons .btn-outline { width: 100%; max-width: 280px; text-align: center; }
+            .plans-grid { grid-template-columns: 1fr; gap: 18px; }
+            .plan-card { padding: 36px 20px 30px; }
+            .plan-card.featured { margin-top: 8px; }
+            .plan-price { font-size: 2.1rem; }
+            .plan-badge { font-size: 0.6rem; padding: 4px 12px; max-width: 90%; white-space: normal; text-align: center; }
+            .plan-features li { font-size: 0.85rem; padding: 8px 0 8px 22px; }
+            .about-quote { font-size: 1.1rem; padding-left: 14px; margin: 22px 0; line-height: 1.5; }
+            .testimonial-text { font-size: 1.15rem; line-height: 1.6; margin-bottom: 20px; }
+            .quote-band { padding: clamp(56px, 11vw, 130px) 16px; }
+            .quote-band-text { font-size: 18px; }
+            .footer { padding: 40px 16px 24px; }
+            .footer-brand p { font-size: 0.9rem; }
+            .star-rating { gap: 10px; }
+            .star-rating label { font-size: 1.9rem; padding: 4px; }
+            .review-submit { align-self: stretch; width: 100%; }
+            #contactForm .btn-primary { width: 100%; }
+            .consent-check { font-size: 0.82rem; gap: 12px; }
+            .consent-check input[type="checkbox"] { width: 18px; height: 18px; }
+        }
+        @media (max-width: 380px) {
+            .header { padding: 0 14px; }
+            .logo-text { font-size: 0.85rem; letter-spacing: 0.5px; }
+            .lang-toggle { right: 52px; padding: 5px 8px; font-size: 0.62rem; }
+            .hero-subtitle-top { letter-spacing: 2px; }
+            .hero-title { font-size: clamp(1.9rem, 8vw, 2.4rem); letter-spacing: 2px; line-height: 1.1; }
+            .mosaic { grid-template-columns: repeat(auto-fill, minmax(100px, 1fr)); grid-auto-rows: 90px; gap: 6px; padding: 0 10px; }
+        }
+        body.cookie-open .social-fab,
+        body.cookie-open .scroll-top { opacity: 0; visibility: hidden; pointer-events: none; }
     </style>
 </head>
 <body>
@@ -3062,8 +3120,9 @@
                 if (!window.Sortable) return false;
                 Sortable.create(grid, {
                     animation: 180,
-                    delay: 120,
+                    delay: 180,
                     delayOnTouchOnly: true,
+                    touchStartThreshold: 8,
                     ghostClass: 'mosaic-ghost',
                     chosenClass: 'mosaic-chosen',
                     dragClass: 'mosaic-drag',
@@ -3499,18 +3558,18 @@
 
         if (!localStorage.getItem('cookieConsent')) {
             setTimeout(() => {
-                cookieBanner.classList.add('visible');
+                cookieBanner.classList.add('visible'); document.body.classList.add('cookie-open');
             }, 2000);
         }
 
         cookieAccept.addEventListener('click', () => {
             localStorage.setItem('cookieConsent', 'accepted');
-            cookieBanner.classList.remove('visible');
+            cookieBanner.classList.remove('visible'); document.body.classList.remove('cookie-open');
         });
 
         cookieDecline.addEventListener('click', () => {
             localStorage.setItem('cookieConsent', 'declined');
-            cookieBanner.classList.remove('visible');
+            cookieBanner.classList.remove('visible'); document.body.classList.remove('cookie-open');
         });
 
         // ===== RIPPLE EFFECT =====
