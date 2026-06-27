@@ -3157,12 +3157,12 @@
             function init(){
                 if (!window.Muuri) return false;
                 container.classList.add('muuri-on');
-                var canDrag = window.matchMedia('(min-width: 769px) and (pointer: fine)').matches;
                 var grid = new Muuri(container, {
-                    dragEnabled: canDrag,
+                    dragEnabled: true,
                     layout: { fillGaps: true, rounding: true },
-                    dragStartPredicate: { distance: 8, delay: 80 },
-                    dragRelease: { duration: 280, easing: 'ease' }
+                    dragStartPredicate: { distance: 8, delay: 350 },
+                    dragRelease: { duration: 280, easing: 'ease' },
+                    dragCssProps: { touchAction: 'pan-y', userSelect: 'none', userDrag: 'none', tapHighlightColor: 'rgba(0,0,0,0)', touchCallout: 'none', contentZooming: 'none' }
                 });
                 grid.on('dragEnd', function(){ dragTs = Date.now(); });
                 var rt;
