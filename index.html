@@ -100,6 +100,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Spectral:ital,wght@0,300;1,300;1,400&display=swap" rel="stylesheet">
     <link rel="preload" as="image" href="hero-poster.jpg">
+    <script src="https://cdn.jsdelivr.net/npm/sortablejs@1.15.6/Sortable.min.js" async></script>
     <style>
         *, *::before, *::after {
             margin: 0;
@@ -2352,6 +2353,46 @@
             animation: hintPulse 2.6s ease-in-out infinite;
         }
         @keyframes hintPulse { 0%,100%{opacity:.45} 50%{opacity:1} }
+
+        /* ===== INTERACTIVE MOSAIC GALLERY (drag to rearrange) ===== */
+        .mosaic {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            grid-auto-rows: 130px;
+            grid-auto-flow: row dense;
+            gap: 10px;
+            max-width: 1300px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        .mosaic-item {
+            position: relative;
+            overflow: hidden;
+            border-radius: 2px;
+            cursor: grab;
+            background: var(--bg-card);
+        }
+        .mosaic-item img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform .5s ease, filter .4s ease; }
+        .mosaic-item:hover img { transform: scale(1.05); filter: brightness(1.04); }
+        .mosaic-item.wide { grid-column: span 2; }
+        .mosaic-item.tall { grid-row: span 2; }
+        .mosaic-item.big  { grid-column: span 2; grid-row: span 2; }
+        .mosaic-overlay {
+            position: absolute; inset: 0; display: flex; align-items: flex-end; padding: 12px;
+            background: linear-gradient(to top, rgba(10,10,10,0.85), transparent 55%);
+            opacity: 0; transition: opacity .35s ease; pointer-events: none;
+        }
+        .mosaic-item:hover .mosaic-overlay { opacity: 1; }
+        .mosaic-title { color: var(--text-primary); font-size: 0.85rem; }
+        .mosaic-item.mosaic-chosen { cursor: grabbing; }
+        .mosaic-item.mosaic-ghost  { opacity: .3; }
+        .mosaic-item.mosaic-drag   { opacity: .95; }
+        @media (max-width: 600px) {
+            .mosaic { grid-template-columns: repeat(auto-fill, minmax(110px, 1fr)); grid-auto-rows: 100px; gap: 8px; padding: 0 12px; }
+        }
+        @media (max-width: 380px) {
+            .mosaic-item.wide, .mosaic-item.big { grid-column: span 1; }
+        }
     </style>
 </head>
 <body>
@@ -2514,12 +2555,9 @@
             <div class="section-label">Портфолио</div>
             <h2 class="section-title">Галерея работ</h2>
             <div class="accent-line"></div>
-            <p class="section-desc" data-lang-ru="Перетаскивайте в любую сторону — работы листаются как на бесконечном холсте." data-lang-en="Drag in any direction — browse the work like an infinite canvas.">Перетаскивайте в любую сторону — работы листаются как на бесконечном холсте.</p>
+            <p class="section-desc" data-lang-ru="Листайте вниз — а фото можно перетаскивать и собирать свою мозаику." data-lang-en="Scroll down — and drag the photos to arrange your own mosaic.">Листайте вниз — а фото можно перетаскивать и собирать свою мозаику.</p>
         </div>
-        <div class="canvas-viewport" id="canvasViewport">
-            <div class="canvas-world" id="canvasWorld"></div>
-            <div class="canvas-hint"><span data-lang-ru="Перетаскивайте" data-lang-en="Drag to explore">Перетаскивайте</span></div>
-        </div>
+        <div class="mosaic" id="mosaicGrid"></div>
     </section>
 
     <!-- VIDEO REEL -->
@@ -2989,93 +3027,53 @@
             window.scrollTo({ top: 0, behavior: 'smooth' });
         });
 
-        // ===== INFINITE DRAGGABLE CANVAS GALLERY =====
+        // ===== INTERACTIVE MOSAIC GALLERY =====
         const GALLERY = [{"src": "portfolio/_1286629.webp", "title": "Величие Кавказа", "meta": "Панорама"}, {"src": "portfolio/DSCF3296.webp", "title": "Свет вершин", "meta": "Горы"}, {"src": "portfolio/_1286434.webp", "title": "Бесконечность", "meta": "Панорама"}, {"src": "portfolio/DSC_1276.webp", "title": "Золотой рассвет", "meta": "Приэльбрусье"}, {"src": "portfolio/DSC_8900.webp", "title": "Над облаками", "meta": "Высокогорье"}, {"src": "portfolio/_1750160.webp", "title": "Широта горизонта", "meta": "Панорама"}, {"src": "portfolio/DSCF4715.webp", "title": "Утренний свет", "meta": "Эльбрус"}, {"src": "portfolio/DSC_8586.webp", "title": "Тени гор", "meta": "Кавказ"}, {"src": "portfolio/_1738640.webp", "title": "Горная гряда", "meta": "Панорама"}, {"src": "portfolio/_1749817.webp", "title": "Снежный покров", "meta": "Зима"}, {"src": "portfolio/_1749846.webp", "title": "Ледяной пик", "meta": "Высота"}, {"src": "portfolio/_1750021.webp", "title": "Простор", "meta": "Горы"}, {"src": "portfolio/_1750148.webp", "title": "Облачное море", "meta": "Высокогорье"}, {"src": "portfolio/_1738004.webp", "title": "Горный свет", "meta": "Кавказ"}, {"src": "portfolio/_1783576.webp", "title": "Вершина", "meta": "Эльбрус"}, {"src": "portfolio/_1783633.webp", "title": "Панорама гор", "meta": "Кавказ"}, {"src": "portfolio/_1773339.webp", "title": "Горная река", "meta": "Природа"}, {"src": "portfolio/_1863611.webp", "title": "Экспедиция", "meta": "Горы"}, {"src": "portfolio/_1286418.webp", "title": "Вертикаль", "meta": "Кавказ"}, {"src": "portfolio/_1285639.webp", "title": "Горный массив", "meta": "Природа"}, {"src": "portfolio/_1286850.webp", "title": "Хребет", "meta": "Кавказ"}, {"src": "portfolio/_1287061.webp", "title": "Контрасты", "meta": "Свет и тень"}, {"src": "portfolio/_1339569-2.webp", "title": "Эпический свет", "meta": "Горы"}, {"src": "portfolio/_1339582.webp", "title": "Облака", "meta": "Высокогорье"}, {"src": "portfolio/_1339675.webp", "title": "Дыхание гор", "meta": "Кавказ"}, {"src": "portfolio/_1339682.webp", "title": "Сила природы", "meta": "Горы"}, {"src": "portfolio/_1339685.webp", "title": "На высоте", "meta": "Эльбрус"}, {"src": "portfolio/_1339783-2.webp", "title": "Путь наверх", "meta": "Маршрут"}, {"src": "portfolio/_1339916.webp", "title": "Вечерний свет", "meta": "Горы"}, {"src": "portfolio/_1350010.webp", "title": "Рассвет", "meta": "Кавказ"}, {"src": "portfolio/_1373322.webp", "title": "Тишина", "meta": "Горы"}, {"src": "portfolio/_1386018.webp", "title": "Масштаб", "meta": "Природа"}, {"src": "portfolio/DSC_0417.webp", "title": "Камень и снег", "meta": "Горы"}, {"src": "portfolio/DSC_0729.webp", "title": "Скалы", "meta": "Горный хребет"}, {"src": "portfolio/DSCF5460.webp", "title": "Ледники", "meta": "Кавказ"}, {"src": "portfolio/DSCF4835.webp", "title": "Закат", "meta": "Эльбрус"}, {"src": "portfolio/DSCF4855.webp", "title": "Горный воздух", "meta": "Высота"}, {"src": "portfolio/DSCF5029.webp", "title": "Ледяной мир", "meta": "Ледник"}, {"src": "portfolio/DSC_1462.webp", "title": "Перевал", "meta": "Кавказ"}, {"src": "portfolio/DSC_1585.webp", "title": "Тропа", "meta": "Горы"}, {"src": "portfolio/DSC_1894.webp", "title": "Долина", "meta": "Горы"}, {"src": "portfolio/DSC_7662.webp", "title": "Зимний Кавказ", "meta": "Зима"}, {"src": "portfolio/DSC_7788.webp", "title": "Снежный пик", "meta": "Зима"}, {"src": "portfolio/DSC_9287.webp", "title": "Туман", "meta": "Утро"}, {"src": "portfolio/_1320107.webp", "title": "Холодный рассвет", "meta": "Утро"}, {"src": "portfolio/_1320128.webp", "title": "Горный туман", "meta": "Природа"}, {"src": "portfolio/_1320621.webp", "title": "Свободный полёт", "meta": "Аэро"}, {"src": "portfolio/_1320729.webp", "title": "Краски Кавказа", "meta": "Горы"}, {"src": "portfolio/_1320792.webp", "title": "Зимняя сказка", "meta": "Зима"}, {"src": "portfolio/_1320825.webp", "title": "Горная тишина", "meta": "Покой"}, {"src": "portfolio/_1582060.webp", "title": "Момент", "meta": "Репортаж"}];
         (function(){
-            var viewport = document.getElementById('canvasViewport');
-            var world = document.getElementById('canvasWorld');
-            if (!viewport || !world) return;
-            var N = GALLERY.length;
-            var COLS = 9, ROWS = 6, SLOTS = COLS*ROWS;
-            var CELL_W = 210, CELL_H = 150, GAP = 14;
-            if (window.innerWidth < 600){ CELL_W = 150; CELL_H = 110; GAP = 10; }
-            var PX = CELL_W + GAP, PY = CELL_H + GAP;
-            var TW = COLS*PX, TH = ROWS*PY;
-            var ox = 0, oy = 0, vx = 0, vy = 0;
-            var dragging = false, moved = 0, lastX = 0, lastY = 0;
-            var DRIFT_X = -0.12, DRIFT_Y = -0.06;
-
-            function build(){
-                world.innerHTML = '';
-                var vw = viewport.clientWidth, vh = viewport.clientHeight;
-                var tilesX = Math.ceil(vw / TW) + 1;
-                var tilesY = Math.ceil(vh / TH) + 1;
-                var frag = document.createDocumentFragment();
-                for (var ty = 0; ty < tilesY; ty++){
-                    for (var tx = 0; tx < tilesX; tx++){
-                        for (var k = 0; k < SLOTS; k++){
-                            var col = k % COLS, row = Math.floor(k / COLS);
-                            var idx = k % N;
-                            var cell = document.createElement('div');
-                            cell.className = 'canvas-cell';
-                            cell.style.width = CELL_W + 'px';
-                            cell.style.height = CELL_H + 'px';
-                            cell.style.left = (tx*TW + col*PX) + 'px';
-                            cell.style.top = (ty*TH + row*PY) + 'px';
-                            cell.setAttribute('data-idx', idx);
-                            var img = document.createElement('img');
-                            img.src = GALLERY[idx].src;
-                            img.loading = 'lazy';
-                            img.alt = GALLERY[idx].title || '';
-                            cell.appendChild(img);
-                            frag.appendChild(cell);
-                        }
-                    }
+            var grid = document.getElementById('mosaicGrid');
+            if (!grid) return;
+            var SIZES = ['n','n','wide','n','tall','n','n','big','n','tall','wide','n','n','tall','n','wide','n','n','big','n','tall','n','wide','n','n','tall','n','wide','n','big','n','n','tall','n','wide','n','n','tall','wide','n','n','big','n','tall','n','wide','n','n','tall','n','wide'];
+            var dragged = false, dragTs = 0;
+            GALLERY.forEach(function(g, i){
+                var item = document.createElement('div');
+                item.className = 'mosaic-item';
+                var sz = SIZES[i % SIZES.length];
+                if (sz !== 'n') item.classList.add(sz);
+                item.setAttribute('data-idx', i);
+                var img = document.createElement('img');
+                img.src = g.src; img.loading = 'lazy'; img.alt = g.title || '';
+                item.appendChild(img);
+                if (g.title){
+                    var ov = document.createElement('div');
+                    ov.className = 'mosaic-overlay';
+                    ov.innerHTML = '<span class="mosaic-title"></span>';
+                    ov.firstChild.textContent = g.title;
+                    item.appendChild(ov);
                 }
-                world.appendChild(frag);
-            }
-            function wrap(v, prd){ return ((v % prd) + prd) % prd - prd; }
-            function render(){
-                world.style.transform = 'translate3d(' + wrap(ox, TW) + 'px,' + wrap(oy, TH) + 'px,0)';
-            }
-            function tick(){
-                if (!dragging){
-                    ox += vx + DRIFT_X; oy += vy + DRIFT_Y;
-                    vx *= 0.93; vy *= 0.93;
-                    if (Math.abs(vx) < 0.02) vx = 0;
-                    if (Math.abs(vy) < 0.02) vy = 0;
-                    render();
-                }
-                requestAnimationFrame(tick);
-            }
-            viewport.addEventListener('pointerdown', function(e){
-                dragging = true; moved = 0; vx = 0; vy = 0;
-                lastX = e.clientX; lastY = e.clientY;
-                viewport.classList.add('grabbing');
+                item.addEventListener('click', function(){
+                    if (dragged || (Date.now() - dragTs) < 250) return;
+                    if (typeof openLightbox === 'function') openLightbox(i);
+                });
+                grid.appendChild(item);
             });
-            viewport.addEventListener('pointermove', function(e){
-                if (!dragging) return;
-                var dx = e.clientX - lastX, dy = e.clientY - lastY;
-                ox += dx; oy += dy; vx = dx; vy = dy;
-                lastX = e.clientX; lastY = e.clientY;
-                moved += Math.abs(dx) + Math.abs(dy);
-                render();
-            });
-            function up(e){
-                if (!dragging) return;
-                dragging = false;
-                viewport.classList.remove('grabbing');
-                if (moved < 6){
-                    var el = document.elementFromPoint(e.clientX, e.clientY);
-                    var cell = el && el.closest ? el.closest('.canvas-cell') : null;
-                    if (cell && typeof openLightbox === 'function') openLightbox(+cell.getAttribute('data-idx'));
-                }
+            function initSort(){
+                if (!window.Sortable) return false;
+                Sortable.create(grid, {
+                    animation: 180,
+                    delay: 120,
+                    delayOnTouchOnly: true,
+                    ghostClass: 'mosaic-ghost',
+                    chosenClass: 'mosaic-chosen',
+                    dragClass: 'mosaic-drag',
+                    onStart: function(){ dragged = true; },
+                    onEnd: function(){ dragTs = Date.now(); setTimeout(function(){ dragged = false; }, 0); }
+                });
+                return true;
             }
-            viewport.addEventListener('pointerup', up);
-            viewport.addEventListener('pointercancel', function(){ dragging = false; viewport.classList.remove('grabbing'); });
-            var rt;
-            window.addEventListener('resize', function(){ clearTimeout(rt); rt = setTimeout(function(){ build(); render(); }, 200); });
-            build(); render(); requestAnimationFrame(tick);
+            if (!initSort()){
+                var iv = setInterval(function(){ if (initSort()) clearInterval(iv); }, 200);
+                setTimeout(function(){ clearInterval(iv); }, 8000);
+            }
         })();
 
         // Lightbox with navigation
