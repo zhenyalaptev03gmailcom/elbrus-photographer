@@ -104,6 +104,7 @@
     <noscript><link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@125,900&display=swap" rel="stylesheet"></noscript>
     <noscript><link href="https://fonts.googleapis.com/css2?family=Spectral:ital,wght@0,300;1,300;1,400&display=swap" rel="stylesheet"></noscript>
     <link rel="preload" as="image" href="hero-poster.jpg">
+    <script src="https://cdn.jsdelivr.net/npm/muuri@0.9.5/dist/muuri.min.js" defer></script>
     <style>
         *, *::before, *::after {
             margin: 0;
@@ -2472,6 +2473,27 @@
         .wall-item:hover .wall-cap { opacity: 1; }
         @media (max-width: 900px) { .gallery-wall { column-count: 2; } }
         @media (max-width: 480px) { .wall-cap { font-size: 0.82rem; padding: 12px; } }
+
+        /* ===== DRAGGABLE PHOTO-WALL (Muuri, native aspect, no crop, no gaps) ===== */
+        .muuri-grid { position: relative; max-width: 1500px; margin: 0 auto; }
+        .muuri-grid .item { display: inline-block; width: 33.333%; vertical-align: top; z-index: 1; }
+        .muuri-grid.muuri-on .item { position: absolute; display: block; }
+        .muuri-grid .item.muuri-item-dragging { z-index: 3; }
+        .muuri-grid .item.muuri-item-releasing { z-index: 2; }
+        .muuri-grid .item.muuri-item-hidden { z-index: 0; }
+        .muuri-grid .item-content { position: relative; width: 100%; overflow: hidden; cursor: grab; }
+        .muuri-grid .item.muuri-item-dragging .item-content { cursor: grabbing; }
+        .muuri-grid .item-content img { width: 100%; height: 100%; object-fit: cover; display: block; transition: filter .4s ease; }
+        .muuri-grid .item-content:hover img { filter: brightness(1.06); }
+        .g-cap {
+            position: absolute; left: 0; right: 0; bottom: 0; padding: 16px;
+            font-family: 'futura-pt', sans-serif; font-size: 0.95rem; line-height: 1.2; color: #fff;
+            background: linear-gradient(to top, rgba(10,10,10,0.85), transparent);
+            opacity: 0; transition: opacity .35s ease; pointer-events: none;
+        }
+        .muuri-grid .item-content:hover .g-cap { opacity: 1; }
+        @media (max-width: 900px) { .muuri-grid .item { width: 50%; } }
+        @media (max-width: 480px) { .g-cap { font-size: 0.82rem; padding: 12px; } }
     </style>
 </head>
 <body>
@@ -2634,9 +2656,9 @@
             <div class="section-label">Портфолио</div>
             <h2 class="section-title">Галерея работ</h2>
             <div class="accent-line"></div>
-            <p class="section-desc" data-lang-ru="Листайте вниз — нажмите на фото, чтобы открыть на весь экран." data-lang-en="Scroll down — tap any photo to view full screen.">Листайте вниз — нажмите на фото, чтобы открыть на весь экран.</p>
+            <p class="section-desc" data-lang-ru="Перетаскивайте фото, чтобы переставить — клик открывает на весь экран." data-lang-en="Drag photos to rearrange — click to view full screen.">Перетаскивайте фото, чтобы переставить — клик открывает на весь экран.</p>
         </div>
-        <div class="gallery-wall" id="galleryWall"></div>
+        <div class="muuri-grid" id="muuriGrid"></div>
     </section>
 
     <!-- VIDEO REEL -->
@@ -3106,29 +3128,48 @@
             window.scrollTo({ top: 0, behavior: 'smooth' });
         });
 
-        // ===== PHOTO-WALL GALLERY =====
-        const GALLERY = [{"src": "portfolio/_1286629.webp", "title": "Величие Кавказа", "meta": "Панорама"}, {"src": "portfolio/DSCF3296.webp", "title": "Свет вершин", "meta": "Горы"}, {"src": "portfolio/_1286434.webp", "title": "Бесконечность", "meta": "Панорама"}, {"src": "portfolio/DSC_1276.webp", "title": "Золотой рассвет", "meta": "Приэльбрусье"}, {"src": "portfolio/DSC_8900.webp", "title": "Над облаками", "meta": "Высокогорье"}, {"src": "portfolio/_1750160.webp", "title": "Широта горизонта", "meta": "Панорама"}, {"src": "portfolio/DSCF4715.webp", "title": "Утренний свет", "meta": "Эльбрус"}, {"src": "portfolio/DSC_8586.webp", "title": "Тени гор", "meta": "Кавказ"}, {"src": "portfolio/_1738640.webp", "title": "Горная гряда", "meta": "Панорама"}, {"src": "portfolio/_1749817.webp", "title": "Снежный покров", "meta": "Зима"}, {"src": "portfolio/_1749846.webp", "title": "Ледяной пик", "meta": "Высота"}, {"src": "portfolio/_1750021.webp", "title": "Простор", "meta": "Горы"}, {"src": "portfolio/_1750148.webp", "title": "Облачное море", "meta": "Высокогорье"}, {"src": "portfolio/_1738004.webp", "title": "Горный свет", "meta": "Кавказ"}, {"src": "portfolio/_1783576.webp", "title": "Вершина", "meta": "Эльбрус"}, {"src": "portfolio/_1783633.webp", "title": "Панорама гор", "meta": "Кавказ"}, {"src": "portfolio/_1773339.webp", "title": "Горная река", "meta": "Природа"}, {"src": "portfolio/_1863611.webp", "title": "Экспедиция", "meta": "Горы"}, {"src": "portfolio/_1286418.webp", "title": "Вертикаль", "meta": "Кавказ"}, {"src": "portfolio/_1285639.webp", "title": "Горный массив", "meta": "Природа"}, {"src": "portfolio/_1286850.webp", "title": "Хребет", "meta": "Кавказ"}, {"src": "portfolio/_1287061.webp", "title": "Контрасты", "meta": "Свет и тень"}, {"src": "portfolio/_1339569-2.webp", "title": "Эпический свет", "meta": "Горы"}, {"src": "portfolio/_1339582.webp", "title": "Облака", "meta": "Высокогорье"}, {"src": "portfolio/_1339675.webp", "title": "Дыхание гор", "meta": "Кавказ"}, {"src": "portfolio/_1339682.webp", "title": "Сила природы", "meta": "Горы"}, {"src": "portfolio/_1339685.webp", "title": "На высоте", "meta": "Эльбрус"}, {"src": "portfolio/_1339783-2.webp", "title": "Путь наверх", "meta": "Маршрут"}, {"src": "portfolio/_1339916.webp", "title": "Вечерний свет", "meta": "Горы"}, {"src": "portfolio/_1350010.webp", "title": "Рассвет", "meta": "Кавказ"}, {"src": "portfolio/_1373322.webp", "title": "Тишина", "meta": "Горы"}, {"src": "portfolio/_1386018.webp", "title": "Масштаб", "meta": "Природа"}, {"src": "portfolio/DSC_0417.webp", "title": "Камень и снег", "meta": "Горы"}, {"src": "portfolio/DSC_0729.webp", "title": "Скалы", "meta": "Горный хребет"}, {"src": "portfolio/DSCF5460.webp", "title": "Ледники", "meta": "Кавказ"}, {"src": "portfolio/DSCF4835.webp", "title": "Закат", "meta": "Эльбрус"}, {"src": "portfolio/DSCF4855.webp", "title": "Горный воздух", "meta": "Высота"}, {"src": "portfolio/DSCF5029.webp", "title": "Ледяной мир", "meta": "Ледник"}, {"src": "portfolio/DSC_1462.webp", "title": "Перевал", "meta": "Кавказ"}, {"src": "portfolio/DSC_1585.webp", "title": "Тропа", "meta": "Горы"}, {"src": "portfolio/DSC_1894.webp", "title": "Долина", "meta": "Горы"}, {"src": "portfolio/DSC_7662.webp", "title": "Зимний Кавказ", "meta": "Зима"}, {"src": "portfolio/DSC_7788.webp", "title": "Снежный пик", "meta": "Зима"}, {"src": "portfolio/DSC_9287.webp", "title": "Туман", "meta": "Утро"}, {"src": "portfolio/_1320107.webp", "title": "Холодный рассвет", "meta": "Утро"}, {"src": "portfolio/_1320128.webp", "title": "Горный туман", "meta": "Природа"}, {"src": "portfolio/_1320621.webp", "title": "Свободный полёт", "meta": "Аэро"}, {"src": "portfolio/_1320729.webp", "title": "Краски Кавказа", "meta": "Горы"}, {"src": "portfolio/_1320792.webp", "title": "Зимняя сказка", "meta": "Зима"}, {"src": "portfolio/_1320825.webp", "title": "Горная тишина", "meta": "Покой"}, {"src": "portfolio/_1582060.webp", "title": "Момент", "meta": "Репортаж"}];
+        // ===== DRAGGABLE PHOTO-WALL (Muuri) =====
+        const GALLERY = [{"src": "portfolio/_1286629.webp", "title": "Величие Кавказа", "meta": "Панорама", "w": 1920, "h": 1280}, {"src": "portfolio/DSCF3296.webp", "title": "Свет вершин", "meta": "Горы", "w": 1920, "h": 2880}, {"src": "portfolio/_1286434.webp", "title": "Бесконечность", "meta": "Панорама", "w": 1920, "h": 1280}, {"src": "portfolio/DSC_1276.webp", "title": "Золотой рассвет", "meta": "Приэльбрусье", "w": 1920, "h": 1278}, {"src": "portfolio/DSC_8900.webp", "title": "Над облаками", "meta": "Высокогорье", "w": 1920, "h": 1278}, {"src": "portfolio/_1750160.webp", "title": "Широта горизонта", "meta": "Панорама", "w": 1920, "h": 1280}, {"src": "portfolio/DSCF4715.webp", "title": "Утренний свет", "meta": "Эльбрус", "w": 1920, "h": 1280}, {"src": "portfolio/DSC_8586.webp", "title": "Тени гор", "meta": "Кавказ", "w": 1920, "h": 1278}, {"src": "portfolio/_1738640.webp", "title": "Горная гряда", "meta": "Панорама", "w": 1920, "h": 1280}, {"src": "portfolio/_1749817.webp", "title": "Снежный покров", "meta": "Зима", "w": 1920, "h": 2880}, {"src": "portfolio/_1749846.webp", "title": "Ледяной пик", "meta": "Высота", "w": 1920, "h": 1280}, {"src": "portfolio/_1750021.webp", "title": "Простор", "meta": "Горы", "w": 1920, "h": 1280}, {"src": "portfolio/_1750148.webp", "title": "Облачное море", "meta": "Высокогорье", "w": 1920, "h": 1280}, {"src": "portfolio/_1738004.webp", "title": "Горный свет", "meta": "Кавказ", "w": 1920, "h": 1280}, {"src": "portfolio/_1783576.webp", "title": "Вершина", "meta": "Эльбрус", "w": 1920, "h": 1280}, {"src": "portfolio/_1783633.webp", "title": "Панорама гор", "meta": "Кавказ", "w": 1920, "h": 1280}, {"src": "portfolio/_1773339.webp", "title": "Горная река", "meta": "Природа", "w": 1920, "h": 1826}, {"src": "portfolio/_1863611.webp", "title": "Экспедиция", "meta": "Горы", "w": 1920, "h": 1280}, {"src": "portfolio/_1286418.webp", "title": "Вертикаль", "meta": "Кавказ", "w": 1920, "h": 1280}, {"src": "portfolio/_1285639.webp", "title": "Горный массив", "meta": "Природа", "w": 1920, "h": 2880}, {"src": "portfolio/_1286850.webp", "title": "Хребет", "meta": "Кавказ", "w": 1920, "h": 1280}, {"src": "portfolio/_1287061.webp", "title": "Контрасты", "meta": "Свет и тень", "w": 1920, "h": 1280}, {"src": "portfolio/_1339569-2.webp", "title": "Эпический свет", "meta": "Горы", "w": 1920, "h": 1280}, {"src": "portfolio/_1339582.webp", "title": "Облака", "meta": "Высокогорье", "w": 1920, "h": 2880}, {"src": "portfolio/_1339675.webp", "title": "Дыхание гор", "meta": "Кавказ", "w": 1920, "h": 1280}, {"src": "portfolio/_1339682.webp", "title": "Сила природы", "meta": "Горы", "w": 1920, "h": 1280}, {"src": "portfolio/_1339685.webp", "title": "На высоте", "meta": "Эльбрус", "w": 1920, "h": 2880}, {"src": "portfolio/_1339783-2.webp", "title": "Путь наверх", "meta": "Маршрут", "w": 1920, "h": 1280}, {"src": "portfolio/_1339916.webp", "title": "Вечерний свет", "meta": "Горы", "w": 1920, "h": 2880}, {"src": "portfolio/_1350010.webp", "title": "Рассвет", "meta": "Кавказ", "w": 1920, "h": 2880}, {"src": "portfolio/_1373322.webp", "title": "Тишина", "meta": "Горы", "w": 1920, "h": 1280}, {"src": "portfolio/_1386018.webp", "title": "Масштаб", "meta": "Природа", "w": 1920, "h": 1280}, {"src": "portfolio/DSC_0417.webp", "title": "Камень и снег", "meta": "Горы", "w": 1920, "h": 1278}, {"src": "portfolio/DSC_0729.webp", "title": "Скалы", "meta": "Горный хребет", "w": 1920, "h": 2885}, {"src": "portfolio/DSCF5460.webp", "title": "Ледники", "meta": "Кавказ", "w": 1920, "h": 1280}, {"src": "portfolio/DSCF4835.webp", "title": "Закат", "meta": "Эльбрус", "w": 1920, "h": 2516}, {"src": "portfolio/DSCF4855.webp", "title": "Горный воздух", "meta": "Высота", "w": 1920, "h": 1280}, {"src": "portfolio/DSCF5029.webp", "title": "Ледяной мир", "meta": "Ледник", "w": 1920, "h": 1280}, {"src": "portfolio/DSC_1462.webp", "title": "Перевал", "meta": "Кавказ", "w": 1920, "h": 1278}, {"src": "portfolio/DSC_1585.webp", "title": "Тропа", "meta": "Горы", "w": 1920, "h": 2885}, {"src": "portfolio/DSC_1894.webp", "title": "Долина", "meta": "Горы", "w": 1920, "h": 1278}, {"src": "portfolio/DSC_7662.webp", "title": "Зимний Кавказ", "meta": "Зима", "w": 1920, "h": 2886}, {"src": "portfolio/DSC_7788.webp", "title": "Снежный пик", "meta": "Зима", "w": 1920, "h": 1278}, {"src": "portfolio/DSC_9287.webp", "title": "Туман", "meta": "Утро", "w": 1920, "h": 1278}, {"src": "portfolio/_1320107.webp", "title": "Холодный рассвет", "meta": "Утро", "w": 1920, "h": 1280}, {"src": "portfolio/_1320128.webp", "title": "Горный туман", "meta": "Природа", "w": 1920, "h": 1280}, {"src": "portfolio/_1320621.webp", "title": "Свободный полёт", "meta": "Аэро", "w": 1920, "h": 1280}, {"src": "portfolio/_1320729.webp", "title": "Краски Кавказа", "meta": "Горы", "w": 1920, "h": 2880}, {"src": "portfolio/_1320792.webp", "title": "Зимняя сказка", "meta": "Зима", "w": 1920, "h": 1280}, {"src": "portfolio/_1320825.webp", "title": "Горная тишина", "meta": "Покой", "w": 1920, "h": 2880}, {"src": "portfolio/_1582060.webp", "title": "Момент", "meta": "Репортаж", "w": 1920, "h": 1280}];
         (function(){
-            var wall = document.getElementById('galleryWall');
-            if (!wall) return;
+            var container = document.getElementById('muuriGrid');
+            if (!container) return;
+            var dragTs = 0;
             GALLERY.forEach(function(g, i){
-                var item = document.createElement('div');
-                item.className = 'wall-item';
-                item.setAttribute('data-idx', i);
+                var item = document.createElement('div'); item.className = 'item';
+                var content = document.createElement('div'); content.className = 'item-content';
+                content.style.aspectRatio = g.w + ' / ' + g.h;
                 var img = document.createElement('img');
                 img.src = g.src; img.loading = 'lazy'; img.alt = g.title || '';
-                item.appendChild(img);
+                content.appendChild(img);
                 if (g.title){
-                    var cap = document.createElement('div');
-                    cap.className = 'wall-cap';
-                    cap.textContent = g.title;
-                    item.appendChild(cap);
+                    var cap = document.createElement('div'); cap.className = 'g-cap';
+                    cap.textContent = g.title; content.appendChild(cap);
                 }
-                item.addEventListener('click', function(){
+                content.addEventListener('click', function(){
+                    if (Date.now() - dragTs < 260) return;
                     if (typeof openLightbox === 'function') openLightbox(i);
                 });
-                wall.appendChild(item);
+                item.appendChild(content);
+                container.appendChild(item);
             });
+            function init(){
+                if (!window.Muuri) return false;
+                container.classList.add('muuri-on');
+                var grid = new Muuri(container, {
+                    dragEnabled: true,
+                    layout: { fillGaps: true, rounding: true },
+                    dragStartPredicate: { distance: 8, delay: 80 },
+                    dragRelease: { duration: 280, easing: 'ease' }
+                });
+                grid.on('dragEnd', function(){ dragTs = Date.now(); });
+                var rt;
+                window.addEventListener('resize', function(){ clearTimeout(rt); rt = setTimeout(function(){ grid.refreshItems().layout(); }, 200); });
+                return true;
+            }
+            if (!init()){
+                var iv = setInterval(function(){ if (init()) clearInterval(iv); }, 100);
+                setTimeout(function(){ clearInterval(iv); }, 8000);
+            }
         })();
 
         // Lightbox with navigation
