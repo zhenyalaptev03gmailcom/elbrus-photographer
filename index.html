@@ -121,6 +121,8 @@
             --border: #1E1E1E;
             --border-light: #2A2A2A;
             --nav-active: #5C1212;
+            --btn: #8C1C2B;
+            --btn-hover: #6B1322;
         }
 
         html {
@@ -407,7 +409,7 @@
 
         .btn-primary {
             padding: 14px 36px;
-            background: var(--accent);
+            background: var(--btn);
             color: #fff;
             font-family: 'futura-pt', sans-serif;
             font-size: 0.75rem;
@@ -421,7 +423,7 @@
         }
 
         .btn-primary:hover {
-            background: var(--accent-light);
+            background: var(--btn-hover);
             transform: translateY(-2px);
             box-shadow: 0 8px 30px rgba(230, 57, 70, 0.3);
         }
@@ -1306,7 +1308,7 @@
             right: 30px;
             width: 46px;
             height: 46px;
-            background: var(--accent);
+            background: var(--btn);
             color: white;
             border: none;
             border-radius: 50%;
@@ -1329,7 +1331,7 @@
         }
 
         .scroll-top:hover {
-            background: var(--accent-light);
+            background: var(--btn-hover);
             transform: translateY(-3px);
         }
 
@@ -1376,7 +1378,7 @@
             width: 54px;
             height: 54px;
             border-radius: 50%;
-            background: var(--accent);
+            background: var(--btn);
             border: none;
             color: white;
             cursor: pointer;
@@ -1390,7 +1392,7 @@
         }
 
         .social-fab-toggle:hover {
-            background: var(--accent-light);
+            background: var(--btn-hover);
             transform: scale(1.05);
         }
 
@@ -1768,7 +1770,7 @@
 
         .cookie-accept {
             padding: 10px 24px;
-            background: var(--accent);
+            background: var(--btn);
             color: #fff;
             border: none;
             font-family: 'futura-pt', sans-serif;
@@ -1780,7 +1782,7 @@
         }
 
         .cookie-accept:hover {
-            background: var(--accent-light);
+            background: var(--btn-hover);
         }
 
         .cookie-decline {
@@ -1947,7 +1949,7 @@
 
         .review-submit {
             padding: 12px 30px;
-            background: var(--accent);
+            background: var(--btn);
             color: #fff;
             border: none;
             font-family: 'futura-pt', sans-serif;
@@ -1963,7 +1965,7 @@
         }
 
         .review-submit:hover {
-            background: var(--accent-light);
+            background: var(--btn-hover);
         }
 
         .review-submit:disabled {
@@ -2282,9 +2284,9 @@
             font-weight: 600;
             transition: all 0.3s ease;
         }
-        .plan-btn:hover { background: var(--accent); color: #fff; }
-        .plan-card.featured .plan-btn { background: var(--accent); color: #fff; }
-        .plan-card.featured .plan-btn:hover { background: var(--accent-dark); }
+        .plan-btn:hover { background: var(--btn); color: #fff; }
+        .plan-card.featured .plan-btn { background: var(--btn); color: #fff; }
+        .plan-card.featured .plan-btn:hover { background: var(--btn-hover); }
 
         /* ===== QUOTE BAND ===== */
         .quote-band {
