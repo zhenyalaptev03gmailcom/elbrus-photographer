@@ -493,42 +493,43 @@
 
         .section-header {
             text-align: center;
-            margin-bottom: 60px;
+            margin-bottom: clamp(40px, 5vw, 64px);
         }
 
         .section-label {
-            font-size: 0.7rem;
-            font-weight: 500;
+            font-size: 0.72rem;
+            font-weight: 600;
             letter-spacing: 4px;
             text-transform: uppercase;
             color: var(--accent);
-            margin-bottom: 12px;
+            margin-bottom: 16px;
         }
 
         .section-title {
             font-family: 'futura-pt', sans-serif;
-            font-size: clamp(1.8rem, 4vw, 2.8rem);
+            font-size: clamp(2.2rem, 5vw, 3.6rem);
             font-weight: 700;
-            letter-spacing: 3px;
+            letter-spacing: 2px;
             text-transform: uppercase;
             color: var(--text-primary);
-            margin-bottom: 16px;
+            line-height: 1.1;
+            margin-bottom: 18px;
         }
 
         .section-desc {
-            font-size: 0.9rem;
+            font-size: 1rem;
             color: var(--text-secondary);
-            max-width: 600px;
+            max-width: 620px;
             margin: 0 auto;
             font-weight: 400;
-            line-height: 1.8;
+            line-height: 1.7;
         }
 
         .accent-line {
-            width: 60px;
-            height: 2px;
+            width: 56px;
+            height: 3px;
             background: var(--accent);
-            margin: 16px auto;
+            margin: 18px auto;
         }
 
         /* ===== SERVICES / FEATURES ===== */
