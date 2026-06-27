@@ -2196,6 +2196,98 @@
             cursor: pointer;
         }
         .consent-check a { color: var(--accent); }
+
+        /* ===== PLANS / PRICING ===== */
+        .plans-header { text-align: center; max-width: 700px; margin: 90px auto 40px; }
+        .plans-title {
+            font-family: 'eurostile', sans-serif;
+            font-size: clamp(1.5rem, 3vw, 2rem);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: var(--text-primary);
+            margin-bottom: 12px;
+        }
+        .plans-sub { color: var(--text-secondary); font-size: 0.95rem; }
+        .plans-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 24px;
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+        .plan-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            padding: 44px 30px 36px;
+            text-align: center;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            transition: all 0.4s ease;
+        }
+        .plan-card:hover { border-color: var(--border-light); transform: translateY(-4px); }
+        .plan-card.featured { border-color: var(--accent); }
+        .plan-badge {
+            position: absolute;
+            top: -12px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--accent);
+            color: #fff;
+            font-size: 0.65rem;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            padding: 5px 16px;
+            border-radius: 20px;
+            white-space: nowrap;
+        }
+        .plan-name {
+            font-family: 'eurostile', sans-serif;
+            font-size: 1.3rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--text-primary);
+            margin-bottom: 16px;
+        }
+        .plan-price {
+            font-family: 'eurostile', sans-serif;
+            font-size: 2.4rem;
+            font-weight: 700;
+            color: var(--accent);
+            line-height: 1;
+        }
+        .plan-period {
+            color: var(--text-muted);
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin: 8px 0 26px;
+        }
+        .plan-features { list-style: none; padding: 0; margin: 0 0 28px; text-align: left; flex-grow: 1; }
+        .plan-features li {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            padding: 9px 0 9px 24px;
+            border-bottom: 1px solid var(--border);
+            position: relative;
+        }
+        .plan-features li::before { content: '✓'; position: absolute; left: 0; color: var(--accent); }
+        .plan-btn {
+            display: block;
+            padding: 13px;
+            background: transparent;
+            border: 1px solid var(--accent);
+            color: var(--accent);
+            text-decoration: none;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+        .plan-btn:hover { background: var(--accent); color: #fff; }
+        .plan-card.featured .plan-btn { background: var(--accent); color: #fff; }
+        .plan-card.featured .plan-btn:hover { background: var(--accent-dark); }
     </style>
 </head>
 <body>
@@ -2394,6 +2486,53 @@
                     Документальный стиль, передающий атмосферу момента.
                 </p>
                 <a href="#contact" class="service-link">Подробнее <span>&rarr;</span></a>
+            </div>
+        </div>
+
+        <!-- PLANS / PRICING (заглушки — заполнить) -->
+        <div class="plans-header reveal">
+            <h3 class="plans-title">Тарифы съёмки</h3>
+            <p class="plans-sub">Три пакета под разные задачи — заполните содержимое и цены.</p>
+        </div>
+        <div class="plans-grid">
+            <div class="plan-card reveal">
+                <div class="plan-name">Базовый</div>
+                <div class="plan-price">— ₽</div>
+                <div class="plan-period">за съёмку</div>
+                <ul class="plan-features">
+                    <li>Пункт тарифа</li>
+                    <li>Пункт тарифа</li>
+                    <li>Пункт тарифа</li>
+                </ul>
+                <a href="#contact" class="plan-btn">Выбрать</a>
+            </div>
+
+            <div class="plan-card featured reveal">
+                <div class="plan-badge">Популярный</div>
+                <div class="plan-name">Стандарт</div>
+                <div class="plan-price">— ₽</div>
+                <div class="plan-period">за съёмку</div>
+                <ul class="plan-features">
+                    <li>Пункт тарифа</li>
+                    <li>Пункт тарифа</li>
+                    <li>Пункт тарифа</li>
+                    <li>Пункт тарифа</li>
+                </ul>
+                <a href="#contact" class="plan-btn">Выбрать</a>
+            </div>
+
+            <div class="plan-card reveal">
+                <div class="plan-name">Премиум</div>
+                <div class="plan-price">— ₽</div>
+                <div class="plan-period">за съёмку</div>
+                <ul class="plan-features">
+                    <li>Пункт тарифа</li>
+                    <li>Пункт тарифа</li>
+                    <li>Пункт тарифа</li>
+                    <li>Пункт тарифа</li>
+                    <li>Пункт тарифа</li>
+                </ul>
+                <a href="#contact" class="plan-btn">Выбрать</a>
             </div>
         </div>
     </section>
