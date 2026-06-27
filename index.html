@@ -3164,7 +3164,9 @@
                     dragRelease: { duration: 280, easing: 'ease' },
                     dragCssProps: { touchAction: 'auto', userSelect: 'none', userDrag: 'none', tapHighlightColor: 'rgba(0,0,0,0)', touchCallout: 'none', contentZooming: 'none' }
                 });
-                grid.on('dragEnd', function(){ dragTs = Date.now(); });
+                var preventScroll = function(e){ e.preventDefault(); };
+                grid.on('dragStart', function(){ document.addEventListener('touchmove', preventScroll, { passive: false }); });
+                grid.on('dragEnd', function(){ document.removeEventListener('touchmove', preventScroll, { passive: false }); dragTs = Date.now(); });
                 var rt;
                 window.addEventListener('resize', function(){ clearTimeout(rt); rt = setTimeout(function(){ grid.refreshItems().layout(); }, 200); });
                 return true;
