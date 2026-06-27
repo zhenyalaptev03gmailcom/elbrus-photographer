@@ -3160,7 +3160,10 @@
                 var grid = new Muuri(container, {
                     dragEnabled: true,
                     layout: { fillGaps: true, rounding: true },
-                    dragStartPredicate: { distance: 8, delay: 350 },
+                    dragStartPredicate: function (item, event) {
+                        if (event.deltaTime < 350) { return event.distance > 16 ? false : undefined; }
+                        return true;
+                    },
                     dragRelease: { duration: 280, easing: 'ease' },
                     dragCssProps: { touchAction: 'auto', userSelect: 'none', userDrag: 'none', tapHighlightColor: 'rgba(0,0,0,0)', touchCallout: 'none', contentZooming: 'none' }
                 });
