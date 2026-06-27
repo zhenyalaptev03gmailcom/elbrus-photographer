@@ -2383,7 +2383,7 @@
     <!-- HERO -->
     <section class="hero" id="hero">
         <div class="hero-video-wrapper">
-            <video class="hero-video" autoplay muted loop playsinline preload="auto" poster="hero-poster.jpg">
+            <video class="hero-video" autoplay muted loop playsinline preload="metadata" poster="hero-poster.jpg">
                 <source src="hero.mp4" type="video/mp4">
             </video>
             <div class="hero-overlay"></div>
@@ -2955,16 +2955,24 @@
             galleryCatObserver.observe(cat);
         });
 
-        // Preloader
-        window.addEventListener('load', () => {
+        // Preloader — hide as soon as DOM is ready (don't wait for hero video / lazy assets)
+        (function () {
             const preloader = document.getElementById('preloader');
-            setTimeout(() => {
+            if (!preloader) return;
+            let done = false;
+            function hidePreloader() {
+                if (done) return;
+                done = true;
                 preloader.classList.add('hidden');
-            }, 600);
-            setTimeout(() => {
-                preloader.remove();
-            }, 1200);
-        });
+                setTimeout(() => preloader.remove(), 600);
+            }
+            if (document.readyState === 'loading') {
+                document.addEventListener('DOMContentLoaded', () => setTimeout(hidePreloader, 150));
+            } else {
+                setTimeout(hidePreloader, 150);
+            }
+            setTimeout(hidePreloader, 2000);
+        })();
 
         // Social FAB toggle
         const socialFab = document.getElementById('socialFab');
