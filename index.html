@@ -20,7 +20,7 @@
     <meta name="keywords" content="фотограф Эльбрус, видеограф горы, фотосессия Кавказ, съёмка в горах, Ангелина Белова, фотограф Приэльбрусье">
     <meta property="og:title" content="Ангелина Белова — Фотограф и видеограф">
     <meta property="og:description" content="Профессиональная фотография и видео — горы Кавказа, городские улицы, студийные портреты. 5+ лет опыта, 200+ экспедиций. Каждый кадр — это история.">
-    <meta property="og:image" content="https://angelinabelova.ru/portfolio/angelina.webp">
+    <meta property="og:image" content="https://angelinabelova.ru/og-image.jpg">
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="630">
     <meta property="og:image:alt" content="Ангелина Белова — фотограф на фоне гор Кавказа">
@@ -31,7 +31,7 @@
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="Ангелина Белова — Фотограф и видеограф">
     <meta name="twitter:description" content="Горы Кавказа, городские улицы, студийные портреты. 5+ лет опыта, 200+ экспедиций.">
-    <meta name="twitter:image" content="https://angelinabelova.ru/portfolio/angelina.webp">
+    <meta name="twitter:image" content="https://angelinabelova.ru/og-image.jpg">
     <script type="application/ld+json">
     {
         "@context": "https://schema.org",
@@ -95,10 +95,12 @@
     </script>
     <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg' fill='none'%3E%3Ccircle cx='28' cy='12' r='5' stroke='%23E63946' stroke-width='1.5'/%3E%3Ccircle cx='28' cy='12' r='2' fill='%23E63946'/%3E%3Cpath d='M2 34L14 16L22 26L28 18L38 34Z' stroke='%23E63946' stroke-width='1.5' stroke-linejoin='round'/%3E%3Cpath d='M2 34L14 16L22 26' stroke='%23E63946' stroke-width='1.5' fill='none'/%3E%3C/svg%3E">
     <link rel="preconnect" href="https://use.typekit.net" crossorigin>
-    <link rel="stylesheet" href="https://use.typekit.net/fmm4utn.css">
+    <link rel="stylesheet" href="https://use.typekit.net/fmm4utn.css" media="print" onload="this.media='all'">
+    <noscript><link rel="stylesheet" href="https://use.typekit.net/fmm4utn.css"></noscript>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Spectral:ital,wght@0,300;1,300;1,400&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Spectral:ital,wght@0,300;1,300;1,400&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+    <noscript><link href="https://fonts.googleapis.com/css2?family=Spectral:ital,wght@0,300;1,300;1,400&display=swap" rel="stylesheet"></noscript>
     <link rel="preload" as="image" href="hero-poster.jpg">
     <script src="https://cdn.jsdelivr.net/npm/sortablejs@1.15.6/Sortable.min.js" async></script>
     <style>
@@ -3580,6 +3582,7 @@
 
         contactForm.addEventListener('submit', async (e) => {
             e.preventDefault();
+            if (window.ym) ym(108378255, 'reachGoal', 'contact_submit');
             const btn = contactForm.querySelector('.btn-primary');
             const originalText = btn.textContent;
             btn.textContent = '...';
@@ -3679,6 +3682,7 @@
         // Submit review
         reviewForm.addEventListener('submit', async (e) => {
             e.preventDefault();
+            if (window.ym) ym(108378255, 'reachGoal', 'review_submit');
             const btn = reviewForm.querySelector('.review-submit');
             const originalText = btn.textContent;
             btn.textContent = '...';
