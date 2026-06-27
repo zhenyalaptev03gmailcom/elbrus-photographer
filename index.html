@@ -2311,6 +2311,47 @@
             line-height: 1.45;
             color: #E3DFD6;
         }
+
+        /* ===== INFINITE DRAGGABLE CANVAS GALLERY ===== */
+        .canvas-viewport {
+            position: relative;
+            width: 100%;
+            height: 72vh;
+            min-height: 480px;
+            overflow: hidden;
+            cursor: grab;
+            touch-action: none;
+            user-select: none;
+            -webkit-user-select: none;
+            background: var(--bg-primary);
+        }
+        .canvas-viewport.grabbing { cursor: grabbing; }
+        .canvas-world { position: absolute; top: 0; left: 0; will-change: transform; }
+        .canvas-cell {
+            position: absolute;
+            overflow: hidden;
+            border-radius: 2px;
+            background: var(--bg-card);
+        }
+        .canvas-cell img {
+            width: 100%; height: 100%;
+            object-fit: cover;
+            display: block;
+            pointer-events: none;
+            transition: transform 0.5s ease, filter 0.4s ease;
+        }
+        .canvas-cell:hover img { transform: scale(1.06); filter: brightness(1.06); }
+        .canvas-hint {
+            position: absolute;
+            left: 50%; bottom: 22px; transform: translateX(-50%);
+            color: var(--text-secondary);
+            font-size: 0.7rem; letter-spacing: 2px; text-transform: uppercase;
+            pointer-events: none;
+            background: rgba(10,10,10,0.55); padding: 8px 18px; border-radius: 20px;
+            backdrop-filter: blur(6px);
+            animation: hintPulse 2.6s ease-in-out infinite;
+        }
+        @keyframes hintPulse { 0%,100%{opacity:.45} 50%{opacity:1} }
     </style>
 </head>
 <body>
@@ -2473,59 +2514,11 @@
             <div class="section-label">Портфолио</div>
             <h2 class="section-title">Галерея работ</h2>
             <div class="accent-line"></div>
+            <p class="section-desc" data-lang-ru="Перетаскивайте в любую сторону — работы листаются как на бесконечном холсте." data-lang-en="Drag in any direction — browse the work like an infinite canvas.">Перетаскивайте в любую сторону — работы листаются как на бесконечном холсте.</p>
         </div>
-        <div class="gallery-grid">
-            <div class="gallery-item"><img src="portfolio/_1286629.webp" alt="" loading="lazy" width="1920" height="1280"><div class="gallery-overlay"><div class="gallery-overlay-title">Величие Кавказа</div><div class="gallery-overlay-meta">Панорама</div></div></div>
-            <div class="gallery-item"><img src="portfolio/DSCF3296.webp" alt="" loading="lazy" width="1920" height="2880"><div class="gallery-overlay"><div class="gallery-overlay-title">Свет вершин</div><div class="gallery-overlay-meta">Горы</div></div></div>
-            <div class="gallery-item"><img src="portfolio/_1286434.webp" alt="" loading="lazy" width="1920" height="1280"><div class="gallery-overlay"><div class="gallery-overlay-title">Бесконечность</div><div class="gallery-overlay-meta">Панорама</div></div></div>
-            <div class="gallery-item"><img src="portfolio/DSC_1276.webp" alt="" loading="lazy" width="1920" height="1278"><div class="gallery-overlay"><div class="gallery-overlay-title">Золотой рассвет</div><div class="gallery-overlay-meta">Приэльбрусье</div></div></div>
-            <div class="gallery-item"><img src="portfolio/DSC_8900.webp" alt="" loading="lazy" width="1920" height="1278"><div class="gallery-overlay"><div class="gallery-overlay-title">Над облаками</div><div class="gallery-overlay-meta">Высокогорье</div></div></div>
-            <div class="gallery-item"><img src="portfolio/_1750160.webp" alt="" loading="lazy" width="1920" height="1280"><div class="gallery-overlay"><div class="gallery-overlay-title">Широта горизонта</div><div class="gallery-overlay-meta">Панорама</div></div></div>
-            <div class="gallery-item"><img src="portfolio/DSCF4715.webp" alt="" loading="lazy" width="1920" height="1280"><div class="gallery-overlay"><div class="gallery-overlay-title">Утренний свет</div><div class="gallery-overlay-meta">Эльбрус</div></div></div>
-            <div class="gallery-item"><img src="portfolio/DSC_8586.webp" alt="" loading="lazy" width="1920" height="1278"><div class="gallery-overlay"><div class="gallery-overlay-title">Тени гор</div><div class="gallery-overlay-meta">Кавказ</div></div></div>
-            <div class="gallery-item"><img src="portfolio/_1738640.webp" alt="" loading="lazy" width="1920" height="1280"><div class="gallery-overlay"><div class="gallery-overlay-title">Горная гряда</div><div class="gallery-overlay-meta">Панорама</div></div></div>
-            <div class="gallery-item"><img src="portfolio/_1749817.webp" alt="" loading="lazy" width="1920" height="2880"><div class="gallery-overlay"><div class="gallery-overlay-title">Снежный покров</div><div class="gallery-overlay-meta">Зима</div></div></div>
-            <div class="gallery-item"><img src="portfolio/_1749846.webp" alt="" loading="lazy" width="1920" height="1280"><div class="gallery-overlay"><div class="gallery-overlay-title">Ледяной пик</div><div class="gallery-overlay-meta">Высота</div></div></div>
-            <div class="gallery-item"><img src="portfolio/_1750021.webp" alt="" loading="lazy" width="1920" height="1280"><div class="gallery-overlay"><div class="gallery-overlay-title">Простор</div><div class="gallery-overlay-meta">Горы</div></div></div>
-            <div class="gallery-item"><img src="portfolio/_1750148.webp" alt="" loading="lazy" width="1920" height="1280"><div class="gallery-overlay"><div class="gallery-overlay-title">Облачное море</div><div class="gallery-overlay-meta">Высокогорье</div></div></div>
-            <div class="gallery-item"><img src="portfolio/_1738004.webp" alt="" loading="lazy" width="1920" height="1280"><div class="gallery-overlay"><div class="gallery-overlay-title">Горный свет</div><div class="gallery-overlay-meta">Кавказ</div></div></div>
-            <div class="gallery-item"><img src="portfolio/_1783576.webp" alt="" loading="lazy" width="1920" height="1280"><div class="gallery-overlay"><div class="gallery-overlay-title">Вершина</div><div class="gallery-overlay-meta">Эльбрус</div></div></div>
-            <div class="gallery-item"><img src="portfolio/_1783633.webp" alt="" loading="lazy" width="1920" height="1280"><div class="gallery-overlay"><div class="gallery-overlay-title">Панорама гор</div><div class="gallery-overlay-meta">Кавказ</div></div></div>
-            <div class="gallery-item"><img src="portfolio/_1773339.webp" alt="" loading="lazy" width="1920" height="1826"><div class="gallery-overlay"><div class="gallery-overlay-title">Горная река</div><div class="gallery-overlay-meta">Природа</div></div></div>
-            <div class="gallery-item"><img src="portfolio/_1863611.webp" alt="" loading="lazy" width="1920" height="1280"><div class="gallery-overlay"><div class="gallery-overlay-title">Экспедиция</div><div class="gallery-overlay-meta">Горы</div></div></div>
-            <div class="gallery-item"><img src="portfolio/_1286418.webp" alt="" loading="lazy" width="1920" height="1280"><div class="gallery-overlay"><div class="gallery-overlay-title">Вертикаль</div><div class="gallery-overlay-meta">Кавказ</div></div></div>
-            <div class="gallery-item"><img src="portfolio/_1285639.webp" alt="" loading="lazy" width="1920" height="2880"><div class="gallery-overlay"><div class="gallery-overlay-title">Горный массив</div><div class="gallery-overlay-meta">Природа</div></div></div>
-            <div class="gallery-item"><img src="portfolio/_1286850.webp" alt="" loading="lazy" width="1920" height="1280"><div class="gallery-overlay"><div class="gallery-overlay-title">Хребет</div><div class="gallery-overlay-meta">Кавказ</div></div></div>
-            <div class="gallery-item"><img src="portfolio/_1287061.webp" alt="" loading="lazy" width="1920" height="1280"><div class="gallery-overlay"><div class="gallery-overlay-title">Контрасты</div><div class="gallery-overlay-meta">Свет и тень</div></div></div>
-            <div class="gallery-item"><img src="portfolio/_1339569-2.webp" alt="" loading="lazy" width="1920" height="1280"><div class="gallery-overlay"><div class="gallery-overlay-title">Эпический свет</div><div class="gallery-overlay-meta">Горы</div></div></div>
-            <div class="gallery-item"><img src="portfolio/_1339582.webp" alt="" loading="lazy" width="1920" height="2880"><div class="gallery-overlay"><div class="gallery-overlay-title">Облака</div><div class="gallery-overlay-meta">Высокогорье</div></div></div>
-            <div class="gallery-item"><img src="portfolio/_1339675.webp" alt="" loading="lazy" width="1920" height="1280"><div class="gallery-overlay"><div class="gallery-overlay-title">Дыхание гор</div><div class="gallery-overlay-meta">Кавказ</div></div></div>
-            <div class="gallery-item"><img src="portfolio/_1339682.webp" alt="" loading="lazy" width="1920" height="1280"><div class="gallery-overlay"><div class="gallery-overlay-title">Сила природы</div><div class="gallery-overlay-meta">Горы</div></div></div>
-            <div class="gallery-item"><img src="portfolio/_1339685.webp" alt="" loading="lazy" width="1920" height="2880"><div class="gallery-overlay"><div class="gallery-overlay-title">На высоте</div><div class="gallery-overlay-meta">Эльбрус</div></div></div>
-            <div class="gallery-item"><img src="portfolio/_1339783-2.webp" alt="" loading="lazy" width="1920" height="1280"><div class="gallery-overlay"><div class="gallery-overlay-title">Путь наверх</div><div class="gallery-overlay-meta">Маршрут</div></div></div>
-            <div class="gallery-item"><img src="portfolio/_1339916.webp" alt="" loading="lazy" width="1920" height="2880"><div class="gallery-overlay"><div class="gallery-overlay-title">Вечерний свет</div><div class="gallery-overlay-meta">Горы</div></div></div>
-            <div class="gallery-item"><img src="portfolio/_1350010.webp" alt="" loading="lazy" width="1920" height="2880"><div class="gallery-overlay"><div class="gallery-overlay-title">Рассвет</div><div class="gallery-overlay-meta">Кавказ</div></div></div>
-            <div class="gallery-item"><img src="portfolio/_1373322.webp" alt="" loading="lazy" width="1920" height="1280"><div class="gallery-overlay"><div class="gallery-overlay-title">Тишина</div><div class="gallery-overlay-meta">Горы</div></div></div>
-            <div class="gallery-item"><img src="portfolio/_1386018.webp" alt="" loading="lazy" width="1920" height="1280"><div class="gallery-overlay"><div class="gallery-overlay-title">Масштаб</div><div class="gallery-overlay-meta">Природа</div></div></div>
-            <div class="gallery-item"><img src="portfolio/DSC_0417.webp" alt="" loading="lazy" width="1920" height="1278"><div class="gallery-overlay"><div class="gallery-overlay-title">Камень и снег</div><div class="gallery-overlay-meta">Горы</div></div></div>
-            <div class="gallery-item"><img src="portfolio/DSC_0729.webp" alt="" loading="lazy" width="1920" height="2885"><div class="gallery-overlay"><div class="gallery-overlay-title">Скалы</div><div class="gallery-overlay-meta">Горный хребет</div></div></div>
-            <div class="gallery-item"><img src="portfolio/DSCF5460.webp" alt="" loading="lazy" width="1920" height="1280"><div class="gallery-overlay"><div class="gallery-overlay-title">Ледники</div><div class="gallery-overlay-meta">Кавказ</div></div></div>
-            <div class="gallery-item"><img src="portfolio/DSCF4835.webp" alt="" loading="lazy" width="1920" height="2516"><div class="gallery-overlay"><div class="gallery-overlay-title">Закат</div><div class="gallery-overlay-meta">Эльбрус</div></div></div>
-            <div class="gallery-item"><img src="portfolio/DSCF4855.webp" alt="" loading="lazy" width="1920" height="1280"><div class="gallery-overlay"><div class="gallery-overlay-title">Горный воздух</div><div class="gallery-overlay-meta">Высота</div></div></div>
-            <div class="gallery-item"><img src="portfolio/DSCF5029.webp" alt="" loading="lazy" width="1920" height="1280"><div class="gallery-overlay"><div class="gallery-overlay-title">Ледяной мир</div><div class="gallery-overlay-meta">Ледник</div></div></div>
-            <div class="gallery-item"><img src="portfolio/DSC_1462.webp" alt="" loading="lazy" width="1920" height="1278"><div class="gallery-overlay"><div class="gallery-overlay-title">Перевал</div><div class="gallery-overlay-meta">Кавказ</div></div></div>
-            <div class="gallery-item"><img src="portfolio/DSC_1585.webp" alt="" loading="lazy" width="1920" height="2885"><div class="gallery-overlay"><div class="gallery-overlay-title">Тропа</div><div class="gallery-overlay-meta">Горы</div></div></div>
-            <div class="gallery-item"><img src="portfolio/DSC_1894.webp" alt="" loading="lazy" width="1920" height="1278"><div class="gallery-overlay"><div class="gallery-overlay-title">Долина</div><div class="gallery-overlay-meta">Горы</div></div></div>
-            <div class="gallery-item"><img src="portfolio/DSC_7662.webp" alt="" loading="lazy" width="1920" height="2886"><div class="gallery-overlay"><div class="gallery-overlay-title">Зимний Кавказ</div><div class="gallery-overlay-meta">Зима</div></div></div>
-            <div class="gallery-item"><img src="portfolio/DSC_7788.webp" alt="" loading="lazy" width="1920" height="1278"><div class="gallery-overlay"><div class="gallery-overlay-title">Снежный пик</div><div class="gallery-overlay-meta">Зима</div></div></div>
-            <div class="gallery-item"><img src="portfolio/DSC_9287.webp" alt="" loading="lazy" width="1920" height="1278"><div class="gallery-overlay"><div class="gallery-overlay-title">Туман</div><div class="gallery-overlay-meta">Утро</div></div></div>
-            <div class="gallery-item"><img src="portfolio/_1320107.webp" alt="" loading="lazy" width="1920" height="1280"><div class="gallery-overlay"><div class="gallery-overlay-title">Холодный рассвет</div><div class="gallery-overlay-meta">Утро</div></div></div>
-            <div class="gallery-item"><img src="portfolio/_1320128.webp" alt="" loading="lazy" width="1920" height="1280"><div class="gallery-overlay"><div class="gallery-overlay-title">Горный туман</div><div class="gallery-overlay-meta">Природа</div></div></div>
-            <div class="gallery-item"><img src="portfolio/_1320621.webp" alt="" loading="lazy" width="1920" height="1280"><div class="gallery-overlay"><div class="gallery-overlay-title">Свободный полёт</div><div class="gallery-overlay-meta">Аэро</div></div></div>
-            <div class="gallery-item"><img src="portfolio/_1320729.webp" alt="" loading="lazy" width="1920" height="2880"><div class="gallery-overlay"><div class="gallery-overlay-title">Краски Кавказа</div><div class="gallery-overlay-meta">Горы</div></div></div>
-            <div class="gallery-item"><img src="portfolio/_1320792.webp" alt="" loading="lazy" width="1920" height="1280"><div class="gallery-overlay"><div class="gallery-overlay-title">Зимняя сказка</div><div class="gallery-overlay-meta">Зима</div></div></div>
-            <div class="gallery-item"><img src="portfolio/_1320825.webp" alt="" loading="lazy" width="1920" height="2880"><div class="gallery-overlay"><div class="gallery-overlay-title">Горная тишина</div><div class="gallery-overlay-meta">Покой</div></div></div>
-            <div class="gallery-item"><img src="portfolio/_1582060.webp" alt="" loading="lazy" width="1920" height="1280"><div class="gallery-overlay"><div class="gallery-overlay-title">Момент</div><div class="gallery-overlay-meta">Репортаж</div></div></div>
+        <div class="canvas-viewport" id="canvasViewport">
+            <div class="canvas-world" id="canvasWorld"></div>
+            <div class="canvas-hint"><span data-lang-ru="Перетаскивайте" data-lang-en="Drag to explore">Перетаскивайте</span></div>
         </div>
     </section>
 
@@ -2996,6 +2989,95 @@
             window.scrollTo({ top: 0, behavior: 'smooth' });
         });
 
+        // ===== INFINITE DRAGGABLE CANVAS GALLERY =====
+        const GALLERY = [{"src": "portfolio/_1286629.webp", "title": "Величие Кавказа", "meta": "Панорама"}, {"src": "portfolio/DSCF3296.webp", "title": "Свет вершин", "meta": "Горы"}, {"src": "portfolio/_1286434.webp", "title": "Бесконечность", "meta": "Панорама"}, {"src": "portfolio/DSC_1276.webp", "title": "Золотой рассвет", "meta": "Приэльбрусье"}, {"src": "portfolio/DSC_8900.webp", "title": "Над облаками", "meta": "Высокогорье"}, {"src": "portfolio/_1750160.webp", "title": "Широта горизонта", "meta": "Панорама"}, {"src": "portfolio/DSCF4715.webp", "title": "Утренний свет", "meta": "Эльбрус"}, {"src": "portfolio/DSC_8586.webp", "title": "Тени гор", "meta": "Кавказ"}, {"src": "portfolio/_1738640.webp", "title": "Горная гряда", "meta": "Панорама"}, {"src": "portfolio/_1749817.webp", "title": "Снежный покров", "meta": "Зима"}, {"src": "portfolio/_1749846.webp", "title": "Ледяной пик", "meta": "Высота"}, {"src": "portfolio/_1750021.webp", "title": "Простор", "meta": "Горы"}, {"src": "portfolio/_1750148.webp", "title": "Облачное море", "meta": "Высокогорье"}, {"src": "portfolio/_1738004.webp", "title": "Горный свет", "meta": "Кавказ"}, {"src": "portfolio/_1783576.webp", "title": "Вершина", "meta": "Эльбрус"}, {"src": "portfolio/_1783633.webp", "title": "Панорама гор", "meta": "Кавказ"}, {"src": "portfolio/_1773339.webp", "title": "Горная река", "meta": "Природа"}, {"src": "portfolio/_1863611.webp", "title": "Экспедиция", "meta": "Горы"}, {"src": "portfolio/_1286418.webp", "title": "Вертикаль", "meta": "Кавказ"}, {"src": "portfolio/_1285639.webp", "title": "Горный массив", "meta": "Природа"}, {"src": "portfolio/_1286850.webp", "title": "Хребет", "meta": "Кавказ"}, {"src": "portfolio/_1287061.webp", "title": "Контрасты", "meta": "Свет и тень"}, {"src": "portfolio/_1339569-2.webp", "title": "Эпический свет", "meta": "Горы"}, {"src": "portfolio/_1339582.webp", "title": "Облака", "meta": "Высокогорье"}, {"src": "portfolio/_1339675.webp", "title": "Дыхание гор", "meta": "Кавказ"}, {"src": "portfolio/_1339682.webp", "title": "Сила природы", "meta": "Горы"}, {"src": "portfolio/_1339685.webp", "title": "На высоте", "meta": "Эльбрус"}, {"src": "portfolio/_1339783-2.webp", "title": "Путь наверх", "meta": "Маршрут"}, {"src": "portfolio/_1339916.webp", "title": "Вечерний свет", "meta": "Горы"}, {"src": "portfolio/_1350010.webp", "title": "Рассвет", "meta": "Кавказ"}, {"src": "portfolio/_1373322.webp", "title": "Тишина", "meta": "Горы"}, {"src": "portfolio/_1386018.webp", "title": "Масштаб", "meta": "Природа"}, {"src": "portfolio/DSC_0417.webp", "title": "Камень и снег", "meta": "Горы"}, {"src": "portfolio/DSC_0729.webp", "title": "Скалы", "meta": "Горный хребет"}, {"src": "portfolio/DSCF5460.webp", "title": "Ледники", "meta": "Кавказ"}, {"src": "portfolio/DSCF4835.webp", "title": "Закат", "meta": "Эльбрус"}, {"src": "portfolio/DSCF4855.webp", "title": "Горный воздух", "meta": "Высота"}, {"src": "portfolio/DSCF5029.webp", "title": "Ледяной мир", "meta": "Ледник"}, {"src": "portfolio/DSC_1462.webp", "title": "Перевал", "meta": "Кавказ"}, {"src": "portfolio/DSC_1585.webp", "title": "Тропа", "meta": "Горы"}, {"src": "portfolio/DSC_1894.webp", "title": "Долина", "meta": "Горы"}, {"src": "portfolio/DSC_7662.webp", "title": "Зимний Кавказ", "meta": "Зима"}, {"src": "portfolio/DSC_7788.webp", "title": "Снежный пик", "meta": "Зима"}, {"src": "portfolio/DSC_9287.webp", "title": "Туман", "meta": "Утро"}, {"src": "portfolio/_1320107.webp", "title": "Холодный рассвет", "meta": "Утро"}, {"src": "portfolio/_1320128.webp", "title": "Горный туман", "meta": "Природа"}, {"src": "portfolio/_1320621.webp", "title": "Свободный полёт", "meta": "Аэро"}, {"src": "portfolio/_1320729.webp", "title": "Краски Кавказа", "meta": "Горы"}, {"src": "portfolio/_1320792.webp", "title": "Зимняя сказка", "meta": "Зима"}, {"src": "portfolio/_1320825.webp", "title": "Горная тишина", "meta": "Покой"}, {"src": "portfolio/_1582060.webp", "title": "Момент", "meta": "Репортаж"}];
+        (function(){
+            var viewport = document.getElementById('canvasViewport');
+            var world = document.getElementById('canvasWorld');
+            if (!viewport || !world) return;
+            var N = GALLERY.length;
+            var COLS = 9, ROWS = 6, SLOTS = COLS*ROWS;
+            var CELL_W = 210, CELL_H = 150, GAP = 14;
+            if (window.innerWidth < 600){ CELL_W = 150; CELL_H = 110; GAP = 10; }
+            var PX = CELL_W + GAP, PY = CELL_H + GAP;
+            var TW = COLS*PX, TH = ROWS*PY;
+            var ox = 0, oy = 0, vx = 0, vy = 0;
+            var dragging = false, moved = 0, lastX = 0, lastY = 0;
+            var DRIFT_X = -0.12, DRIFT_Y = -0.06;
+
+            function build(){
+                world.innerHTML = '';
+                var vw = viewport.clientWidth, vh = viewport.clientHeight;
+                var tilesX = Math.ceil(vw / TW) + 1;
+                var tilesY = Math.ceil(vh / TH) + 1;
+                var frag = document.createDocumentFragment();
+                for (var ty = 0; ty < tilesY; ty++){
+                    for (var tx = 0; tx < tilesX; tx++){
+                        for (var k = 0; k < SLOTS; k++){
+                            var col = k % COLS, row = Math.floor(k / COLS);
+                            var idx = k % N;
+                            var cell = document.createElement('div');
+                            cell.className = 'canvas-cell';
+                            cell.style.width = CELL_W + 'px';
+                            cell.style.height = CELL_H + 'px';
+                            cell.style.left = (tx*TW + col*PX) + 'px';
+                            cell.style.top = (ty*TH + row*PY) + 'px';
+                            cell.setAttribute('data-idx', idx);
+                            var img = document.createElement('img');
+                            img.src = GALLERY[idx].src;
+                            img.loading = 'lazy';
+                            img.alt = GALLERY[idx].title || '';
+                            cell.appendChild(img);
+                            frag.appendChild(cell);
+                        }
+                    }
+                }
+                world.appendChild(frag);
+            }
+            function wrap(v, prd){ return ((v % prd) + prd) % prd - prd; }
+            function render(){
+                world.style.transform = 'translate3d(' + wrap(ox, TW) + 'px,' + wrap(oy, TH) + 'px,0)';
+            }
+            function tick(){
+                if (!dragging){
+                    ox += vx + DRIFT_X; oy += vy + DRIFT_Y;
+                    vx *= 0.93; vy *= 0.93;
+                    if (Math.abs(vx) < 0.02) vx = 0;
+                    if (Math.abs(vy) < 0.02) vy = 0;
+                    render();
+                }
+                requestAnimationFrame(tick);
+            }
+            viewport.addEventListener('pointerdown', function(e){
+                dragging = true; moved = 0; vx = 0; vy = 0;
+                lastX = e.clientX; lastY = e.clientY;
+                viewport.classList.add('grabbing');
+            });
+            viewport.addEventListener('pointermove', function(e){
+                if (!dragging) return;
+                var dx = e.clientX - lastX, dy = e.clientY - lastY;
+                ox += dx; oy += dy; vx = dx; vy = dy;
+                lastX = e.clientX; lastY = e.clientY;
+                moved += Math.abs(dx) + Math.abs(dy);
+                render();
+            });
+            function up(e){
+                if (!dragging) return;
+                dragging = false;
+                viewport.classList.remove('grabbing');
+                if (moved < 6){
+                    var el = document.elementFromPoint(e.clientX, e.clientY);
+                    var cell = el && el.closest ? el.closest('.canvas-cell') : null;
+                    if (cell && typeof openLightbox === 'function') openLightbox(+cell.getAttribute('data-idx'));
+                }
+            }
+            viewport.addEventListener('pointerup', up);
+            viewport.addEventListener('pointercancel', function(){ dragging = false; viewport.classList.remove('grabbing'); });
+            var rt;
+            window.addEventListener('resize', function(){ clearTimeout(rt); rt = setTimeout(function(){ build(); render(); }, 200); });
+            build(); render(); requestAnimationFrame(tick);
+        })();
+
         // Lightbox with navigation
         const lightbox = document.getElementById('lightbox');
         const lightboxImg = lightbox.querySelector('img');
@@ -3003,7 +3085,7 @@
         const lightboxPrev = document.getElementById('lightboxPrev');
         const lightboxNext = document.getElementById('lightboxNext');
         let currentLightboxIndex = 0;
-        const allGalleryImages = Array.from(galleryItems).map(item => item.querySelector('img').src);
+        const allGalleryImages = GALLERY.map(g => g.src);
 
         function openLightbox(index) {
             currentLightboxIndex = index;
@@ -3017,9 +3099,6 @@
             document.body.style.overflow = '';
         }
 
-        galleryItems.forEach((item, i) => {
-            item.addEventListener('click', () => openLightbox(i));
-        });
 
         lightboxPrev.addEventListener('click', (e) => {
             e.stopPropagation();
