@@ -3161,7 +3161,7 @@
                     dragEnabled: true,
                     layout: { fillGaps: true, rounding: true },
                     dragStartPredicate: function (item, event) {
-                        if (event.deltaTime < 350) { return event.distance > 16 ? false : undefined; }
+                        if (event.deltaTime < 350) { return event.distance > 10 ? false : undefined; }
                         return true;
                     },
                     dragRelease: { duration: 280, easing: 'ease' },
