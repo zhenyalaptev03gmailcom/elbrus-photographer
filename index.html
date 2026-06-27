@@ -96,6 +96,9 @@
     <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg' fill='none'%3E%3Ccircle cx='28' cy='12' r='5' stroke='%23E63946' stroke-width='1.5'/%3E%3Ccircle cx='28' cy='12' r='2' fill='%23E63946'/%3E%3Cpath d='M2 34L14 16L22 26L28 18L38 34Z' stroke='%23E63946' stroke-width='1.5' stroke-linejoin='round'/%3E%3Cpath d='M2 34L14 16L22 26' stroke='%23E63946' stroke-width='1.5' fill='none'/%3E%3C/svg%3E">
     <link rel="preconnect" href="https://use.typekit.net" crossorigin>
     <link rel="stylesheet" href="https://use.typekit.net/fmm4utn.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Spectral:ital,wght@0,300;1,300;1,400&display=swap" rel="stylesheet">
     <link rel="preload" as="image" href="hero-poster.jpg">
     <style>
         *, *::before, *::after {
@@ -723,25 +726,28 @@
             display: none;
         }
 
+        .gallery-grid {
+            column-count: 4;
+            column-gap: 10px;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
         .gallery-item {
             position: relative;
             overflow: hidden;
             cursor: pointer;
-            height: 200px;
-            opacity: 0;
-            transform: scale(0.8);
-            transition: opacity 0.6s ease, transform 0.6s ease;
-        }
-
-        .gallery-category.visible .gallery-item {
+            break-inside: avoid;
+            margin-bottom: 10px;
+            border-radius: 2px;
             opacity: 1;
-            transform: scale(1);
         }
 
         .gallery-item img {
             width: 100%;
-            height: 100%;
-            object-fit: cover;
+            height: auto;
+            display: block;
             transition: transform 0.6s ease, filter 0.4s ease;
         }
 
@@ -779,15 +785,17 @@
             letter-spacing: 1px;
         }
 
+        @media (max-width: 1100px) {
+            .gallery-grid { column-count: 3; }
+        }
+
         @media (max-width: 768px) {
-            .carousel-track { grid-auto-columns: 220px; }
-            .gallery-item { height: 170px; }
-            .gallery-nav-btn { width: 40px; height: 40px; font-size: 1rem; }
+            .gallery-grid { column-count: 2; column-gap: 8px; padding: 0 12px; }
+            .gallery-item { margin-bottom: 8px; }
         }
 
         @media (max-width: 480px) {
-            .carousel-track { grid-auto-columns: 180px; }
-            .gallery-item { height: 140px; }
+            .gallery-grid { column-count: 2; }
         }
 
         /* ===== VIDEO REEL ===== */
@@ -2288,6 +2296,30 @@
         .plan-btn:hover { background: var(--accent); color: #fff; }
         .plan-card.featured .plan-btn { background: var(--accent); color: #fff; }
         .plan-card.featured .plan-btn:hover { background: var(--accent-dark); }
+
+        /* ===== QUOTE BAND ===== */
+        .quote-band {
+            padding: clamp(70px, 11vw, 130px) 24px;
+            background: var(--bg-secondary);
+            text-align: center;
+        }
+        .quote-band-line {
+            display: block;
+            width: 40px;
+            height: 2px;
+            background: var(--accent);
+            margin: 0 auto 30px;
+        }
+        .quote-band-text {
+            max-width: 900px;
+            margin: 0 auto;
+            font-family: 'Spectral', serif;
+            font-style: italic;
+            font-weight: 300;
+            font-size: clamp(20px, 3vw, 34px);
+            line-height: 1.45;
+            color: #E3DFD6;
+        }
     </style>
 </head>
 <body>
@@ -2436,6 +2468,14 @@
         </div>
     </section>
 
+    <!-- QUOTE BAND -->
+    <section class="quote-band">
+        <div class="quote-band-inner reveal">
+            <span class="quote-band-line"></span>
+            <blockquote class="quote-band-text" data-lang-ru="«Горы научили меня главному — видеть красоту в мгновении. Теперь я нахожу её повсюду.»" data-lang-en="“The mountains taught me what matters most — to see beauty in a moment. Now I find it everywhere.”">«Горы научили меня главному — видеть красоту в мгновении. Теперь я нахожу её повсюду.»</blockquote>
+        </div>
+    </section>
+
     <!-- GALLERY -->
     <section class="gallery" id="gallery">
         <div class="section-header reveal">
@@ -2443,105 +2483,58 @@
             <h2 class="section-title">Галерея работ</h2>
             <div class="accent-line"></div>
         </div>
-
-        <div class="gallery-tabs reveal">
-            <button class="gallery-tab active" data-filter="all" data-lang-ru="Все" data-lang-en="All">Все</button>
-            <button class="gallery-tab" data-filter="landscapes" data-lang-ru="Горные пейзажи" data-lang-en="Landscapes">Горные пейзажи</button>
-            <button class="gallery-tab" data-filter="expeditions" data-lang-ru="Экспедиции" data-lang-en="Expeditions">Экспедиции</button>
-            <button class="gallery-tab" data-filter="people" data-lang-ru="Люди и атмосфера" data-lang-en="People & Mood">Люди и атмосфера</button>
-        </div>
-
-        <!-- Горные пейзажи -->
-        <div class="gallery-category reveal" data-category="landscapes">
-            <div class="gallery-category-header">
-                <h3 class="gallery-category-title">Горные пейзажи</h3>
-                <span class="gallery-category-count">18 работ</span>
-            </div>
-            <div class="carousel-wrapper">
-                <button class="gallery-nav-btn nav-left" aria-label="Назад">&#8592;</button>
-                <button class="gallery-nav-btn nav-right" aria-label="Вперёд">&#8594;</button>
-                <div class="carousel-track">
-                    <div class="gallery-item"><img src="portfolio/_1286629.webp" alt="" loading="lazy"><div class="gallery-overlay"><div class="gallery-overlay-title">Величие Кавказа</div><div class="gallery-overlay-meta">Панорама</div></div></div>
-                    <div class="gallery-item"><img src="portfolio/DSCF3296.webp" alt="" loading="lazy"><div class="gallery-overlay"><div class="gallery-overlay-title">Свет вершин</div><div class="gallery-overlay-meta">Горы</div></div></div>
-                    <div class="gallery-item"><img src="portfolio/_1286434.webp" alt="" loading="lazy"><div class="gallery-overlay"><div class="gallery-overlay-title">Бесконечность</div><div class="gallery-overlay-meta">Панорама</div></div></div>
-                    <div class="gallery-item"><img src="portfolio/DSC_1276.webp" alt="" loading="lazy"><div class="gallery-overlay"><div class="gallery-overlay-title">Золотой рассвет</div><div class="gallery-overlay-meta">Приэльбрусье</div></div></div>
-                    <div class="gallery-item"><img src="portfolio/DSC_8900.webp" alt="" loading="lazy"><div class="gallery-overlay"><div class="gallery-overlay-title">Над облаками</div><div class="gallery-overlay-meta">Высокогорье</div></div></div>
-                    <div class="gallery-item"><img src="portfolio/_1750160.webp" alt="" loading="lazy"><div class="gallery-overlay"><div class="gallery-overlay-title">Широта горизонта</div><div class="gallery-overlay-meta">Панорама</div></div></div>
-                    <div class="gallery-item"><img src="portfolio/DSCF4715.webp" alt="" loading="lazy"><div class="gallery-overlay"><div class="gallery-overlay-title">Утренний свет</div><div class="gallery-overlay-meta">Эльбрус</div></div></div>
-                    <div class="gallery-item"><img src="portfolio/DSC_8586.webp" alt="" loading="lazy"><div class="gallery-overlay"><div class="gallery-overlay-title">Тени гор</div><div class="gallery-overlay-meta">Кавказ</div></div></div>
-                    <div class="gallery-item"><img src="portfolio/_1738640.webp" alt="" loading="lazy"><div class="gallery-overlay"><div class="gallery-overlay-title">Горная гряда</div><div class="gallery-overlay-meta">Панорама</div></div></div>
-                    <div class="gallery-item"><img src="portfolio/_1749817.webp" alt="" loading="lazy"><div class="gallery-overlay"><div class="gallery-overlay-title">Снежный покров</div><div class="gallery-overlay-meta">Зима</div></div></div>
-                    <div class="gallery-item"><img src="portfolio/_1749846.webp" alt="" loading="lazy"><div class="gallery-overlay"><div class="gallery-overlay-title">Ледяной пик</div><div class="gallery-overlay-meta">Высота</div></div></div>
-                    <div class="gallery-item"><img src="portfolio/_1750021.webp" alt="" loading="lazy"><div class="gallery-overlay"><div class="gallery-overlay-title">Простор</div><div class="gallery-overlay-meta">Горы</div></div></div>
-                    <div class="gallery-item"><img src="portfolio/_1750148.webp" alt="" loading="lazy"><div class="gallery-overlay"><div class="gallery-overlay-title">Облачное море</div><div class="gallery-overlay-meta">Высокогорье</div></div></div>
-                    <div class="gallery-item"><img src="portfolio/_1738004.webp" alt="" loading="lazy"><div class="gallery-overlay"><div class="gallery-overlay-title">Горный свет</div><div class="gallery-overlay-meta">Кавказ</div></div></div>
-                    <div class="gallery-item"><img src="portfolio/_1783576.webp" alt="" loading="lazy"><div class="gallery-overlay"><div class="gallery-overlay-title">Вершина</div><div class="gallery-overlay-meta">Эльбрус</div></div></div>
-                    <div class="gallery-item"><img src="portfolio/_1783633.webp" alt="" loading="lazy"><div class="gallery-overlay"><div class="gallery-overlay-title">Панорама гор</div><div class="gallery-overlay-meta">Кавказ</div></div></div>
-                    <div class="gallery-item"><img src="portfolio/_1773339.webp" alt="" loading="lazy"><div class="gallery-overlay"><div class="gallery-overlay-title">Горная река</div><div class="gallery-overlay-meta">Природа</div></div></div>
-                    <div class="gallery-item"><img src="portfolio/_1863611.webp" alt="" loading="lazy"><div class="gallery-overlay"><div class="gallery-overlay-title">Экспедиция</div><div class="gallery-overlay-meta">Горы</div></div></div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Экспедиции и восхождения -->
-        <div class="gallery-category reveal" data-category="expeditions">
-            <div class="gallery-category-header">
-                <h3 class="gallery-category-title">Экспедиции и восхождения</h3>
-                <span class="gallery-category-count">16 работ</span>
-            </div>
-            <div class="carousel-wrapper">
-                <button class="gallery-nav-btn nav-left" aria-label="Назад">&#8592;</button>
-                <button class="gallery-nav-btn nav-right" aria-label="Вперёд">&#8594;</button>
-                <div class="carousel-track">
-                    <div class="gallery-item"><img src="portfolio/_1286418.webp" alt="" loading="lazy"><div class="gallery-overlay"><div class="gallery-overlay-title">Вертикаль</div><div class="gallery-overlay-meta">Кавказ</div></div></div>
-                    <div class="gallery-item"><img src="portfolio/_1285639.webp" alt="" loading="lazy"><div class="gallery-overlay"><div class="gallery-overlay-title">Горный массив</div><div class="gallery-overlay-meta">Природа</div></div></div>
-                    <div class="gallery-item"><img src="portfolio/_1286850.webp" alt="" loading="lazy"><div class="gallery-overlay"><div class="gallery-overlay-title">Хребет</div><div class="gallery-overlay-meta">Кавказ</div></div></div>
-                    <div class="gallery-item"><img src="portfolio/_1287061.webp" alt="" loading="lazy"><div class="gallery-overlay"><div class="gallery-overlay-title">Контрасты</div><div class="gallery-overlay-meta">Свет и тень</div></div></div>
-                    <div class="gallery-item"><img src="portfolio/_1339569-2.webp" alt="" loading="lazy"><div class="gallery-overlay"><div class="gallery-overlay-title">Эпический свет</div><div class="gallery-overlay-meta">Горы</div></div></div>
-                    <div class="gallery-item"><img src="portfolio/_1339582.webp" alt="" loading="lazy"><div class="gallery-overlay"><div class="gallery-overlay-title">Облака</div><div class="gallery-overlay-meta">Высокогорье</div></div></div>
-                    <div class="gallery-item"><img src="portfolio/_1339675.webp" alt="" loading="lazy"><div class="gallery-overlay"><div class="gallery-overlay-title">Дыхание гор</div><div class="gallery-overlay-meta">Кавказ</div></div></div>
-                    <div class="gallery-item"><img src="portfolio/_1339682.webp" alt="" loading="lazy"><div class="gallery-overlay"><div class="gallery-overlay-title">Сила природы</div><div class="gallery-overlay-meta">Горы</div></div></div>
-                    <div class="gallery-item"><img src="portfolio/_1339685.webp" alt="" loading="lazy"><div class="gallery-overlay"><div class="gallery-overlay-title">На высоте</div><div class="gallery-overlay-meta">Эльбрус</div></div></div>
-                    <div class="gallery-item"><img src="portfolio/_1339783-2.webp" alt="" loading="lazy"><div class="gallery-overlay"><div class="gallery-overlay-title">Путь наверх</div><div class="gallery-overlay-meta">Маршрут</div></div></div>
-                    <div class="gallery-item"><img src="portfolio/_1339916.webp" alt="" loading="lazy"><div class="gallery-overlay"><div class="gallery-overlay-title">Вечерний свет</div><div class="gallery-overlay-meta">Горы</div></div></div>
-                    <div class="gallery-item"><img src="portfolio/_1350010.webp" alt="" loading="lazy"><div class="gallery-overlay"><div class="gallery-overlay-title">Рассвет</div><div class="gallery-overlay-meta">Кавказ</div></div></div>
-                    <div class="gallery-item"><img src="portfolio/_1373322.webp" alt="" loading="lazy"><div class="gallery-overlay"><div class="gallery-overlay-title">Тишина</div><div class="gallery-overlay-meta">Горы</div></div></div>
-                    <div class="gallery-item"><img src="portfolio/_1386018.webp" alt="" loading="lazy"><div class="gallery-overlay"><div class="gallery-overlay-title">Масштаб</div><div class="gallery-overlay-meta">Природа</div></div></div>
-                    <div class="gallery-item"><img src="portfolio/DSC_0417.webp" alt="" loading="lazy"><div class="gallery-overlay"><div class="gallery-overlay-title">Камень и снег</div><div class="gallery-overlay-meta">Горы</div></div></div>
-                    <div class="gallery-item"><img src="portfolio/DSC_0729.webp" alt="" loading="lazy"><div class="gallery-overlay"><div class="gallery-overlay-title">Скалы</div><div class="gallery-overlay-meta">Горный хребет</div></div></div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Люди и атмосфера -->
-        <div class="gallery-category reveal" data-category="people">
-            <div class="gallery-category-header">
-                <h3 class="gallery-category-title">Люди и атмосфера</h3>
-                <span class="gallery-category-count">17 работ</span>
-            </div>
-            <div class="carousel-wrapper">
-                <button class="gallery-nav-btn nav-left" aria-label="Назад">&#8592;</button>
-                <button class="gallery-nav-btn nav-right" aria-label="Вперёд">&#8594;</button>
-                <div class="carousel-track">
-                    <div class="gallery-item"><img src="portfolio/DSCF5460.webp" alt="" loading="lazy"><div class="gallery-overlay"><div class="gallery-overlay-title">Ледники</div><div class="gallery-overlay-meta">Кавказ</div></div></div>
-                    <div class="gallery-item"><img src="portfolio/DSCF4835.webp" alt="" loading="lazy"><div class="gallery-overlay"><div class="gallery-overlay-title">Закат</div><div class="gallery-overlay-meta">Эльбрус</div></div></div>
-                    <div class="gallery-item"><img src="portfolio/DSCF4855.webp" alt="" loading="lazy"><div class="gallery-overlay"><div class="gallery-overlay-title">Горный воздух</div><div class="gallery-overlay-meta">Высота</div></div></div>
-                    <div class="gallery-item"><img src="portfolio/DSCF5029.webp" alt="" loading="lazy"><div class="gallery-overlay"><div class="gallery-overlay-title">Ледяной мир</div><div class="gallery-overlay-meta">Ледник</div></div></div>
-                    <div class="gallery-item"><img src="portfolio/DSC_1462.webp" alt="" loading="lazy"><div class="gallery-overlay"><div class="gallery-overlay-title">Перевал</div><div class="gallery-overlay-meta">Кавказ</div></div></div>
-                    <div class="gallery-item"><img src="portfolio/DSC_1585.webp" alt="" loading="lazy"><div class="gallery-overlay"><div class="gallery-overlay-title">Тропа</div><div class="gallery-overlay-meta">Горы</div></div></div>
-                    <div class="gallery-item"><img src="portfolio/DSC_1894.webp" alt="" loading="lazy"><div class="gallery-overlay"><div class="gallery-overlay-title">Долина</div><div class="gallery-overlay-meta">Горы</div></div></div>
-                    <div class="gallery-item"><img src="portfolio/DSC_7662.webp" alt="" loading="lazy"><div class="gallery-overlay"><div class="gallery-overlay-title">Зимний Кавказ</div><div class="gallery-overlay-meta">Зима</div></div></div>
-                    <div class="gallery-item"><img src="portfolio/DSC_7788.webp" alt="" loading="lazy"><div class="gallery-overlay"><div class="gallery-overlay-title">Снежный пик</div><div class="gallery-overlay-meta">Зима</div></div></div>
-                    <div class="gallery-item"><img src="portfolio/DSC_9287.webp" alt="" loading="lazy"><div class="gallery-overlay"><div class="gallery-overlay-title">Туман</div><div class="gallery-overlay-meta">Утро</div></div></div>
-                    <div class="gallery-item"><img src="portfolio/_1320107.webp" alt="" loading="lazy"><div class="gallery-overlay"><div class="gallery-overlay-title">Холодный рассвет</div><div class="gallery-overlay-meta">Утро</div></div></div>
-                    <div class="gallery-item"><img src="portfolio/_1320128.webp" alt="" loading="lazy"><div class="gallery-overlay"><div class="gallery-overlay-title">Горный туман</div><div class="gallery-overlay-meta">Природа</div></div></div>
-                    <div class="gallery-item"><img src="portfolio/_1320621.webp" alt="" loading="lazy"><div class="gallery-overlay"><div class="gallery-overlay-title">Свободный полёт</div><div class="gallery-overlay-meta">Аэро</div></div></div>
-                    <div class="gallery-item"><img src="portfolio/_1320729.webp" alt="" loading="lazy"><div class="gallery-overlay"><div class="gallery-overlay-title">Краски Кавказа</div><div class="gallery-overlay-meta">Горы</div></div></div>
-                    <div class="gallery-item"><img src="portfolio/_1320792.webp" alt="" loading="lazy"><div class="gallery-overlay"><div class="gallery-overlay-title">Зимняя сказка</div><div class="gallery-overlay-meta">Зима</div></div></div>
-                    <div class="gallery-item"><img src="portfolio/_1320825.webp" alt="" loading="lazy"><div class="gallery-overlay"><div class="gallery-overlay-title">Горная тишина</div><div class="gallery-overlay-meta">Покой</div></div></div>
-                    <div class="gallery-item"><img src="portfolio/_1582060.webp" alt="" loading="lazy"><div class="gallery-overlay"><div class="gallery-overlay-title">Момент</div><div class="gallery-overlay-meta">Репортаж</div></div></div>
-                </div>
-            </div>
+        <div class="gallery-grid">
+            <div class="gallery-item"><img src="portfolio/_1286629.webp" alt="" loading="lazy" width="1920" height="1280"><div class="gallery-overlay"><div class="gallery-overlay-title">Величие Кавказа</div><div class="gallery-overlay-meta">Панорама</div></div></div>
+            <div class="gallery-item"><img src="portfolio/DSCF3296.webp" alt="" loading="lazy" width="1920" height="2880"><div class="gallery-overlay"><div class="gallery-overlay-title">Свет вершин</div><div class="gallery-overlay-meta">Горы</div></div></div>
+            <div class="gallery-item"><img src="portfolio/_1286434.webp" alt="" loading="lazy" width="1920" height="1280"><div class="gallery-overlay"><div class="gallery-overlay-title">Бесконечность</div><div class="gallery-overlay-meta">Панорама</div></div></div>
+            <div class="gallery-item"><img src="portfolio/DSC_1276.webp" alt="" loading="lazy" width="1920" height="1278"><div class="gallery-overlay"><div class="gallery-overlay-title">Золотой рассвет</div><div class="gallery-overlay-meta">Приэльбрусье</div></div></div>
+            <div class="gallery-item"><img src="portfolio/DSC_8900.webp" alt="" loading="lazy" width="1920" height="1278"><div class="gallery-overlay"><div class="gallery-overlay-title">Над облаками</div><div class="gallery-overlay-meta">Высокогорье</div></div></div>
+            <div class="gallery-item"><img src="portfolio/_1750160.webp" alt="" loading="lazy" width="1920" height="1280"><div class="gallery-overlay"><div class="gallery-overlay-title">Широта горизонта</div><div class="gallery-overlay-meta">Панорама</div></div></div>
+            <div class="gallery-item"><img src="portfolio/DSCF4715.webp" alt="" loading="lazy" width="1920" height="1280"><div class="gallery-overlay"><div class="gallery-overlay-title">Утренний свет</div><div class="gallery-overlay-meta">Эльбрус</div></div></div>
+            <div class="gallery-item"><img src="portfolio/DSC_8586.webp" alt="" loading="lazy" width="1920" height="1278"><div class="gallery-overlay"><div class="gallery-overlay-title">Тени гор</div><div class="gallery-overlay-meta">Кавказ</div></div></div>
+            <div class="gallery-item"><img src="portfolio/_1738640.webp" alt="" loading="lazy" width="1920" height="1280"><div class="gallery-overlay"><div class="gallery-overlay-title">Горная гряда</div><div class="gallery-overlay-meta">Панорама</div></div></div>
+            <div class="gallery-item"><img src="portfolio/_1749817.webp" alt="" loading="lazy" width="1920" height="2880"><div class="gallery-overlay"><div class="gallery-overlay-title">Снежный покров</div><div class="gallery-overlay-meta">Зима</div></div></div>
+            <div class="gallery-item"><img src="portfolio/_1749846.webp" alt="" loading="lazy" width="1920" height="1280"><div class="gallery-overlay"><div class="gallery-overlay-title">Ледяной пик</div><div class="gallery-overlay-meta">Высота</div></div></div>
+            <div class="gallery-item"><img src="portfolio/_1750021.webp" alt="" loading="lazy" width="1920" height="1280"><div class="gallery-overlay"><div class="gallery-overlay-title">Простор</div><div class="gallery-overlay-meta">Горы</div></div></div>
+            <div class="gallery-item"><img src="portfolio/_1750148.webp" alt="" loading="lazy" width="1920" height="1280"><div class="gallery-overlay"><div class="gallery-overlay-title">Облачное море</div><div class="gallery-overlay-meta">Высокогорье</div></div></div>
+            <div class="gallery-item"><img src="portfolio/_1738004.webp" alt="" loading="lazy" width="1920" height="1280"><div class="gallery-overlay"><div class="gallery-overlay-title">Горный свет</div><div class="gallery-overlay-meta">Кавказ</div></div></div>
+            <div class="gallery-item"><img src="portfolio/_1783576.webp" alt="" loading="lazy" width="1920" height="1280"><div class="gallery-overlay"><div class="gallery-overlay-title">Вершина</div><div class="gallery-overlay-meta">Эльбрус</div></div></div>
+            <div class="gallery-item"><img src="portfolio/_1783633.webp" alt="" loading="lazy" width="1920" height="1280"><div class="gallery-overlay"><div class="gallery-overlay-title">Панорама гор</div><div class="gallery-overlay-meta">Кавказ</div></div></div>
+            <div class="gallery-item"><img src="portfolio/_1773339.webp" alt="" loading="lazy" width="1920" height="1826"><div class="gallery-overlay"><div class="gallery-overlay-title">Горная река</div><div class="gallery-overlay-meta">Природа</div></div></div>
+            <div class="gallery-item"><img src="portfolio/_1863611.webp" alt="" loading="lazy" width="1920" height="1280"><div class="gallery-overlay"><div class="gallery-overlay-title">Экспедиция</div><div class="gallery-overlay-meta">Горы</div></div></div>
+            <div class="gallery-item"><img src="portfolio/_1286418.webp" alt="" loading="lazy" width="1920" height="1280"><div class="gallery-overlay"><div class="gallery-overlay-title">Вертикаль</div><div class="gallery-overlay-meta">Кавказ</div></div></div>
+            <div class="gallery-item"><img src="portfolio/_1285639.webp" alt="" loading="lazy" width="1920" height="2880"><div class="gallery-overlay"><div class="gallery-overlay-title">Горный массив</div><div class="gallery-overlay-meta">Природа</div></div></div>
+            <div class="gallery-item"><img src="portfolio/_1286850.webp" alt="" loading="lazy" width="1920" height="1280"><div class="gallery-overlay"><div class="gallery-overlay-title">Хребет</div><div class="gallery-overlay-meta">Кавказ</div></div></div>
+            <div class="gallery-item"><img src="portfolio/_1287061.webp" alt="" loading="lazy" width="1920" height="1280"><div class="gallery-overlay"><div class="gallery-overlay-title">Контрасты</div><div class="gallery-overlay-meta">Свет и тень</div></div></div>
+            <div class="gallery-item"><img src="portfolio/_1339569-2.webp" alt="" loading="lazy" width="1920" height="1280"><div class="gallery-overlay"><div class="gallery-overlay-title">Эпический свет</div><div class="gallery-overlay-meta">Горы</div></div></div>
+            <div class="gallery-item"><img src="portfolio/_1339582.webp" alt="" loading="lazy" width="1920" height="2880"><div class="gallery-overlay"><div class="gallery-overlay-title">Облака</div><div class="gallery-overlay-meta">Высокогорье</div></div></div>
+            <div class="gallery-item"><img src="portfolio/_1339675.webp" alt="" loading="lazy" width="1920" height="1280"><div class="gallery-overlay"><div class="gallery-overlay-title">Дыхание гор</div><div class="gallery-overlay-meta">Кавказ</div></div></div>
+            <div class="gallery-item"><img src="portfolio/_1339682.webp" alt="" loading="lazy" width="1920" height="1280"><div class="gallery-overlay"><div class="gallery-overlay-title">Сила природы</div><div class="gallery-overlay-meta">Горы</div></div></div>
+            <div class="gallery-item"><img src="portfolio/_1339685.webp" alt="" loading="lazy" width="1920" height="2880"><div class="gallery-overlay"><div class="gallery-overlay-title">На высоте</div><div class="gallery-overlay-meta">Эльбрус</div></div></div>
+            <div class="gallery-item"><img src="portfolio/_1339783-2.webp" alt="" loading="lazy" width="1920" height="1280"><div class="gallery-overlay"><div class="gallery-overlay-title">Путь наверх</div><div class="gallery-overlay-meta">Маршрут</div></div></div>
+            <div class="gallery-item"><img src="portfolio/_1339916.webp" alt="" loading="lazy" width="1920" height="2880"><div class="gallery-overlay"><div class="gallery-overlay-title">Вечерний свет</div><div class="gallery-overlay-meta">Горы</div></div></div>
+            <div class="gallery-item"><img src="portfolio/_1350010.webp" alt="" loading="lazy" width="1920" height="2880"><div class="gallery-overlay"><div class="gallery-overlay-title">Рассвет</div><div class="gallery-overlay-meta">Кавказ</div></div></div>
+            <div class="gallery-item"><img src="portfolio/_1373322.webp" alt="" loading="lazy" width="1920" height="1280"><div class="gallery-overlay"><div class="gallery-overlay-title">Тишина</div><div class="gallery-overlay-meta">Горы</div></div></div>
+            <div class="gallery-item"><img src="portfolio/_1386018.webp" alt="" loading="lazy" width="1920" height="1280"><div class="gallery-overlay"><div class="gallery-overlay-title">Масштаб</div><div class="gallery-overlay-meta">Природа</div></div></div>
+            <div class="gallery-item"><img src="portfolio/DSC_0417.webp" alt="" loading="lazy" width="1920" height="1278"><div class="gallery-overlay"><div class="gallery-overlay-title">Камень и снег</div><div class="gallery-overlay-meta">Горы</div></div></div>
+            <div class="gallery-item"><img src="portfolio/DSC_0729.webp" alt="" loading="lazy" width="1920" height="2885"><div class="gallery-overlay"><div class="gallery-overlay-title">Скалы</div><div class="gallery-overlay-meta">Горный хребет</div></div></div>
+            <div class="gallery-item"><img src="portfolio/DSCF5460.webp" alt="" loading="lazy" width="1920" height="1280"><div class="gallery-overlay"><div class="gallery-overlay-title">Ледники</div><div class="gallery-overlay-meta">Кавказ</div></div></div>
+            <div class="gallery-item"><img src="portfolio/DSCF4835.webp" alt="" loading="lazy" width="1920" height="2516"><div class="gallery-overlay"><div class="gallery-overlay-title">Закат</div><div class="gallery-overlay-meta">Эльбрус</div></div></div>
+            <div class="gallery-item"><img src="portfolio/DSCF4855.webp" alt="" loading="lazy" width="1920" height="1280"><div class="gallery-overlay"><div class="gallery-overlay-title">Горный воздух</div><div class="gallery-overlay-meta">Высота</div></div></div>
+            <div class="gallery-item"><img src="portfolio/DSCF5029.webp" alt="" loading="lazy" width="1920" height="1280"><div class="gallery-overlay"><div class="gallery-overlay-title">Ледяной мир</div><div class="gallery-overlay-meta">Ледник</div></div></div>
+            <div class="gallery-item"><img src="portfolio/DSC_1462.webp" alt="" loading="lazy" width="1920" height="1278"><div class="gallery-overlay"><div class="gallery-overlay-title">Перевал</div><div class="gallery-overlay-meta">Кавказ</div></div></div>
+            <div class="gallery-item"><img src="portfolio/DSC_1585.webp" alt="" loading="lazy" width="1920" height="2885"><div class="gallery-overlay"><div class="gallery-overlay-title">Тропа</div><div class="gallery-overlay-meta">Горы</div></div></div>
+            <div class="gallery-item"><img src="portfolio/DSC_1894.webp" alt="" loading="lazy" width="1920" height="1278"><div class="gallery-overlay"><div class="gallery-overlay-title">Долина</div><div class="gallery-overlay-meta">Горы</div></div></div>
+            <div class="gallery-item"><img src="portfolio/DSC_7662.webp" alt="" loading="lazy" width="1920" height="2886"><div class="gallery-overlay"><div class="gallery-overlay-title">Зимний Кавказ</div><div class="gallery-overlay-meta">Зима</div></div></div>
+            <div class="gallery-item"><img src="portfolio/DSC_7788.webp" alt="" loading="lazy" width="1920" height="1278"><div class="gallery-overlay"><div class="gallery-overlay-title">Снежный пик</div><div class="gallery-overlay-meta">Зима</div></div></div>
+            <div class="gallery-item"><img src="portfolio/DSC_9287.webp" alt="" loading="lazy" width="1920" height="1278"><div class="gallery-overlay"><div class="gallery-overlay-title">Туман</div><div class="gallery-overlay-meta">Утро</div></div></div>
+            <div class="gallery-item"><img src="portfolio/_1320107.webp" alt="" loading="lazy" width="1920" height="1280"><div class="gallery-overlay"><div class="gallery-overlay-title">Холодный рассвет</div><div class="gallery-overlay-meta">Утро</div></div></div>
+            <div class="gallery-item"><img src="portfolio/_1320128.webp" alt="" loading="lazy" width="1920" height="1280"><div class="gallery-overlay"><div class="gallery-overlay-title">Горный туман</div><div class="gallery-overlay-meta">Природа</div></div></div>
+            <div class="gallery-item"><img src="portfolio/_1320621.webp" alt="" loading="lazy" width="1920" height="1280"><div class="gallery-overlay"><div class="gallery-overlay-title">Свободный полёт</div><div class="gallery-overlay-meta">Аэро</div></div></div>
+            <div class="gallery-item"><img src="portfolio/_1320729.webp" alt="" loading="lazy" width="1920" height="2880"><div class="gallery-overlay"><div class="gallery-overlay-title">Краски Кавказа</div><div class="gallery-overlay-meta">Горы</div></div></div>
+            <div class="gallery-item"><img src="portfolio/_1320792.webp" alt="" loading="lazy" width="1920" height="1280"><div class="gallery-overlay"><div class="gallery-overlay-title">Зимняя сказка</div><div class="gallery-overlay-meta">Зима</div></div></div>
+            <div class="gallery-item"><img src="portfolio/_1320825.webp" alt="" loading="lazy" width="1920" height="2880"><div class="gallery-overlay"><div class="gallery-overlay-title">Горная тишина</div><div class="gallery-overlay-meta">Покой</div></div></div>
+            <div class="gallery-item"><img src="portfolio/_1582060.webp" alt="" loading="lazy" width="1920" height="1280"><div class="gallery-overlay"><div class="gallery-overlay-title">Момент</div><div class="gallery-overlay-meta">Репортаж</div></div></div>
         </div>
     </section>
 
